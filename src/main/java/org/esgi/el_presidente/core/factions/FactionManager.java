@@ -1,5 +1,6 @@
 package org.esgi.el_presidente.core.factions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FactionManager {
@@ -8,16 +9,25 @@ public class FactionManager {
     public FactionManager() {
     }
 
+    public FactionManager initFactionList(int initialSatisfaction, int initialPartisan, int initialLoyalistSatisfaction, int initialLoyalistPartisan) {
+        factionList = new ArrayList<>();
+
+        for (FactionType factionType : FactionType.values()) {
+            if (factionType.equals(FactionType.loyalist)) {
+                factionList.add(new Faction(factionType, initialLoyalistSatisfaction, initialLoyalistPartisan));
+            } else {
+                factionList.add(new Faction(factionType, initialSatisfaction, initialPartisan));
+            }
+        }
+        return this;
+    }
+
     public double getGlobalSatisfaction() {
         return 0;
     }
 
-    public void initFactionList(int initialSatisfaction, int initialPartisans, int initialLoyalistSatisfaction, int initialLoyalistPartisan) {
-
-    }
-
     public List<Faction> getFactionList() {
-        return null;
+        return factionList;
     }
 
     public Faction getFaction(FactionType factionType) {
