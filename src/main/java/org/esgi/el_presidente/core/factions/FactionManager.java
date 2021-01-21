@@ -2,6 +2,7 @@ package org.esgi.el_presidente.core.factions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class FactionManager {
     private List<Faction> factionList;
@@ -33,11 +34,11 @@ public class FactionManager {
         return factionList;
     }
 
-    public Faction getFaction(FactionType factionType) {
+    public Faction getFaction(FactionType factionType) throws IllegalArgumentException {
         return factionList.stream()
                 .filter(faction -> faction.getFactionType().equals(factionType))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() -> new IllegalArgumentException("Can't find " + factionType + " in factionList"));
     }
 
     public int getTotalPartisan() {
