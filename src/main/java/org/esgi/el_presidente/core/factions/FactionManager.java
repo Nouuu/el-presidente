@@ -31,7 +31,10 @@ public class FactionManager {
     }
 
     public Faction getFaction(FactionType factionType) {
-        return null;
+        return factionList.stream()
+                .filter(faction -> faction.getFactionType().equals(factionType))
+                .findFirst()
+                .orElse(null);
     }
 
     public int getTotalPartisan() {

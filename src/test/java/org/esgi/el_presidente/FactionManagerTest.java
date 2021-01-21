@@ -35,4 +35,20 @@ public class FactionManagerTest {
             }
         }
     }
+
+    @Test
+    public void testFactionManagerGetLoyalistFaction() {
+        int initialPartisan = 15;
+        int initialSatisfaction = 60;
+        int initialLoyalistPartisan = 17;
+        int initialLoyalistSatisfaction = 100;
+
+        FactionManager factionManager = new FactionManager()
+                .initFactionList(initialSatisfaction, initialPartisan, initialLoyalistSatisfaction, initialLoyalistPartisan);
+
+        Faction faction = factionManager.getFaction(FactionType.loyalist);
+        Assertions.assertThat(faction.getFactionType()).isEqualTo(FactionType.loyalist);
+        Assertions.assertThat(faction.getPartisans()).isEqualTo(initialLoyalistPartisan);
+        Assertions.assertThat(faction.getStatisfaction()).isEqualTo(initialLoyalistSatisfaction);
+    }
 }
