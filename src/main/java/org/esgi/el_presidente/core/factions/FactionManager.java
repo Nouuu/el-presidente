@@ -23,12 +23,9 @@ public class FactionManager {
     }
 
     public double getGlobalSatisfaction() {
-        double dividend = 0;
-        double divider = 0;
-        for (Faction f : factionList) {
-            dividend += f.getPartisans() * f.getStatisfaction();
-            divider += f.getPartisans();
-        }
+        double dividend = factionList.stream().mapToDouble(f -> f.getPartisans() * f.getStatisfaction()).sum();
+        double divider = getTotalPartisan();
+
         return Math.round(dividend / divider * 100) / 100.;
     }
 
@@ -44,7 +41,7 @@ public class FactionManager {
     }
 
     public int getTotalPartisan() {
-        return 0;
+        return factionList.stream().mapToInt(Faction::getPartisans).sum();
     }
 
     public void addFactionSatisfaction(FactionType factionType, int statisfaction) {
