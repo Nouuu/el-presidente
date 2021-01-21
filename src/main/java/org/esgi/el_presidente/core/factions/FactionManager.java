@@ -45,8 +45,8 @@ public class FactionManager {
         return factionList.stream().mapToInt(Faction::getPartisans).sum();
     }
 
-    public void addFactionSatisfaction(FactionType factionType, int statisfaction) {
-
+    public void addFactionSatisfaction(FactionType factionType, int satisfaction) {
+        getFaction(factionType).addStatisfaction(satisfaction);
     }
 
     public void addAllFactionSatisfaction(int statisfaction) {
