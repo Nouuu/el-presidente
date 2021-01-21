@@ -68,4 +68,20 @@ public class FactionManagerTest {
 
         Assertions.assertThat(factionManager.getGlobalSatisfaction()).isEqualTo(globalSatisfaction, offset(0.001));
     }
+
+    @Test
+    public void testFactionManagerGetTotalPartisan() {
+        int initialPartisan = 15;
+        int initialSatisfaction = 60;
+        int initialLoyalistPartisan = 17;
+        int initialLoyalistSatisfaction = 100;
+        int totalPartisan = 107;
+
+        FactionManager factionManager = new FactionManager()
+                .initFactionList(initialSatisfaction, initialPartisan, initialLoyalistSatisfaction, initialLoyalistPartisan);
+
+        Assertions.assertThat(factionManager.getTotalPartisan()).isEqualTo(totalPartisan);
+    }
+
+
 }
