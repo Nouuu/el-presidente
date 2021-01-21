@@ -23,7 +23,13 @@ public class FactionManager {
     }
 
     public double getGlobalSatisfaction() {
-        return 0;
+        double dividend = 0;
+        double divider = 0;
+        for (Faction f : factionList) {
+            dividend += f.getPartisans() * f.getStatisfaction();
+            divider += f.getPartisans();
+        }
+        return Math.round(dividend / divider * 100) / 100.;
     }
 
     public List<Faction> getFactionList() {
