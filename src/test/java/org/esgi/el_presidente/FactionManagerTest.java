@@ -2,6 +2,7 @@ package org.esgi.el_presidente;
 
 
 import org.assertj.core.api.Assertions;
+import org.assertj.core.data.Offset;
 import org.esgi.el_presidente.core.factions.Faction;
 import org.esgi.el_presidente.core.factions.FactionManager;
 import org.esgi.el_presidente.core.factions.FactionType;
@@ -9,6 +10,8 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.offset;
 
 public class FactionManagerTest {
 
@@ -50,5 +53,19 @@ public class FactionManagerTest {
         Assertions.assertThat(faction.getFactionType()).isEqualTo(FactionType.loyalist);
         Assertions.assertThat(faction.getPartisans()).isEqualTo(initialLoyalistPartisan);
         Assertions.assertThat(faction.getStatisfaction()).isEqualTo(initialLoyalistSatisfaction);
+    }
+
+    @Test
+    public void testFactionManagerGetGlobalSatisfaction() {
+        int initialPartisan = 15;
+        int initialSatisfaction = 60;
+        int initialLoyalistPartisan = 17;
+        int initialLoyalistSatisfaction = 100;
+        double globalSatisfaction = 66.36;
+
+        FactionManager factionManager = new FactionManager()
+                .initFactionList(initialSatisfaction, initialPartisan, initialLoyalistSatisfaction, initialLoyalistPartisan);
+
+        Assertions.assertThat(factionManager.getGlobalSatisfaction()).isEqualTo(globalSatisfaction, offset(0.001));
     }
 }
