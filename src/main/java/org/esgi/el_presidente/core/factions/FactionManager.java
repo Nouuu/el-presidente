@@ -2,7 +2,6 @@ package org.esgi.el_presidente.core.factions;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class FactionManager {
     private List<Faction> factionList;

@@ -2,6 +2,7 @@ package org.esgi.el_presidente;
 
 
 import org.assertj.core.api.Assertions;
+import org.assertj.core.api.ThrowableAssert;
 import org.assertj.core.data.Offset;
 import org.esgi.el_presidente.core.factions.Faction;
 import org.esgi.el_presidente.core.factions.FactionManager;
@@ -53,6 +54,20 @@ public class FactionManagerTest {
         Assertions.assertThat(faction.getFactionType()).isEqualTo(FactionType.loyalist);
         Assertions.assertThat(faction.getPartisans()).isEqualTo(initialLoyalistPartisan);
         Assertions.assertThat(faction.getStatisfaction()).isEqualTo(initialLoyalistSatisfaction);
+    }
+
+    @Test
+    public void testFactionManagerGetInexistantFaction() {
+        int initialPartisan = 15;
+        int initialSatisfaction = 60;
+        int initialLoyalistPartisan = 17;
+        int initialLoyalistSatisfaction = 100;
+
+        FactionManager factionManager = new FactionManager()
+                .initFactionList(initialSatisfaction, initialPartisan, initialLoyalistSatisfaction, initialLoyalistPartisan);
+
+        Assertions.assertThatExceptionOfType(IllegalArgumentException.class)
+                .isThrownBy(() -> factionManager.getFaction(null));
     }
 
     @Test
