@@ -169,4 +169,21 @@ public class FactionManagerTest {
         Assertions.assertThat(factionManager.getFaction(factionToAddPartisan).getPartisans()).isEqualTo(10);
     }
 
+    @Test
+    public void testFactionManagerAddAllFactionPartisan() {
+        int initialPartisan = 15;
+        int initialSatisfaction = 60;
+        int initialLoyalistPartisan = 15;
+        int initialLoyalistSatisfaction = 60;
+        int factionAddPartisan = 18;
+
+        FactionManager factionManager = new FactionManager()
+                .initFactionList(initialSatisfaction, initialPartisan, initialLoyalistSatisfaction, initialLoyalistPartisan);
+
+        factionManager.addAllFactionsPartisan(factionAddPartisan);
+
+        factionManager.getFactionList()
+                .forEach(f -> Assertions.assertThat(f.getPartisans()).isEqualTo(initialPartisan + factionAddPartisan));
+
+    }
 }
