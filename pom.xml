@@ -56,6 +56,7 @@
     </dependencies>
 
     <build>
+        <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.jacoco</groupId>
@@ -68,7 +69,7 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>generate-code-coverage-report</id>
+                        <id>report</id>
                         <phase>test</phase>
                         <goals>
                             <goal>report</goal>
