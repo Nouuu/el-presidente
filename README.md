@@ -3,7 +3,7 @@
 | Main status                                                  | Dev status                                                   |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | ![Java CI MAIN](https://github.com/Nouuu/el-presidente/workflows/Java%20CI%20MAIN/badge.svg) | ![Java CI DEV](https://github.com/Nouuu/el-presidente/workflows/Java%20CI%20DEV/badge.svg) |
-|                                                              | [![codecov](https://codecov.io/gh/Nouuu/el-presidente/branch/dev/graph/badge.svg?token=MV0CMTYZ2R)](https://codecov.io/gh/Nouuu/el-presidente) |
+|                                                              | [![codecov](https://codecov.io/gh/Nouuu/el-presidente/branch/dev/graph/badge.svg?token=MV0CMTYZ2R)](https://app.codecov.io/gh/Nouuu/el-presidente/branch/dev/) |
 |                                                              | ![Sunburst](https://codecov.io/gh/Nouuu/el-presidente/branch/dev/graphs/sunburst.svg?token=MV0CMTYZ2R) |
 
 Je suis le président, de la république euh !
