@@ -32,7 +32,7 @@ public class Faction {
 
     public void addPartisansPercent(int percent) {
         double diff = (double) partisans * ((double) percent / 100);
-        this.partisans += (int) diff;
+        this.partisans += Math.floor(diff);
     }
 
     public void addPartisans(int partisans) {
