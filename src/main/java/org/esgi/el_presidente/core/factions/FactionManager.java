@@ -49,23 +49,23 @@ public class FactionManager {
     }
 
     public void addAllFactionSatisfaction(int statisfaction) {
-
+        factionList.forEach(f -> f.addStatisfaction(statisfaction));
     }
 
     public void addFactionPartisan(FactionType factionType, int partisans) {
-
+        getFaction(factionType).addPartisans(partisans);
     }
 
     public void addFactionPartisanPercent(FactionType factionType, int partisansPercent) {
-
+        getFaction(factionType).addPartisansPercent(partisansPercent);
     }
 
     public void addAllFactionsPartisan(int partisans) {
-
+        factionList.forEach(f -> f.addPartisans(partisans));
     }
 
     public void addAllFactionsPartisanPercent(int partisansPercent) {
-
+        factionList.forEach(f -> f.addPartisansPercent(partisansPercent));
     }
 
     public void removeRandomlyFactionPartisans(int partisans) {
