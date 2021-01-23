@@ -2,6 +2,7 @@ package org.esgi.el_presidente.core.factions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class FactionManager {
     private List<Faction> factionList;
@@ -69,7 +70,10 @@ public class FactionManager {
     }
 
     public void removeRandomlyFactionPartisans(int partisans) {
-
+        Random r = new Random();
+        while (partisans > 0) {
+            factionList.get(r.nextInt(factionList.size())).addPartisans(-1);
+            partisans--;
+        }
     }
-
 }

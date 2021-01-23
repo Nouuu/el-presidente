@@ -205,7 +205,7 @@ public class FactionManagerTest {
     }
 
     @Test
-    public void testFactionManagerremoveRandomlyFactionPartisans() {
+    public void testFactionManagerRemoveRandomlyFactionPartisans() {
         int initialPartisan = 15;
         int initialSatisfaction = 60;
         int initialLoyalistPartisan = 15;
