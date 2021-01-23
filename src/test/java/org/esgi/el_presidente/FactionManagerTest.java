@@ -204,5 +204,21 @@ public class FactionManagerTest {
                 .forEach(f -> Assertions.assertThat(f.getPartisans()).isEqualTo(17));
     }
 
+    @Test
+    public void testFactionManagerremoveRandomlyFactionPartisans() {
+        int initialPartisan = 15;
+        int initialSatisfaction = 60;
+        int initialLoyalistPartisan = 15;
+        int initialLoyalistSatisfaction = 60;
+        int removeRandomlyPartisan = 18;
+
+        FactionManager factionManager = new FactionManager()
+                .initFactionList(initialSatisfaction, initialPartisan, initialLoyalistSatisfaction, initialLoyalistPartisan);
+
+        factionManager.removeRandomlyFactionPartisans(removeRandomlyPartisan);
+
+        Assertions.assertThat(factionManager.getTotalPartisan()).isEqualTo(initialPartisan * 7 - removeRandomlyPartisan);
+    }
+
 
 }
