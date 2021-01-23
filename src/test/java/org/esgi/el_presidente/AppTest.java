@@ -1,4 +1,4 @@
-package org.esgi;
+package org.esgi.el_presidente;
 
 import static org.junit.Assert.assertTrue;
 
