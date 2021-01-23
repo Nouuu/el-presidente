@@ -186,4 +186,23 @@ public class FactionManagerTest {
                 .forEach(f -> Assertions.assertThat(f.getPartisans()).isEqualTo(initialPartisan + factionAddPartisan));
 
     }
+
+    @Test
+    public void testFactionManagerAddAllFactionPartisanPercent() {
+        int initialPartisan = 15;
+        int initialSatisfaction = 60;
+        int initialLoyalistPartisan = 15;
+        int initialLoyalistSatisfaction = 60;
+        int factionAddPartisanPercent = 18;
+
+        FactionManager factionManager = new FactionManager()
+                .initFactionList(initialSatisfaction, initialPartisan, initialLoyalistSatisfaction, initialLoyalistPartisan);
+
+        factionManager.addAllFactionsPartisanPercent(factionAddPartisanPercent);
+
+        factionManager.getFactionList()
+                .forEach(f -> Assertions.assertThat(f.getPartisans()).isEqualTo(17));
+    }
+
+
 }
