@@ -1,13 +1,13 @@
 package org.esgi.el_presidente.core.factions;
 
 public class Faction {
-    private int statisfaction;
+    private int satisfaction;
     private int partisans;
     private final FactionType factionType;
 
-    public Faction(FactionType factionType, int statisfaction, int partisans) {
+    public Faction(FactionType factionType, int satisfaction, int partisans) {
         this.factionType = factionType;
-        this.statisfaction = Math.max(statisfaction, 0);
+        this.satisfaction = Math.max(satisfaction, 0);
         this.partisans = Math.max(partisans, 0);
     }
 
@@ -15,19 +15,21 @@ public class Faction {
         return factionType;
     }
 
-    public int getStatisfaction() {
-        return statisfaction;
+    public int getSatisfaction() {
+        return satisfaction;
     }
 
     public int getPartisans() {
         return partisans;
     }
 
-    public void addStatisfaction(int statisfaction) {
-        // Si une factiontombe à 0% de satisfaction, alors il ne sera plus possible de remonter ce pourcentage
-        if (this.statisfaction > 0) {
-            this.statisfaction = Math.max(Math.min(this.statisfaction + statisfaction, 100), 0);
+    public void addSatisfaction(int additionalSatisfaction) {
+        // Si une faction tombe à 0% de satisfaction, alors il ne sera plus possible de
+        // remonter ce pourcentage
+        if (this.satisfaction <= 0) {
+            return;
         }
+        this.satisfaction = Math.max(Math.min(this.satisfaction + additionalSatisfaction, 100), 0);
     }
 
     public void addPartisansPercent(int percent) {
