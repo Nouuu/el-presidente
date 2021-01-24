@@ -1,7 +1,5 @@
 package org.esgi.el_presidente.core.ressources;
 
-import java.security.InvalidParameterException;
-
 public class Indsutry {
   private double partOfIsland;
   private final double moneyProductionCoefficient;
