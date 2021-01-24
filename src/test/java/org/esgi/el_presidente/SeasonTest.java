@@ -1,5 +1,11 @@
 package org.esgi.el_presidente;
 
+import org.assertj.core.api.Assertions;
+import org.esgi.el_presidente.core.season.Season;
+import org.junit.Test;
+
+import java.util.Arrays;
+
 public class SeasonTest {
 
     @Test
@@ -32,4 +38,9 @@ public class SeasonTest {
         Assertions.assertThat(Season.valueOf("winter")).isEqualTo(Season.winter);
     }
 
+    @Test
+    public void testGetInexistantSeasonFromString() {
+        Assertions.assertThatExceptionOfType(IllegalArgumentException.class)
+                .isThrownBy(() -> Season.valueOf("inexistant"));
+    }
 }
