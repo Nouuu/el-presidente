@@ -20,7 +20,9 @@ public class FactionTest {
         }
 
         for (final FactionType factionType : factionTypes) {
-            Assertions.assertThat(factionList.stream().filter(faction -> faction.getFactionType().equals(factionType)).count()).isEqualTo(1);
+            Assertions.assertThat(
+                    factionList.stream().filter(faction -> faction.getFactionType().equals(factionType)).count())
+                    .isEqualTo(1);
         }
     }
 
@@ -32,56 +34,56 @@ public class FactionTest {
 
         Faction faction = new Faction(factionType, initialSatisfaction, initialPartisans);
         Assertions.assertThat(faction.getFactionType()).isEqualTo(factionType);
-        Assertions.assertThat(faction.getStatisfaction()).isEqualTo(initialSatisfaction);
+        Assertions.assertThat(faction.getSatisfaction()).isEqualTo(initialSatisfaction);
         Assertions.assertThat(faction.getPartisans()).isEqualTo(initialPartisans);
     }
 
     @Test
-    public void testFactionAddStatisfaction() {
+    public void testFactionAddSatisfaction() {
         FactionType factionType = FactionType.capitalist;
         int initialSatisfaction = 50;
-        int addStatisfaction = 10;
+        int addSatisfaction = 10;
         int initialPartisans = 15;
 
         Faction faction = new Faction(factionType, initialSatisfaction, initialPartisans);
-        faction.addStatisfaction(addStatisfaction);
-        Assertions.assertThat(faction.getStatisfaction()).isEqualTo(initialSatisfaction + addStatisfaction);
+        faction.addSatisfaction(addSatisfaction);
+        Assertions.assertThat(faction.getSatisfaction()).isEqualTo(initialSatisfaction + addSatisfaction);
     }
 
     @Test
-    public void testFactionAddStatisfactionAbove100() {
+    public void testFactionAddSatisfactionAbove100() {
         FactionType factionType = FactionType.capitalist;
         int initialSatisfaction = 50;
-        int addStatisfaction = 80;
+        int addSatisfaction = 80;
         int initialPartisans = 15;
 
         Faction faction = new Faction(factionType, initialSatisfaction, initialPartisans);
-        faction.addStatisfaction(addStatisfaction);
-        Assertions.assertThat(faction.getStatisfaction()).isEqualTo(100);
+        faction.addSatisfaction(addSatisfaction);
+        Assertions.assertThat(faction.getSatisfaction()).isEqualTo(100);
     }
 
     @Test
-    public void testFactionAddStatisfactionBelow0() {
+    public void testFactionAddSatisfactionBelow0() {
         FactionType factionType = FactionType.capitalist;
         int initialSatisfaction = 50;
-        int addStatisfaction = -80;
+        int addSatisfaction = -80;
         int initialPartisans = 15;
 
         Faction faction = new Faction(factionType, initialSatisfaction, initialPartisans);
-        faction.addStatisfaction(addStatisfaction);
-        Assertions.assertThat(faction.getStatisfaction()).isEqualTo(0);
+        faction.addSatisfaction(addSatisfaction);
+        Assertions.assertThat(faction.getSatisfaction()).isEqualTo(0);
     }
 
     @Test
-    public void testFactionAddStatisfactionStuckAt0() {
+    public void testFactionAddSatisfactionStuckAt0() {
         FactionType factionType = FactionType.capitalist;
         int initialSatisfaction = 0;
-        int addStatisfaction = 80;
+        int addSatisfaction = 80;
         int initialPartisans = 15;
 
         Faction faction = new Faction(factionType, initialSatisfaction, initialPartisans);
-        faction.addStatisfaction(addStatisfaction);
-        Assertions.assertThat(faction.getStatisfaction()).isEqualTo(0);
+        faction.addSatisfaction(addSatisfaction);
+        Assertions.assertThat(faction.getSatisfaction()).isEqualTo(0);
     }
 
     @Test
