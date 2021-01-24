@@ -12,4 +12,8 @@ public class SeasonTest {
         Assertions.assertThat(Season.summer.toString()).isEqualTo("été");
     }
 
+    @Test
+    public void testGetSpringSeasonFromString() {
+        Assertions.assertThat(Season.valueOf("spring")).isEqualTo(Season.spring);
+    }
 }
