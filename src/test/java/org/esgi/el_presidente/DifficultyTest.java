@@ -37,5 +37,8 @@ public class DifficultyTest {
 
     @Test
     public void testDifficultyGetLoseMultiplier() {
+        for (Difficulty difficulty : Difficulty.values()) {
+            Assertions.assertThat(difficulty.getLoseMultiplier()).isGreaterThanOrEqualTo(0.01);
+        }
     }
 }
