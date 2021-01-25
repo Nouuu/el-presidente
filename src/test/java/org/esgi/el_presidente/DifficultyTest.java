@@ -23,6 +23,9 @@ public class DifficultyTest {
 
     @Test
     public void testDifficultyToString() {
+        for (Difficulty difficulty : Difficulty.values()) {
+            Assertions.assertThat(difficulty.toString()).hasSizeGreaterThan(0);
+        }
     }
 
     @Test
