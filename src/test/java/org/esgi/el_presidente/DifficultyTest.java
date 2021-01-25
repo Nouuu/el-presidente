@@ -13,6 +13,7 @@ public class DifficultyTest {
 
     @Test
     public void testDifficultyMediumExists() {
+        Assertions.assertThatNoException().isThrownBy(() -> Difficulty.valueOf("MEDIUM"));
     }
 
     @Test
