@@ -18,6 +18,7 @@ public class DifficultyTest {
 
     @Test
     public void testDifficultyHardExists() {
+        Assertions.assertThatNoException().isThrownBy(() -> Difficulty.valueOf("HARD"));
     }
 
     @Test
