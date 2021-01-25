@@ -30,6 +30,9 @@ public class DifficultyTest {
 
     @Test
     public void testDifficultyGetGainMultiplier() {
+        for (Difficulty difficulty : Difficulty.values()) {
+            Assertions.assertThat(difficulty.getGainMultiplier()).isGreaterThanOrEqualTo(0.01);
+        }
     }
 
     @Test
