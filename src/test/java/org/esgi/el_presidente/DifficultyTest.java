@@ -1,11 +1,14 @@
 package org.esgi.el_presidente;
 
+import org.assertj.core.api.Assertions;
+import org.esgi.el_presidente.core.game.Difficulty;
 import org.junit.Test;
 
 public class DifficultyTest {
 
     @Test
     public void testDifficultyEasyExists() {
+        Assertions.assertThatNoException().isThrownBy(() -> Difficulty.valueOf("EASY"));
     }
 
     @Test
