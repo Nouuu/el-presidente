@@ -15,6 +15,7 @@ Feature: Finance
       | 0      |
       | 5      |
 
+
   Scenario Outline: buy some food
     Given I have <money> in coffers
     When I want to buy <units of food desired> food
@@ -30,6 +31,14 @@ Feature: Finance
       | 8.0   | 1                     | 0.0        |
       | 32.0  | 4                     | 0.0        |
 
+
+  Scenario: Buys food without the necessary money
+    Given I have 0 in coffers
+    When I want to buy 1 food it should fail with error
+
+  Scenario: Buys bribe without the necessary money
+    Given I have 0 in coffers
+    When I want to buy 1 bribe it should fail with error
 
   Scenario Outline: buy bribe
     Given I have <money> in coffers

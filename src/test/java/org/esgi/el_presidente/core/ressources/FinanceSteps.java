@@ -1,6 +1,7 @@
 package org.esgi.el_presidente.core.ressources;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -54,5 +55,25 @@ public class FinanceSteps {
   @Then("The bribe result should be {int}")
   public void test_bribe_result(int expectedResult) {
     assertEquals(expectedResult, bribeResult);
+  }
+
+  @When("I want to buy {int} food it should fail with error")
+  public void when_i_cant_buy_food(int unitsOfFood) {
+    try {
+      finances.buyFood(unitsOfFood);
+      fail("expect to fail");
+    } catch (Exception e) {
+      return;
+    }
+  }
+
+  @When("I want to buy {int} bribe it should fail with error")
+  public void when_i_cant_bribe_partisans(int partisans) {
+    try {
+      finances.buyBribe(partisans);
+      fail("expect to fail");
+    } catch (Exception e) {
+      return;
+    }
   }
 }
