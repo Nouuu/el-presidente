@@ -30,6 +30,7 @@ Feature: Ressource Manager
 
   Scenario Outline: Buy bribe
     Given I have <money> €
+    And I have <partisans> partisans in <faction> faction with <satisfaction> satisfaction
     And The loyalist satifaction is <current loyalist satisfaction>
     When I buy <amount of partisans> food
     Then The satisfaction sould be <new satifaction>

@@ -32,16 +32,18 @@ public class RessourceManagerSteps {
     foodReservies = foodReserves;
   }
 
-  @Given("I have {int} partisans in {string} faction")
-  public void given_i_have_partisans(int partisans, String factionStr) {
+  @Given("I have {int} partisans in {string} faction with {int} satisfaciton")
+  public void given_i_have_partisans(int partisans, String factionStr, int satisfaction) {
     FactionType factionType = FactionType.valueOf(factionStr);
     Faction faction = factionManager.getFaction(factionType);
-    faction.addPartisans(partisans);
+    moveNumberOfPartisansTo(faction, partisans);
+    // Move satisfaction
   }
 
   @Given("The loyalist satifaction is {int}")
   public void given_loyalist_are(int satisfaction) {
-
+    Faction loyalist = factionManager.getFaction(FactionType.loyalist);
+    // move satisfaction
   }
 
   @When("I create Ressource Manager")
@@ -79,4 +81,8 @@ public class RessourceManagerSteps {
     assertEquals(expectedMoney, manager.getMoney(), 0.001);
   }
 
+  private void moveNumberOfPartisansTo(Faction faction, int expectedNumberOfPartisans) {
+    int numberOfPartisansIwantToAdd = expectedNumberOfPartisans - faction.getPartisans();
+    faction.addPartisans(numberOfPartisansIwantToAdd);
+  }
 }
