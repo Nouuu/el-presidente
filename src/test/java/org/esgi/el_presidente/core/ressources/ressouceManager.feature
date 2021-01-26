@@ -3,11 +3,26 @@ Feature: Ressource Manager
   The ressource Manager is the agregator of ressource
 
   Scenario Outline: Buy food
-    Given I have <money> $
-    And I have <food>
-    When I buy <amount of food> food
+    Given I have <money> €
+    And I have <food> food
+    When I create Ressource Manager
+    And I buy <amount of food> food
     Then my food reserves is equal to <new food reserves>
     And my finacial ressources are of <new money>
+
+    Examples:
+      | money  | food | amount of food | new food reserves | new money |
+      | 1200.0 | 4    | 7              | 11                | 1144.0    |
+      | 8.0    | 0    | 1              | 1                 | 0.0       |
+      | 80.0   | 5    | 10             | 15                | 0.0       |
+      | 34.0   | 2    | 3              | 5                 | 10.0      |
+
+
+  Scenario: Buy food without the found
+    Given I have 0 €
+    And I have 0 food
+    When I buy 1 food it should throw an error
+
 
   Scenario Outline: Buy bribe
     Given I have <money> $
