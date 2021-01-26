@@ -2,6 +2,10 @@ Feature: Ressource Manager
 
   The ressource Manager is the agregator of ressource
 
+  Background: I init the faction
+    Given I init the factions
+
+
   Scenario Outline: Buy food
     Given I have <money> €
     And I have <food> food
@@ -25,9 +29,8 @@ Feature: Ressource Manager
 
 
   Scenario Outline: Buy bribe
-    Given I have <money> $
-    And I have <partisans>
-    And the loyalist satifaction is <current loyalist satisfaction>
+    Given I have <money> €
+    And The loyalist satifaction is <current loyalist satisfaction>
     When I buy <amount of partisans> food
     Then The satisfaction sould be <new satifaction>
     And My finacial ressources are of <new money>

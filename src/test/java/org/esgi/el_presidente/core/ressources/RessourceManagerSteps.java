@@ -3,6 +3,10 @@ package org.esgi.el_presidente.core.ressources;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import org.esgi.el_presidente.core.factions.Faction;
+import org.esgi.el_presidente.core.factions.FactionManager;
+import org.esgi.el_presidente.core.factions.FactionType;
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -10,8 +14,13 @@ import io.cucumber.java.en.When;
 public class RessourceManagerSteps {
   private double found;
   private int foodReservies;
-
+  private FactionManager factionManager = new FactionManager();
   private RessourceManager manager;
+
+  @Given("I init the factions")
+  public void initFaction() {
+    factionManager.initFactionList(60, 15, 60, 15);
+  }
 
   @Given("I have {double} €")
   public void given_money(double amount) {
@@ -21,6 +30,18 @@ public class RessourceManagerSteps {
   @Given("I have {int} food")
   public void given_i_have_food(int foodReserves) {
     foodReservies = foodReserves;
+  }
+
+  @Given("I have {int} partisans in {string} faction")
+  public void given_i_have_partisans(int partisans, String factionStr) {
+    FactionType factionType = FactionType.valueOf(factionStr);
+    Faction faction = factionManager.getFaction(factionType);
+    faction.addPartisans(partisans);
+  }
+
+  @Given("The loyalist satifaction is {int}")
+  public void given_loyalist_are(int satisfaction) {
+
   }
 
   @When("I create Ressource Manager")

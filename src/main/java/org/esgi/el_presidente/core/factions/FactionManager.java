@@ -10,8 +10,8 @@ public class FactionManager {
     public FactionManager() {
     }
 
-    public FactionManager initFactionList(int initialSatisfaction, int initialPartisan, int initialLoyalistSatisfaction, int initialLoyalistPartisan) {
-        factionList = new ArrayList<>();
+    public FactionManager initFactionList(int initialSatisfaction, int initialPartisan, int initialLoyalistSatisfaction,
+            int initialLoyalistPartisan) {
         factionList = new ArrayList<Faction>();
 
         for (FactionType factionType : FactionType.values()) {
