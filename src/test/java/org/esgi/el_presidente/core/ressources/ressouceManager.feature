@@ -32,10 +32,14 @@ Feature: Ressource Manager
     Given I have <money> €
     And I have <partisans> partisans in <faction> faction with <satisfaction> satisfaction
     And The loyalist satifaction is <current loyalist satisfaction>
-    When I buy <amount of partisans> food
-    Then The satisfaction sould be <new satifaction>
+    When I buy <amount of partisans> partisans
+    Then The satisfaction of <faction> sould be <new satifaction>
     And My finacial ressources are of <new money>
     And The Loyalist satisfaction should be <new loyalist satifaction>
+
+    Examples:
+      | money | partisans | faction     | satisfaction | current loyalist satisfaction | amount of partisans | new satifaction | new money | new loyalist satifaction |
+      | 12000 | 10        | écologistes | 60           | 100                           | 10                  | 60              | 1000      | 80                       |
 
   Scenario Outline: Grow segment
     Given The Agriculture segment represent <size of agricutlure>

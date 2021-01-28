@@ -37,13 +37,13 @@ public class RessourceManagerSteps {
     FactionType factionType = FactionType.valueOf(factionStr);
     Faction faction = factionManager.getFaction(factionType);
     moveNumberOfPartisansTo(faction, partisans);
-    // Move satisfaction
+    moveSatisfactionTo(faction, satisfaction);
   }
 
   @Given("The loyalist satifaction is {int}")
   public void given_loyalist_are(int satisfaction) {
     Faction loyalist = factionManager.getFaction(FactionType.loyalist);
-    // move satisfaction
+    moveSatisfactionTo(loyalist, satisfaction);
   }
 
   @When("I create Ressource Manager")
@@ -71,6 +71,15 @@ public class RessourceManagerSteps {
     }
   }
 
+  @When("I buy {int} partisans")
+  public void buy_bribe(int partisans) {
+    try {
+      manager.buyBribe(partisans);
+    } catch (Exception e) {
+      fail("Should not throw exeption");
+    }
+  }
+
   @Then("my food reserves is equal to {int}")
   public void test_food_reserves(int expectedFoodReserves) {
     assertEquals(expectedFoodReserves, manager.getFoodReserves());
@@ -81,8 +90,28 @@ public class RessourceManagerSteps {
     assertEquals(expectedMoney, manager.getMoney(), 0.001);
   }
 
+  @Then("The satisfaction of {String} sould be {int}")
+  public void test_satisfaction(String factionStr, int expectedSatisfaction) {
+    FactionType factionType = FactionType.valueOf(factionStr);
+    Faction faction = factionManager.getFaction(factionType);
+
+    assertEquals(expectedSatisfaction, faction.getSatisfaction(), 0.001);
+  }
+
+  @Then("The Loyalist satisfaction should be {int}")
+  public void test_loyalist_satisfaction(int expectedSatisfaction) {
+    Faction loyalist = factionManager.getFaction(FactionType.loyalist);
+
+    assertEquals(expectedSatisfaction, loyalist.getSatisfaction(), 0.001);
+  }
+
   private void moveNumberOfPartisansTo(Faction faction, int expectedNumberOfPartisans) {
     int numberOfPartisansIwantToAdd = expectedNumberOfPartisans - faction.getPartisans();
     faction.addPartisans(numberOfPartisansIwantToAdd);
+  }
+
+  private void moveSatisfactionTo(Faction faction, int expectedSatisfaction) {
+    int numberOfSatisfactionIwantToAdd = expectedSatisfaction - faction.getSatisfaction();
+    faction.addSatisfaction(numberOfSatisfactionIwantToAdd);
   }
 }
