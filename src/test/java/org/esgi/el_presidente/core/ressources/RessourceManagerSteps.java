@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.esgi.el_presidente.core.factions.Faction;
-import org.esgi.el_presidente.core.factions.FactionManager;
 import org.esgi.el_presidente.core.factions.FactionType;
 
 import io.cucumber.java.en.Given;
@@ -14,13 +13,9 @@ import io.cucumber.java.en.When;
 public class RessourceManagerSteps {
   private double found;
   private int foodReservies;
-  private FactionManager factionManager = new FactionManager();
+  private Faction loyalist;
+  private Faction faction;
   private RessourceManager manager;
-
-  @Given("I init the factions")
-  public void initFaction() {
-    factionManager.initFactionList(60, 15, 60, 15);
-  }
 
   @Given("I have {double} €")
   public void given_money(double amount) {
@@ -32,23 +27,23 @@ public class RessourceManagerSteps {
     foodReservies = foodReserves;
   }
 
-  @Given("I have {int} partisans in {string} faction with {int} satisfaciton")
+  @Given("I have {int} partisans in {string} faction with {int} satisfaction")
   public void given_i_have_partisans(int partisans, String factionStr, int satisfaction) {
     FactionType factionType = FactionType.valueOf(factionStr);
-    Faction faction = factionManager.getFaction(factionType);
+    faction = new Faction(factionType, partisans, satisfaction);
     moveNumberOfPartisansTo(faction, partisans);
     moveSatisfactionTo(faction, satisfaction);
   }
 
-  @Given("The loyalist satifaction is {int}")
+  @Given("The loyalist have {int} satifaction")
   public void given_loyalist_are(int satisfaction) {
-    Faction loyalist = factionManager.getFaction(FactionType.loyalist);
+    loyalist = new Faction(FactionType.loyalist, 100, satisfaction);
     moveSatisfactionTo(loyalist, satisfaction);
   }
 
   @When("I create Ressource Manager")
   public void createRessourceManager() {
-    manager = new RessourceManager(found, foodReservies);
+    manager = new RessourceManager(loyalist, found, foodReservies);
   }
 
   @When("I buy {int} food")
@@ -71,37 +66,32 @@ public class RessourceManagerSteps {
     }
   }
 
-  @When("I buy {int} partisans")
+  @When("I buy {int} partisans of this faction")
   public void buy_bribe(int partisans) {
     try {
-      manager.buyBribe(partisans);
+      manager.buyBribe(faction, partisans);
     } catch (Exception e) {
-      fail("Should not throw exeption");
+      fail("buy bribe of " + partisans + " for faction " + faction.getType());
     }
   }
 
-  @Then("my food reserves is equal to {int}")
+  @Then("My food reserves is equal to {int}")
   public void test_food_reserves(int expectedFoodReserves) {
     assertEquals(expectedFoodReserves, manager.getFoodReserves());
   }
 
-  @Then("my finacial ressources are of {double}")
+  @Then("My finacial ressources are of {double}")
   public void test_financial_reserves(double expectedMoney) {
     assertEquals(expectedMoney, manager.getMoney(), 0.001);
   }
 
-  @Then("The satisfaction of {String} sould be {int}")
-  public void test_satisfaction(String factionStr, int expectedSatisfaction) {
-    FactionType factionType = FactionType.valueOf(factionStr);
-    Faction faction = factionManager.getFaction(factionType);
-
+  @Then("The satisfaction of the faction sould be {int}")
+  public void test_satisfaction(int expectedSatisfaction) {
     assertEquals(expectedSatisfaction, faction.getSatisfaction(), 0.001);
   }
 
   @Then("The Loyalist satisfaction should be {int}")
   public void test_loyalist_satisfaction(int expectedSatisfaction) {
-    Faction loyalist = factionManager.getFaction(FactionType.loyalist);
-
     assertEquals(expectedSatisfaction, loyalist.getSatisfaction(), 0.001);
   }
 

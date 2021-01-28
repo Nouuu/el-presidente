@@ -2,17 +2,13 @@ Feature: Ressource Manager
 
   The ressource Manager is the agregator of ressource
 
-  Background: I init the faction
-    Given I init the factions
-
-
   Scenario Outline: Buy food
     Given I have <money> €
     And I have <food> food
     When I create Ressource Manager
     And I buy <amount of food> food
-    Then my food reserves is equal to <new food reserves>
-    And my finacial ressources are of <new money>
+    Then My food reserves is equal to <new food reserves>
+    And My finacial ressources are of <new money>
 
     Examples:
       | money  | food | amount of food | new food reserves | new money |
@@ -31,15 +27,15 @@ Feature: Ressource Manager
   Scenario Outline: Buy bribe
     Given I have <money> €
     And I have <partisans> partisans in <faction> faction with <satisfaction> satisfaction
-    And The loyalist satifaction is <current loyalist satisfaction>
-    When I buy <amount of partisans> partisans
-    Then The satisfaction of <faction> sould be <new satifaction>
+    And The loyalist have <loyalist satisfaction> satifaction
+    When I buy <amount of partisans> partisans of this faction
+    Then The satisfaction of the faction sould be <new satifaction>
     And My finacial ressources are of <new money>
     And The Loyalist satisfaction should be <new loyalist satifaction>
 
     Examples:
-      | money | partisans | faction     | satisfaction | current loyalist satisfaction | amount of partisans | new satifaction | new money | new loyalist satifaction |
-      | 12000 | 10        | écologistes | 60           | 100                           | 10                  | 60              | 1000      | 80                       |
+      | money   | partisans | faction     | satisfaction | loyalist satisfaction | amount of partisans | new satifaction | new money | new loyalist satifaction |
+      | 12000.0 | 10        | 'ecologist' | 60           | 100                   | 10                  | 66              | 1050.0    | 75                       |
 
   Scenario Outline: Grow segment
     Given The Agriculture segment represent <size of agricutlure>
