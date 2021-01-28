@@ -18,6 +18,15 @@ public class RessourceManager {
     }
   }
 
+  public void buyBribe(int partisans) throws Exception {
+    try {
+      finances.buyBribe(partisans);
+
+    } catch (Exception e) {
+      throw new Exception("Can't buy Bribe");
+    }
+  }
+
   public double getMoney() {
     return finances.getMoneyInCoffers();
   }

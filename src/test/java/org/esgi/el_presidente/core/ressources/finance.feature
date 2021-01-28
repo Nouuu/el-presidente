@@ -21,7 +21,6 @@ Feature: Finance
     When I want to buy <units of food desired> food
     And I look in coffers
     Then The amount in coffers should be <new amount>
-    And The food result should be <units of food desired>
 
     Examples:
       | money | units of food desired | new amount |
@@ -45,7 +44,6 @@ Feature: Finance
     When I buy <partisans> partisans
     And I look in coffers
     Then The amount in coffers should be <new amount>
-    And The bribe result should be <partisans>
 
     Examples:
       | money | partisans | new amount |

@@ -9,13 +9,13 @@ public class Finances {
     this.moneyInCoffers = initalMoney;
   }
 
-  public int buyFood(int unitsOfFoodDesired) throws Exception {
+  public double buyFood(int unitsOfFoodDesired) throws Exception {
     double price = unitsOfFoodDesired * foodPrice;
     if (price > moneyInCoffers) {
       throw new Exception("insufficient amount in coffers");
     }
     moneyInCoffers -= price;
-    return unitsOfFoodDesired;
+    return price;
   }
 
   /**
@@ -23,13 +23,13 @@ public class Finances {
    * 
    * Currently I'm not sure if the implementation should be done here
    */
-  public int buyBribe(int partisansBribed) throws Exception {
+  public double buyBribe(int partisansBribed) throws Exception {
     double price = bribePriceByPartisan * partisansBribed;
     if (price > moneyInCoffers) {
       throw new Exception("insufficient amount in coffers");
     }
     moneyInCoffers -= price;
-    return partisansBribed;
+    return price;
   }
 
   public double getMoneyInCoffers() {
