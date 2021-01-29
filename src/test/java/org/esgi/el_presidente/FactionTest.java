@@ -87,6 +87,36 @@ public class FactionTest {
     }
 
     @Test
+    public void testAddStatisfactionPercent() {
+        FactionType factionType = FactionType.capitalist;
+        int initialSatisfaction = 60;
+        int initialPartisans = 15;
+        Faction faction = new Faction(factionType, initialSatisfaction, initialPartisans);
+        faction.addSatisfactionPercent(10);
+        Assertions.assertThat(faction.getSatisfaction()).isEqualTo(66);
+    }
+
+    @Test
+    public void testAddStatisfactionPercentForFactionStuckAt0() {
+        FactionType factionType = FactionType.capitalist;
+        int initialSatisfaction = 0;
+        int initialPartisans = 15;
+        Faction faction = new Faction(factionType, initialSatisfaction, initialPartisans);
+        faction.addSatisfactionPercent(100);
+        Assertions.assertThat(faction.getSatisfaction()).isEqualTo(0);
+    }
+
+    @Test
+    public void testRemoveSatisfaction() {
+        FactionType factionType = FactionType.capitalist;
+        int initialSatisfaction = 15;
+        int initialPartisans = 15;
+        Faction faction = new Faction(factionType, initialSatisfaction, initialPartisans);
+        faction.removeSatisfaction(15);
+        Assertions.assertThat(faction.getSatisfaction()).isEqualTo(0);
+    }
+
+    @Test
     public void testFactionAddPartisans() {
         FactionType factionType = FactionType.capitalist;
         int initialSatisfaction = 50;
