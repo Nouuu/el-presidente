@@ -23,15 +23,16 @@ public class RessourceManager {
     }
   }
 
-  public void buyBribe(Faction faction, int partisans) throws Exception {
-    // try {
-    // double price = finances.buyBribe(partisans);
-    // int loyalistLost = (int) Math.ceil(price / 10);
-    // loyalist.removeSatisfaction(loyalistLost);
-    // faction.addSatisfactionPercent(10);
-    // } catch (Exception e) {
-    // throw new Exception("Can't buy Bribe");
-    // }
+  public void buyBribe(Faction faction) throws Exception {
+    try {
+      double price = finances.buyBribe(faction.getPartisans());
+      int loyalistLost = (int) Math.ceil(price / 10);
+      System.out.println(loyalistLost);
+      loyalist.removeSatisfaction(loyalistLost);
+      faction.addSatisfactionPercent(10);
+    } catch (Exception e) {
+      throw new Exception("Can't buy Bribe");
+    }
   }
 
   public double getMoney() {

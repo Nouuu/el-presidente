@@ -66,12 +66,13 @@ public class RessourceManagerSteps {
     }
   }
 
-  @When("I buy {int} partisans of this faction")
-  public void buy_bribe(int partisans) {
+  @When("I buy the partisans of this faction")
+  public void buy_bribe() throws Exception {
     try {
-      manager.buyBribe(faction, partisans);
+      manager.buyBribe(faction);
     } catch (Exception e) {
-      fail("buy bribe of " + partisans + " for faction " + faction.getType());
+      fail("Buy bribe fail");
+      System.err.println(e);
     }
   }
 
