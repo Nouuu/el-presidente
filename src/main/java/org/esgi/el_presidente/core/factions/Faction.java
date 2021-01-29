@@ -23,12 +23,8 @@ public class Faction {
         return partisans;
     }
 
-    /**
-     * TODO add test
-     * 
-     */
     public void addSatisfactionPercent(int additionalSatisfactionPercent) {
-        satisfaction += (additionalSatisfactionPercent / 100) * satisfaction;
+        this.satisfaction += (int) Math.floor(additionalSatisfactionPercent * satisfaction / 100);
     }
 
     public void addSatisfaction(int additionalSatisfaction) {
@@ -44,7 +40,7 @@ public class Faction {
      * TODO add test
      */
     public void removeSatisfaction(int satisfaction) {
-        addPartisans(satisfaction);
+        addSatisfaction(-satisfaction);
     }
 
     public void addPartisansPercent(int percent) {
