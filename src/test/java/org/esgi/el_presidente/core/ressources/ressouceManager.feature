@@ -58,11 +58,26 @@ Feature: Ressource Manager
   Scenario Outline: Grow segment
     Given The Agriculture segment represent <size of agricutlure>
     And The Industrie segment represent <size of industry>
-    When I grow <segment>
+    When I create Ressource Manager
+    And I increase the size of "<segment>" by <additional size> percent
     Then The Agriculture segment should be <new size of agriculture>
-    And The Industry segment should be <new size of Industry>
+    And The Industry segment should be <new size of industry>
 
-  Scenario: Over grow segment
+    Examples:
+      | size of agricutlure | size of industry | segment     | additional size | new size of agriculture | new size of industry |
+      | 10                  | 10               | agriculture | 20              | 30                      | 10                   |
+      | 10                  | 10               | industry    | 20              | 10                      | 30                   |
+      | 10                  | 80               | industry    | 10              | 10                      | 90                   |
+      | 40                  | 40               | agriculture | 20              | 60                      | 40                   |
+
+
+  Scenario Outline: Over grow segment
     Given The Agriculture segment represent <size of agricutlure>
     And The Industrie segment represent <size of industry>
-    When I try to grow <segment> it should throw an error
+    When I try to grow "<segment>" by <additional size> it should throw an error
+
+    Examples:
+      | size of agricutlure | size of industry | segment     | additional size |
+      | 50                  | 50               | agriculture | 20              |
+      | 70                  | 20               | agriculture | 20              |
+      | 70                  | 20               | industry    | 20              |

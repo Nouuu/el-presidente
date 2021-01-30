@@ -16,6 +16,8 @@ public class RessourceManagerSteps {
   private Faction loyalist;
   private Faction faction;
   private RessourceManager manager;
+  private Agriculture agriculture = new Agriculture(20, 40);
+  private Industry industry = new Industry(20, 10);
 
   @Given("I have {double} €")
   public void given_money(double amount) {
@@ -41,9 +43,19 @@ public class RessourceManagerSteps {
     moveSatisfactionTo(loyalist, satisfaction);
   }
 
+  @Given("The Agriculture segment represent {double}")
+  public void given_agricuture_of_size(double size) {
+    agriculture = new Agriculture(size, 40);
+  }
+
+  @Given("The Industrie segment represent {double}")
+  public void given_industry_of_size(double size) {
+    industry = new Industry(size, 4);
+  }
+
   @When("I create Ressource Manager")
   public void createRessourceManager() {
-    manager = new RessourceManager(loyalist, found, foodReservies);
+    manager = new RessourceManager(loyalist, found, foodReservies, agriculture, industry);
   }
 
   @When("I buy {int} food")
@@ -86,6 +98,29 @@ public class RessourceManagerSteps {
     }
   }
 
+  @When("I increase the size of {string} by {double} percent")
+  public void when_i_increase_size_of(String segment, double additionalSize) {
+    if (segment.equals("agriculture")) {
+      manager.increaseSizeOfAgriculture(additionalSize);
+    } else if (segment.equals("industry")) {
+      manager.increaseSizeOfIndustry(additionalSize);
+    }
+  }
+
+  @When("I try to grow {string} by {double} it should throw an error")
+  public void when_i_increase_size_it_should_throw_and_error(String segment, double additionalSize) {
+    try {
+      if (segment.equals("agriculture")) {
+        manager.increaseSizeOfAgriculture(additionalSize);
+      } else if (segment.equals("industry")) {
+        manager.increaseSizeOfIndustry(additionalSize);
+      }
+      fail("error should throw an error");
+    } catch (Exception e) {
+      return;
+    }
+  }
+
   @Then("My food reserves is equal to {int}")
   public void test_food_reserves(int expectedFoodReserves) {
     assertEquals(expectedFoodReserves, manager.getFoodReserves());
@@ -104,6 +139,16 @@ public class RessourceManagerSteps {
   @Then("The Loyalist satisfaction should be {int}")
   public void test_loyalist_satisfaction(int expectedSatisfaction) {
     assertEquals(expectedSatisfaction, loyalist.getSatisfaction(), 0.001);
+  }
+
+  @Then("The Agriculture segment should be {double}")
+  public void test_agriculture_size(double expectedSize) {
+    assertEquals(expectedSize, agriculture.getSize(), 0.001);
+  }
+
+  @Then("The Industry segment should be {double}")
+  public void test_industry_size(double expectedSize) {
+    assertEquals(expectedSize, industry.getSize(), 0.001);
   }
 
   private void moveNumberOfPartisansTo(Faction faction, int expectedNumberOfPartisans) {

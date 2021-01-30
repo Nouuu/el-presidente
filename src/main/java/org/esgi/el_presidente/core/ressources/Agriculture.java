@@ -12,4 +12,14 @@ public class Agriculture {
   public double yearlyProductionOfFood() {
     return partOfIsland * foodProductionCoefficient;
   }
+
+  public void grow(double additionalSize) {
+    System.out.println(partOfIsland);
+    partOfIsland += additionalSize;
+    System.out.println(partOfIsland);
+  }
+
+  public double getSize() {
+    return partOfIsland;
+  }
 }

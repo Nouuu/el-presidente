@@ -11,7 +11,7 @@ public class IndustrySteps {
   private double islandPart;
   private double coefficient;
   private double moneyProduction;
-  private Indsutry indsutry;
+  private Industry indsutry;
 
   @Given("The industry represente {double} of the island")
   public void setIslandPart(double islandPart) {
@@ -25,7 +25,7 @@ public class IndustrySteps {
 
   @When("I instantiate Industry")
   public void createIdustry() {
-    indsutry = new Indsutry(islandPart, coefficient);
+    indsutry = new Industry(islandPart, coefficient);
   }
 
   @And("I calculate the yearly production of money")
