@@ -38,6 +38,23 @@ Feature: Ressource Manager
       | money   | partisans | faction     | satisfaction | loyalist satisfaction | amount of partisans | new satifaction | new money | new loyalist satifaction |
       | 12000.0 | 10        | 'ecologist' | 60           | 100                   | 10                  | 66              | 11850.0   | 85                       |
 
+
+  Scenario: Buy bribe without the found
+    Given I have 0 €
+    And I have 10 partisans in "capitalist" faction with 20 satisfaction
+    And The loyalist have 60 satifaction
+    When I create Ressource Manager
+    And I buy partisans of this faction it sould throw
+
+
+  Scenario: Buy bribe without loyalist satifaction
+    Given I have 1000 €
+    And I have 10 partisans in "capitalist" faction with 20 satisfaction
+    And The loyalist have 0 satifaction
+    When I create Ressource Manager
+    And I buy partisans of this faction it sould throw
+
+
   Scenario Outline: Grow segment
     Given The Agriculture segment represent <size of agricutlure>
     And The Industrie segment represent <size of industry>

@@ -76,6 +76,16 @@ public class RessourceManagerSteps {
     }
   }
 
+  @When("I buy partisans of this faction it sould throw")
+  public void buyBribeShouldThrow() {
+    try {
+      manager.buyBribe(faction);
+      fail("It sould throw error");
+    } catch (Exception e) {
+      return;
+    }
+  }
+
   @Then("My food reserves is equal to {int}")
   public void test_food_reserves(int expectedFoodReserves) {
     assertEquals(expectedFoodReserves, manager.getFoodReserves());
