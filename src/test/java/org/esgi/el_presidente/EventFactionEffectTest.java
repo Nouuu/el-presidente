@@ -60,6 +60,20 @@ public class EventFactionEffectTest {
     }
 
     @Test
+    public void testToStringNegative() {
+        FactionType factionType = FactionType.capitalist;
+        int partisansPercentEffect = -58;
+        int satisfactionEffect = -27;
+
+        String expectedString = StringUtils.capitalize(factionType.toString()) + " : "
+                + "-" + partisansPercentEffect + "% de partisans, "
+                + "-" + satisfactionEffect + "% de satisfaction";
+        EventFactionEffect eventFactionEffect = new EventFactionEffect(factionType, partisansPercentEffect, satisfactionEffect);
+
+        Assertions.assertThat(eventFactionEffect.toString()).isEqualTo(expectedString);
+    }
+
+    @Test
     public void testToStringSpecial() {
         String expectedString = "Toute les factions : ";
         EventFactionEffect eventFactionEffect = new EventFactionEffect(null, 0, 0);
