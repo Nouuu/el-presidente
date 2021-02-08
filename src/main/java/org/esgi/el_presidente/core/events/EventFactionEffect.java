@@ -24,8 +24,8 @@ public class EventFactionEffect {
      */
     public EventFactionEffect(FactionType factionType, int partisansEffect, int satisfactionEffect) {
         this.factionType = factionType;
-        this.partisansPercentEffect = partisansEffect;
-        this.satisfactionEffect = satisfactionEffect;
+        this.partisansPercentEffect = Math.min(100, Math.max(-100, partisansEffect));
+        this.satisfactionEffect = Math.min(100, Math.max(-100, satisfactionEffect));
     }
 
     /**
@@ -65,6 +65,7 @@ public class EventFactionEffect {
     public String toString() {
         StringBuilder description = new StringBuilder();
         List<String> effectList = new ArrayList<>();
+
         if (factionType == null) {
             description.append("Toute les factions : ");
         } else {
