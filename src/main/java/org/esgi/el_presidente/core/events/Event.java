@@ -3,8 +3,8 @@ package org.esgi.el_presidente.core.events;
 import org.esgi.el_presidente.core.season.Season;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -26,11 +26,7 @@ public class Event {
         this.season = season;
         this.eventDetails = eventDetails;
 
-        if (factionEffects == null) {
-            this.factionEffects = new ArrayList<>();
-        } else {
-            this.factionEffects = factionEffects;
-        }
+        this.factionEffects = Objects.requireNonNullElseGet(factionEffects, ArrayList::new);
     }
 
     /**
