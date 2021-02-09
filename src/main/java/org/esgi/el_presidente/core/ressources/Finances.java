@@ -35,4 +35,8 @@ public class Finances {
   public double getMoneyInCoffers() {
     return moneyInCoffers;
   }
+
+  public void addMoney(double addedAmount) {
+    moneyInCoffers += addedAmount;
+  }
 }
