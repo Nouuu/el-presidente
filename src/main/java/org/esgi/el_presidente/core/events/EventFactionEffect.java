@@ -1,5 +1,6 @@
 package org.esgi.el_presidente.core.events;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.StringUtils;
 import org.esgi.el_presidente.core.factions.FactionType;
 
@@ -22,7 +23,9 @@ public class EventFactionEffect {
      * @param partisansEffect    the partisans effect
      * @param satisfactionEffect the satisfaction effect
      */
-    public EventFactionEffect(FactionType factionType, int partisansEffect, int satisfactionEffect) {
+    public EventFactionEffect(@JsonProperty("factionType") FactionType factionType,
+                              @JsonProperty("partisansEffect") int partisansEffect,
+                              @JsonProperty("satisfactionEffect") int satisfactionEffect) {
         this.factionType = factionType;
         this.partisansPercentEffect = Math.min(100, Math.max(-100, partisansEffect));
         this.satisfactionEffect = Math.min(100, Math.max(-100, satisfactionEffect));

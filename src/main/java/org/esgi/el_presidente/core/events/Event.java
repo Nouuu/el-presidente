@@ -1,5 +1,6 @@
 package org.esgi.el_presidente.core.events;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.esgi.el_presidente.core.season.Season;
 
 import java.util.ArrayList;
@@ -22,7 +23,9 @@ public class Event {
      * @param eventDetails   the event details
      * @param factionEffects the event faction effect list
      */
-    public Event(Season season, String eventDetails, List<EventFactionEffect> factionEffects) {
+    public Event(@JsonProperty("season") Season season,
+                 @JsonProperty("eventDetails") String eventDetails,
+                 @JsonProperty("factionEffects") List<EventFactionEffect> factionEffects) {
         this.season = season;
         this.eventDetails = eventDetails;
 
