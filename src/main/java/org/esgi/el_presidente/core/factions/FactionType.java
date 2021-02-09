@@ -1,5 +1,9 @@
 package org.esgi.el_presidente.core.factions;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
+import java.util.Arrays;
+
 public enum FactionType {
     capitalist("capitaliste"),
     communist("communiste"),
@@ -19,5 +23,10 @@ public enum FactionType {
     @Override
     public String toString() {
         return type;
+    }
+
+    @JsonCreator
+    public static FactionType fromString(String string) {
+        return Arrays.stream(FactionType.values()).filter(o -> o.type.equals(string)).findFirst().orElse(null);
     }
 }
