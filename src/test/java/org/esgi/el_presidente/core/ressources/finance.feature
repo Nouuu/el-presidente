@@ -55,7 +55,14 @@ Feature: Finance
       | 525.0 | 35        | 0.0        |
 
 
-  Scenario: Add money
-    Given I have 2021.0 € in coffers
-    When I add 40.0 €
-    Then The amount in coffers should be 2061.0
+  Scenario Outline: Add money
+    Given I have <inital banking> in coffers
+    When I add <investment> €
+    And I look in coffers
+    Then The amount in coffers should be <expected banking>
+    Examples:
+      | inital banking | investment | expected banking |
+      | 2021.0         | 40.0       | 2061.0           |
+      | 0.0            | 19.4       | 19.4             |
+      | 50.0           | 47.12      | 97.12            |
+      | 50.0           | -47.12     | 2.88             |

@@ -59,7 +59,7 @@ public class FinanceSteps {
     }
   }
 
-  @When("I add {double}")
+  @When("I add {double} €")
   public void addToCoffers(double addedAmount) {
     finances.addMoney(addedAmount);
   }
