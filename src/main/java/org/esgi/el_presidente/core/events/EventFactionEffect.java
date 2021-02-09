@@ -75,13 +75,13 @@ public class EventFactionEffect {
         if (partisansPercentEffect > 0) {
             effectList.add("+" + partisansPercentEffect + "% de partisans");
         } else if (partisansPercentEffect < 0) {
-            effectList.add("-" + partisansPercentEffect + "% de partisans");
+            effectList.add( partisansPercentEffect + "% de partisans");
         }
 
         if (satisfactionEffect > 0) {
             effectList.add("+" + satisfactionEffect + "% de satisfaction");
         } else if (satisfactionEffect < 0) {
-            effectList.add("-" + satisfactionEffect + "% de satisfaction");
+            effectList.add(satisfactionEffect + "% de satisfaction");
         }
 
         description.append(String.join(", ", effectList));

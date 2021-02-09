@@ -66,8 +66,8 @@ public class EventFactionEffectTest {
         int satisfactionEffect = -27;
 
         String expectedString = StringUtils.capitalize(factionType.toString()) + " : "
-                + "-" + partisansPercentEffect + "% de partisans, "
-                + "-" + satisfactionEffect + "% de satisfaction";
+                + partisansPercentEffect + "% de partisans, "
+                + satisfactionEffect + "% de satisfaction";
         EventFactionEffect eventFactionEffect = new EventFactionEffect(factionType, partisansPercentEffect, satisfactionEffect);
 
         Assertions.assertThat(eventFactionEffect.toString()).isEqualTo(expectedString);
