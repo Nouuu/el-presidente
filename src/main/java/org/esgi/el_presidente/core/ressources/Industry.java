@@ -1,6 +1,6 @@
 package org.esgi.el_presidente.core.ressources;
 
-public class Industry {
+public class Industry implements IslandPart {
   private double partOfIsland;
   private final double moneyProductionCoefficient;
 
@@ -13,11 +13,15 @@ public class Industry {
     return partOfIsland * moneyProductionCoefficient;
   }
 
-  public void grow(double additionalSize) {
+  public void expand(double additionalSize) {
     partOfIsland += additionalSize;
   }
 
   public double getSize() {
     return partOfIsland;
+  }
+
+  public void shrink(double deductSize) {
+    partOfIsland -= deductSize;
   }
 }

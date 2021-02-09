@@ -18,6 +18,11 @@ public class AgricultureSteps {
     this.islandPart = islandPart;
   }
 
+  @Given("A Agriculture of size {double}")
+  public void givenAgriculture(double size) {
+    agriculture = new Agriculture(size, 14.0);
+  }
+
   @And("The food production coefficient is {double}")
   public void setCoefficient(double coefficient) {
     this.foodProductionCoefficient = coefficient;
@@ -32,6 +37,16 @@ public class AgricultureSteps {
     }
   }
 
+  @When("I increase size by {double}")
+  public void whenIIncreaseSizeBy(double size) {
+    agriculture.expand(size);
+  }
+
+  @When("I decrease size by {double}")
+  public void whenIDecreaseSizeBy(double size) {
+    agriculture.shrink(size);
+  }
+
   @And("I calculate the yearly production of food")
   public void calculateYearlyProduction() {
     production = agriculture.yearlyProductionOfFood();
@@ -40,5 +55,10 @@ public class AgricultureSteps {
   @Then("The result should be {double}")
   public void agricultureProductionIsCorrect(double expectedResult) {
     assertEquals(expectedResult, production, 0.001);
+  }
+
+  @Then("The size should be {double}")
+  public void testPartOfIsland(double expectedSize) {
+    assertEquals(expectedSize, agriculture.getSize(), 0.001);
   }
 }

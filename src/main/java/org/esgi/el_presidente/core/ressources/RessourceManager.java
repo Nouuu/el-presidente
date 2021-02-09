@@ -47,7 +47,7 @@ public class RessourceManager {
   public void increaseSizeOfAgriculture(double additionalSize) {
     try {
       testSizeOfIsland(additionalSize);
-      agriculture.grow(additionalSize);
+      agriculture.expand(additionalSize);
     } catch (Exception e) {
       System.err.println("Cannot grow as expected");
     }
@@ -56,7 +56,7 @@ public class RessourceManager {
   public void increaseSizeOfIndustry(double additionalSize) {
     try {
       testSizeOfIsland(additionalSize);
-      industry.grow(additionalSize);
+      industry.expand(additionalSize);
     } catch (Exception e) {
       System.err.println("Cannot grow as expected");
     }
