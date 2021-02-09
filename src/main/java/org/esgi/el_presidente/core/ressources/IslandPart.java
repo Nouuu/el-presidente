@@ -4,4 +4,6 @@ public interface IslandPart {
   void shrink(double deductSize);
 
   void expand(double additionalSize);
+
+  double getSize();
 }
