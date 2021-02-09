@@ -5,8 +5,6 @@ import org.esgi.el_presidente.core.factions.Faction;
 import org.esgi.el_presidente.core.factions.FactionType;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -154,16 +152,6 @@ public class FactionTest {
         Assertions.assertThat(faction.getPartisans()).isEqualTo(60);
         faction.addPartisansPercent(-2 * addPartisansPercent);
         Assertions.assertThat(faction.getPartisans()).isEqualTo(36);
-    }
-
-    @Test
-    public void testGetType() {
-        Faction capitalist = new Faction(FactionType.capitalist, 100, 15);
-        Faction loyalist = new Faction(FactionType.loyalist, 100, 15);
-        Faction ecologist = new Faction(FactionType.ecologist, 100, 15);
-        assertEquals("capitaliste", capitalist.getType());
-        assertEquals("loyalistes", loyalist.getType());
-        assertEquals("écologistes", ecologist.getType());
     }
 
 }
