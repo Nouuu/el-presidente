@@ -59,6 +59,11 @@ public class FinanceSteps {
     }
   }
 
+  @When("I add {double}")
+  public void addToCoffers(double addedAmount) {
+    finances.addMoney(addedAmount);
+  }
+
   @Then("The amount in coffers should be {double}")
   public void testValueInCoffers(double expectedAmount) {
     assertEquals(expectedAmount, moneyInCoffers, 0.0001);

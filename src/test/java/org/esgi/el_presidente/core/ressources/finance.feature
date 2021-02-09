@@ -53,3 +53,9 @@ Feature: Finance
       | 15.0  | 1         | 0.0        |
       | 480.0 | 4         | 420.0      |
       | 525.0 | 35        | 0.0        |
+
+
+  Scenario: Add money
+    Given I have 2021.0 € in coffers
+    When I add 40.0 €
+    Then The amount in coffers should be 2061.0
