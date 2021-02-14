@@ -25,7 +25,11 @@ public class EventManager {
         if (events.size() == 0) {
             return null;
         }
-        return events.get(random.nextInt(events.size()));
+        return events.get(getRandomIndex());
+    }
+
+    public int getRandomIndex() {
+        return random.nextInt(events.size());
     }
 
     public Event getNextEvent() {
@@ -35,6 +39,10 @@ public class EventManager {
         Event event = events.get(step);
         step = (step + 1) % events.size();
         return event;
+    }
+
+    public void resetStep() {
+        step = 0;
     }
 
     public List<Event> getEvents() {
