@@ -58,6 +58,8 @@ public class EventManager {
         return step;
     }
 
+    //TODO get event/random event by season
+
     public static EventManager getEventManagerFromJson(String ressourceJsonPath) throws IllegalArgumentException, IOException {
         String inputString = App.readFileFromRessource(ressourceJsonPath);
         ObjectMapper mapper = new ObjectMapper();
