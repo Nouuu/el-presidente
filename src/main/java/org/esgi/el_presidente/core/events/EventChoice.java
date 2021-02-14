@@ -1,7 +1,5 @@
 package org.esgi.el_presidente.core.events;
 
-import org.apache.commons.collections4.CollectionUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -77,7 +75,7 @@ public class EventChoice {
         string.append(choiceName).append("\n")
                 .append("  Effets :");
 
-        if (!CollectionUtils.isEmpty(factionEffects)) {
+        if (!factionEffects.isEmpty()) {
             string.append("\n");
             string.append(factionEffects.stream().map(f -> "  - " + f.toString()).collect(Collectors.joining("\n")));
         }
