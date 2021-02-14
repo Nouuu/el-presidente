@@ -14,7 +14,7 @@ public class EventTest {
     private final EventFactionEffect eventFactionEffect = new EventFactionEffect(FactionType.capitalist, 1, 2);
     private final EventFactionEffect eventFactionEffect2 = new EventFactionEffect(null, 1, 2);
     private final List<EventFactionEffect> eventFactionEffects = new ArrayList<>();
-    private final EventChoice eventChoice = new EventChoice("choix", eventFactionEffects);
+    private final EventChoice eventChoice = new EventChoice("choix",0,0,0,0, eventFactionEffects);
     private final List<EventChoice> eventChoices = new ArrayList<>();
     private final Season season = Season.spring;
     private final String eventDescription = "lorem ipsum";
@@ -62,5 +62,12 @@ public class EventTest {
         Event event = new Event(season, eventDescription, eventChoices);
 
         Assertions.assertThat(event.toString()).isEqualTo(expectedString);
+    }
+
+    @Test
+    public void addEventChoice() {
+        EventChoice newEventChoice = new EventChoice("nouveau choix",4,-4,10,-20, null);
+        event.addEventChoice(newEventChoice);
+        Assertions.assertThat(event.getEventChoices()).containsOnlyOnce(newEventChoice);
     }
 }
