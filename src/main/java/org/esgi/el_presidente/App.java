@@ -1,31 +1,29 @@
 package org.esgi.el_presidente;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.esgi.el_presidente.core.events.Event;
+import org.esgi.el_presidente.core.events.EventManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Hello world!
- */
 public class App {
     public static void main(String[] args) throws IOException {
-        String is = App.readFileFromRessource("events.json");
 
-        ObjectMapper mapper = new ObjectMapper();
-        List<Event> events = mapper.readValue(is, mapper.getTypeFactory().constructCollectionType(List.class, Event.class));
+        EventManager eventsManager = EventManager.getEventManagerFromJson("eventManager1.json");
 
-
-        System.out.println(events.stream().map(Event::toString).collect(Collectors.joining("\n\n")));
+        System.out.println(
+                eventsManager.getEvents()
+                        .stream()
+                        .map(Event::toString)
+                        .collect(Collectors.joining("\n"))
+        );
     }
 
-    private static String readFileFromRessource(String fileName) {
+    public static String readFileFromRessource(String fileName) {
 
         // The class loader that loaded the class
         ClassLoader classLoader = App.class.getClassLoader();

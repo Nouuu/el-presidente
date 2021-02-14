@@ -1,5 +1,7 @@
 package org.esgi.el_presidente.core.events;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -24,8 +26,12 @@ public class EventChoice {
      * @param financeEffect     financeEffect
      * @param factionEffects    List<EventFactionEffect>
      **/
-    public EventChoice(String choiceName, int industryEffect, int agricultureEffect, int foodEffect, int financeEffect,
-                       List<EventFactionEffect> factionEffects) {
+    public EventChoice(@JsonProperty("choiceName") String choiceName,
+                       @JsonProperty("industryEffect") int industryEffect,
+                       @JsonProperty("agricultureEffect") int agricultureEffect,
+                       @JsonProperty("foodEffect") int foodEffect,
+                       @JsonProperty("financeEffect") int financeEffect,
+                       @JsonProperty("factionEffects") List<EventFactionEffect> factionEffects) {
         this.choiceName = choiceName;
         this.industryEffect = industryEffect;
         this.agricultureEffect = agricultureEffect;
