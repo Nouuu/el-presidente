@@ -14,32 +14,32 @@ import java.util.stream.Collectors;
 public class Event {
     private final Season season;
     private final String eventDetails;
-    private final List<EventFactionEffect> factionEffects;
+    private final List<EventChoice> eventChoices;
 
     /**
      * Instantiates a new Event.
      *
-     * @param season         the season
-     * @param eventDetails   the event details
-     * @param factionEffects the event faction effect list
+     * @param season       the season
+     * @param eventDetails the event details
+     * @param eventChoices the event faction effect list
      */
     public Event(@JsonProperty("season") Season season,
                  @JsonProperty("eventDetails") String eventDetails,
-                 @JsonProperty("factionEffects") List<EventFactionEffect> factionEffects) {
+                 @JsonProperty("eventChoices") List<EventChoice> eventChoices) {
         this.season = season;
         this.eventDetails = eventDetails;
 
-        this.factionEffects = Objects.requireNonNullElseGet(factionEffects, ArrayList::new);
+        this.eventChoices = Objects.requireNonNullElseGet(eventChoices, ArrayList::new);
     }
 
     /**
-     * Add Faction effect event.
+     * Add event choice
      *
-     * @param factionEffect the event faction effect
-     * @return the current event
+     * @param choice EventChoice
+     * @return current Event
      */
-    public Event addfactionEffect(EventFactionEffect factionEffect) {
-        factionEffects.add(factionEffect);
+    public Event addEventChoice(EventChoice choice) {
+        eventChoices.add(choice);
         return this;
     }
 
@@ -51,14 +51,14 @@ public class Event {
         return eventDetails;
     }
 
-    public List<EventFactionEffect> getFactionEffects() {
-        return factionEffects;
+    public List<EventChoice> getEventChoices() {
+        return eventChoices;
     }
 
     @Override
     public String toString() {
-        return eventDetails + "\nEffet(s) :\n" +
-                factionEffects.stream()
+        return eventDetails + "\nChoix :\n" +
+                eventChoices.stream()
                         .map(o -> "- " + o.toString())
                         .collect(Collectors.joining("\n"));
     }
