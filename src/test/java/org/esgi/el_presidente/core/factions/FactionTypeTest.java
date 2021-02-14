@@ -1,4 +1,4 @@
-package org.esgi.el_presidente;
+package org.esgi.el_presidente.core.factions;
 
 import org.assertj.core.api.Assertions;
 import org.esgi.el_presidente.core.factions.FactionType;

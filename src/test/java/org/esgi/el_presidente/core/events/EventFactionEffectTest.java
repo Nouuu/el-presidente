@@ -1,4 +1,4 @@
-package org.esgi.el_presidente;
+package org.esgi.el_presidente.core.events;
 
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;

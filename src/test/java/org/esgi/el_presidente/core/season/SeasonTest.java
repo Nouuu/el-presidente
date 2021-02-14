@@ -1,7 +1,6 @@
-package org.esgi.el_presidente;
+package org.esgi.el_presidente.core.season;
 
 import org.assertj.core.api.Assertions;
-import org.esgi.el_presidente.core.season.Season;
 import org.junit.Test;
 
 import java.util.Arrays;
