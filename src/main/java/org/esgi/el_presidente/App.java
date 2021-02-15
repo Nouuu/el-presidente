@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
 public class App {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
 /*        EventManager eventsManager = EventManager.getEventManagerFromJson("eventManager1.json");
 
@@ -23,8 +23,7 @@ public class App {
         );*/
     }
 
-    public static String readFileFromRessource(String fileName) {
-
+    public static String readFileFromRessource(String fileName) throws IllegalArgumentException {
         // The class loader that loaded the class
         ClassLoader classLoader = App.class.getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(fileName);

@@ -5,6 +5,7 @@ import org.esgi.el_presidente.core.season.Season;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,5 +105,18 @@ public class EventManagerTest {
         EventManager emptyEventManager = new EventManager(null);
         Assertions.assertThat(emptyEventManager.getRandomEvent()).isNull();
         Assertions.assertThat(emptyEventManager.getNextEvent()).isNull();
+    }
+
+    @Test
+    public void getEventManagerFromJson() throws IOException {
+        String eventManagerJsonFilePath = "test/eventManager.json";
+        EventManager eventManager = EventManager.getEventManagerFromJson(eventManagerJsonFilePath);
+
+        Assertions.assertThat(eventManager.getEvents()).hasSize(2);
+
+        Event event1 = eventManager.getEvents().get(0);
+        Assertions.assertThat(event1.getEventDetails()).isEqualTo("Un parseur de fichier fait apparition dans le programme.\n");
+        Assertions.assertThat(event1.getSeason()).isNull();
+        Assertions.assertThat(event1.getEventChoices()).hasSize(2);
     }
 }
