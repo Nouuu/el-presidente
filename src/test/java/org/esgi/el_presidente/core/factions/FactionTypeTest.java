@@ -1,8 +1,6 @@
 package org.esgi.el_presidente.core.factions;
 
 import org.assertj.core.api.Assertions;
-import org.esgi.el_presidente.core.factions.FactionType;
-import org.esgi.el_presidente.core.season.Season;
 import org.junit.Test;
 
 public class FactionTypeTest {

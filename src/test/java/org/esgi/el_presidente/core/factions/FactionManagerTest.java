@@ -1,9 +1,6 @@
 package org.esgi.el_presidente.core.factions;
 
 import org.assertj.core.api.Assertions;
-import org.esgi.el_presidente.core.factions.Faction;
-import org.esgi.el_presidente.core.factions.FactionManager;
-import org.esgi.el_presidente.core.factions.FactionType;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -20,8 +17,8 @@ public class FactionManagerTest {
         int initialLoyalistPartisan = 17;
         int initialLoyalistSatisfaction = 100;
 
-        FactionManager factionManager = new FactionManager()
-            .initFactionList(initialSatisfaction, initialPartisan, initialLoyalistSatisfaction, initialLoyalistPartisan);
+        FactionManager factionManager = new FactionManager().initFactionList(initialSatisfaction, initialPartisan,
+                initialLoyalistSatisfaction, initialLoyalistPartisan);
 
         List<Faction> factionList = factionManager.getFactionList();
         Assertions.assertThat(factionList.size()).isEqualTo(Arrays.stream(FactionType.values()).count());
@@ -44,8 +41,8 @@ public class FactionManagerTest {
         int initialLoyalistPartisan = 17;
         int initialLoyalistSatisfaction = 100;
 
-        FactionManager factionManager = new FactionManager()
-            .initFactionList(initialSatisfaction, initialPartisan, initialLoyalistSatisfaction, initialLoyalistPartisan);
+        FactionManager factionManager = new FactionManager().initFactionList(initialSatisfaction, initialPartisan,
+                initialLoyalistSatisfaction, initialLoyalistPartisan);
 
         Faction faction = factionManager.getFaction(FactionType.loyalist);
         Assertions.assertThat(faction.getFactionType()).isEqualTo(FactionType.loyalist);
@@ -60,8 +57,8 @@ public class FactionManagerTest {
         int initialLoyalistPartisan = 17;
         int initialLoyalistSatisfaction = 100;
 
-        FactionManager factionManager = new FactionManager()
-            .initFactionList(initialSatisfaction, initialPartisan, initialLoyalistSatisfaction, initialLoyalistPartisan);
+        FactionManager factionManager = new FactionManager().initFactionList(initialSatisfaction, initialPartisan,
+                initialLoyalistSatisfaction, initialLoyalistPartisan);
 
         Assertions.assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> factionManager.getFaction(null));
@@ -75,8 +72,8 @@ public class FactionManagerTest {
         int initialLoyalistSatisfaction = 100;
         double globalSatisfaction = 66.36;
 
-        FactionManager factionManager = new FactionManager()
-        .initFactionList(initialSatisfaction, initialPartisan, initialLoyalistSatisfaction, initialLoyalistPartisan);
+        FactionManager factionManager = new FactionManager().initFactionList(initialSatisfaction, initialPartisan,
+                initialLoyalistSatisfaction, initialLoyalistPartisan);
 
         Assertions.assertThat(factionManager.getGlobalSatisfaction()).isEqualTo(globalSatisfaction, offset(0.001));
     }
@@ -89,8 +86,8 @@ public class FactionManagerTest {
         int initialLoyalistSatisfaction = 100;
         int totalPartisan = 107;
 
-        FactionManager factionManager = new FactionManager()
-        .initFactionList(initialSatisfaction, initialPartisan, initialLoyalistSatisfaction, initialLoyalistPartisan);
+        FactionManager factionManager = new FactionManager().initFactionList(initialSatisfaction, initialPartisan,
+                initialLoyalistSatisfaction, initialLoyalistPartisan);
 
         Assertions.assertThat(factionManager.getTotalPartisan()).isEqualTo(totalPartisan);
     }
@@ -104,8 +101,8 @@ public class FactionManagerTest {
         int addSatisfaction = 28;
         FactionType factionToAddSatisfaction = FactionType.communist;
 
-        FactionManager factionManager = new FactionManager()
-        .initFactionList(initialSatisfaction, initialPartisan, initialLoyalistSatisfaction, initialLoyalistPartisan);
+        FactionManager factionManager = new FactionManager().initFactionList(initialSatisfaction, initialPartisan,
+                initialLoyalistSatisfaction, initialLoyalistPartisan);
 
         factionManager.addFactionSatisfaction(factionToAddSatisfaction, addSatisfaction);
         Assertions.assertThat(factionManager.getFaction(factionToAddSatisfaction).getSatisfaction())
@@ -120,7 +117,8 @@ public class FactionManagerTest {
         int initialLoyalistSatisfaction = 60;
         int addSatisfaction = 28;
 
-        FactionManager factionManager = new FactionManager().initFactionList(initialSatisfaction, initialPartisan, initialLoyalistSatisfaction, initialLoyalistPartisan);
+        FactionManager factionManager = new FactionManager().initFactionList(initialSatisfaction, initialPartisan,
+                initialLoyalistSatisfaction, initialLoyalistPartisan);
 
         factionManager.addAllFactionSatisfaction(addSatisfaction);
 
@@ -137,8 +135,8 @@ public class FactionManagerTest {
         int factionAddPartisan = 18;
         FactionType factionToAddPartisan = FactionType.communist;
 
-        FactionManager factionManager = new FactionManager()
-        .initFactionList(initialSatisfaction, initialPartisan, initialLoyalistSatisfaction, initialLoyalistPartisan);
+        FactionManager factionManager = new FactionManager().initFactionList(initialSatisfaction, initialPartisan,
+                initialLoyalistSatisfaction, initialLoyalistPartisan);
 
         factionManager.addFactionPartisan(factionToAddPartisan, factionAddPartisan);
         Assertions.assertThat(factionManager.getFaction(factionToAddPartisan).getPartisans())
@@ -154,8 +152,8 @@ public class FactionManagerTest {
         int factionAddPartisanPercent = 18;
         FactionType factionToAddPartisan = FactionType.communist;
 
-        FactionManager factionManager = new FactionManager()
-        .initFactionList(initialSatisfaction, initialPartisan, initialLoyalistSatisfaction, initialLoyalistPartisan);
+        FactionManager factionManager = new FactionManager().initFactionList(initialSatisfaction, initialPartisan,
+                initialLoyalistSatisfaction, initialLoyalistPartisan);
 
         factionManager.addFactionPartisanPercent(factionToAddPartisan, factionAddPartisanPercent);
         Assertions.assertThat(factionManager.getFaction(factionToAddPartisan).getPartisans()).isEqualTo(17);
@@ -172,8 +170,8 @@ public class FactionManagerTest {
         int initialLoyalistSatisfaction = 60;
         int factionAddPartisan = 18;
 
-        FactionManager factionManager = new FactionManager()
-        .initFactionList(initialSatisfaction, initialPartisan, initialLoyalistSatisfaction, initialLoyalistPartisan);
+        FactionManager factionManager = new FactionManager().initFactionList(initialSatisfaction, initialPartisan,
+                initialLoyalistSatisfaction, initialLoyalistPartisan);
 
         factionManager.addAllFactionsPartisan(factionAddPartisan);
 
@@ -190,8 +188,8 @@ public class FactionManagerTest {
         int initialLoyalistSatisfaction = 60;
         int factionAddPartisanPercent = 18;
 
-        FactionManager factionManager = new FactionManager()
-        .initFactionList(initialSatisfaction, initialPartisan, initialLoyalistSatisfaction, initialLoyalistPartisan);
+        FactionManager factionManager = new FactionManager().initFactionList(initialSatisfaction, initialPartisan,
+                initialLoyalistSatisfaction, initialLoyalistPartisan);
 
         factionManager.addAllFactionsPartisanPercent(factionAddPartisanPercent);
 
@@ -206,8 +204,8 @@ public class FactionManagerTest {
         int initialLoyalistSatisfaction = 60;
         int removeRandomlyPartisan = 18;
 
-        FactionManager factionManager = new FactionManager()
-        .initFactionList(initialSatisfaction, initialPartisan, initialLoyalistSatisfaction, initialLoyalistPartisan);
+        FactionManager factionManager = new FactionManager().initFactionList(initialSatisfaction, initialPartisan,
+                initialLoyalistSatisfaction, initialLoyalistPartisan);
 
         factionManager.removeRandomlyFactionPartisans(removeRandomlyPartisan);
 

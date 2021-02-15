@@ -1,8 +1,6 @@
 package org.esgi.el_presidente.core.factions;
 
 import org.assertj.core.api.Assertions;
-import org.esgi.el_presidente.core.factions.Faction;
-import org.esgi.el_presidente.core.factions.FactionType;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
