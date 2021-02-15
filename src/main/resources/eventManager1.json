@@ -1,0 +1,59 @@
+{
+  "events": [
+    {
+      "eventDetails": "Un parseur de fichier fait apparition dans le programme.\nCelui-ci est capable de transformer un fichier json en véritable objet java\n",
+      "eventChoices": [
+        {
+          "choiceName": "Tu saute par dessus bord",
+          "industryEffect": 7,
+          "agricultureEffect": -5,
+          "foodEffect": 8,
+          "financeEffect": 600,
+          "factionEffects": [
+            {
+              "factionType": "",
+              "partisansPercentEffect": 1,
+              "satisfactionEffect": 2
+            },
+            {
+              "factionType": "communiste",
+              "partisansPercentEffect": 10,
+              "satisfactionEffect": 5
+            },
+            {
+              "factionType": "écologistes",
+              "partisansPercentEffect": -10,
+              "satisfactionEffect": 0
+            }
+          ]
+        },
+        {
+          "choiceName": "Tu reste dans le bato",
+          "financeEffect": 60,
+          "factionEffects": [
+            {
+              "factionType": "",
+              "partisansPercentEffect": 1,
+              "satisfactionEffect": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "eventDetails": "Deuxième event !!!",
+      "eventChoices": [
+        {
+          "choiceName": "Va y jfais R",
+          "financeEffect": -50
+        },
+        {
+          "choiceName": "Go miner du bitcoin !!!",
+          "industryEffect": 100,
+          "agricultureEffect": "-100",
+          "financeEffect": 6000000
+        }
+      ]
+    }
+  ]
+}

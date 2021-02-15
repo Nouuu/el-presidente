@@ -1,7 +1,6 @@
-package org.esgi.el_presidente;
+package org.esgi.el_presidente.core.game;
 
 import org.assertj.core.api.Assertions;
-import org.esgi.el_presidente.core.game.Difficulty;
 import org.junit.Test;
 
 public class DifficultyTest {

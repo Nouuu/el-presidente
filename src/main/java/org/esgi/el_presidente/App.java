@@ -1,10 +1,16 @@
 package org.esgi.el_presidente;
 
-/**
- * Hello world!
- */
 public class App {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+
+/*        EventManager eventsManager = EventManager.getEventManagerFromJson("eventManager1.json");
+
+        System.out.println(
+                eventsManager.getEvents()
+                        .stream()
+                        .map(Event::toString)
+                        .collect(Collectors.joining("\n"))
+        );*/
     }
+
 }
