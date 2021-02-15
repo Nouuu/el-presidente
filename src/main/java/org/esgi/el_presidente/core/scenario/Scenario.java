@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Scenario {
+    private final String introduction;
     private final int initialPartisansSatisfaction;
     private final int initialPartisans;
     private final int initialLoyalistPartisansSatisfaction;
@@ -21,7 +22,8 @@ public class Scenario {
     private final int initialIndustrialization;
     private final int initialAgriculture;
 
-    private Scenario(@JsonProperty("partisansSatisfaction") int partisansSatisfaction,
+    private Scenario(@JsonProperty("introduction") String introduction,
+                     @JsonProperty("partisansSatisfaction") int partisansSatisfaction,
                      @JsonProperty("partisans") int partisans,
                      @JsonProperty("loyalistPartisansSatisfaction") int loyalistPartisansSatisfaction,
                      @JsonProperty("loyalistPartisans") int loyalistPartisans,
@@ -30,6 +32,7 @@ public class Scenario {
                      @JsonProperty("initialIndustrialization") int initialIndustrialization,
                      @JsonProperty("initialAgriculture") int initialAgriculture) throws JsonProcessingException {
 
+        this.introduction = introduction;
         this.initialPartisansSatisfaction = partisansSatisfaction;
         this.initialLoyalistPartisansSatisfaction = loyalistPartisansSatisfaction;
         this.initialPartisans = partisans;
@@ -43,7 +46,7 @@ public class Scenario {
 
     private List<Event> getEvents(List<String> eventsPath) throws JsonProcessingException {
         List<Event> events = new ArrayList<>();
-        for (String path:eventsPath) {
+        for (String path : eventsPath) {
             events.add(Event.createFromJson(path));
         }
         return events;
@@ -53,5 +56,41 @@ public class Scenario {
         String content = FileHelper.readFileFromRessource("scenarios/" + ressourceJsonPath);
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(content, Scenario.class);
+    }
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public int getInitialPartisansSatisfaction() {
+        return initialPartisansSatisfaction;
+    }
+
+    public int getInitialPartisans() {
+        return initialPartisans;
+    }
+
+    public int getInitialLoyalistPartisansSatisfaction() {
+        return initialLoyalistPartisansSatisfaction;
+    }
+
+    public int getInitialLoyalistPartisans() {
+        return initialLoyalistPartisans;
+    }
+
+    public EventManager getEventManager() {
+        return eventManager;
+    }
+
+    public int getInitialMoney() {
+        return initialMoney;
+    }
+
+    public int getInitialIndustrialization() {
+        return initialIndustrialization;
+    }
+
+    public int getInitialAgriculture() {
+        return initialAgriculture;
     }
 }

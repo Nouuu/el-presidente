@@ -1,4 +1,5 @@
 {
+  "introduction": "Ceci est le premier scénario créé grâce au Json !\n Il sert à rien mais il a le mérite d'exister :-)",
   "initialMoney": 2000,
   "initialIndustrialization": 15,
   "initialAgriculture": 10,
@@ -8,6 +9,6 @@
   "loyalistPartisans": 20,
   "events": [
     "event1Parser.json",
-    "event2Bato.json"
+    "event2Bitcoin.json"
   ]
 }
