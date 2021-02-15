@@ -43,18 +43,38 @@ public class Event {
         return this;
     }
 
+    /**
+     * Gets season.
+     *
+     * @return the season
+     */
     public Season getSeason() {
         return season;
     }
 
+    /**
+     * Gets event details.
+     *
+     * @return the event details
+     */
     public String getEventDetails() {
         return eventDetails;
     }
 
+    /**
+     * Gets event choices.
+     *
+     * @return the event choices
+     */
     public List<EventChoice> getEventChoices() {
         return eventChoices;
     }
 
+    /**
+     * To string string.
+     *
+     * @return the string
+     */
     @Override
     public String toString() {
         return eventDetails + "\nChoix :\n" +

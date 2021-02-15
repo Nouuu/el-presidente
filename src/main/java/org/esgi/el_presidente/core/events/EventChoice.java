@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * The type Event choice.
+ */
 public class EventChoice {
     private final String choiceName;
     private final int industryEffect;
@@ -25,7 +28,7 @@ public class EventChoice {
      * @param foodEffect        foodEffect
      * @param financeEffect     financeEffect
      * @param factionEffects    List<EventFactionEffect>
-     **/
+     */
     public EventChoice(@JsonProperty("choiceName") String choiceName,
                        @JsonProperty("industryEffect") int industryEffect,
                        @JsonProperty("agricultureEffect") int agricultureEffect,
@@ -51,30 +54,65 @@ public class EventChoice {
         return this;
     }
 
+    /**
+     * Gets choice name/description.
+     *
+     * @return the choice name
+     */
     public String getChoiceName() {
         return choiceName;
     }
 
+    /**
+     * Gets industry effect.
+     *
+     * @return the industry effect
+     */
     public int getIndustryEffect() {
         return industryEffect;
     }
 
+    /**
+     * Gets agriculture effect.
+     *
+     * @return the agriculture effect
+     */
     public int getAgricultureEffect() {
         return agricultureEffect;
     }
 
+    /**
+     * Gets food effect.
+     *
+     * @return the food effect
+     */
     public int getFoodEffect() {
         return foodEffect;
     }
 
+    /**
+     * Gets finance effect.
+     *
+     * @return the finance effect
+     */
     public int getFinanceEffect() {
         return financeEffect;
     }
 
+    /**
+     * Gets faction effects.
+     *
+     * @return the faction effects
+     */
     public List<EventFactionEffect> getFactionEffects() {
         return factionEffects;
     }
 
+    /**
+     * To string string.
+     *
+     * @return the string
+     */
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();
