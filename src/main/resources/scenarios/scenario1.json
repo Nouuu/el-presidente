@@ -7,7 +7,7 @@
   "loyalistPartisansSatisfaction": 100,
   "loyalistPartisans": 20,
   "events": [
-    "event.json",
-    "event2.json"
+    "event1Parser.json",
+    "event2Bato.json"
   ]
 }
