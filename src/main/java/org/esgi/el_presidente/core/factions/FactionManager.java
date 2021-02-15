@@ -12,7 +12,7 @@ public class FactionManager {
 
     public FactionManager initFactionList(int initialSatisfaction, int initialPartisan, int initialLoyalistSatisfaction,
             int initialLoyalistPartisan) {
-        factionList = new ArrayList<Faction>();
+        factionList = new ArrayList<>();
 
         for (FactionType factionType : FactionType.values()) {
             if (factionType.equals(FactionType.loyalist)) {
