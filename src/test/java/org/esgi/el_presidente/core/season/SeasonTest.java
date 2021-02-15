@@ -42,4 +42,11 @@ public class SeasonTest {
         Assertions.assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> Season.valueOf("inexistant"));
     }
+
+    @Test
+    public void fromString() {
+        Assertions.assertThat(Season.fromString("hiver")).isEqualTo(Season.winter);
+        Assertions.assertThat(Season.fromString("printemps")).isEqualTo(Season.spring);
+        Assertions.assertThat(Season.fromString("été")).isEqualTo(Season.summer);
+    }
 }
