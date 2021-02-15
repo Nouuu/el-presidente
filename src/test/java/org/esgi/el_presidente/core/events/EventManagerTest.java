@@ -39,20 +39,30 @@ public class EventManagerTest {
 
     @Test
     public void getRandomEvent() {
-        Assertions.assertThat(eventManager.getRandomEvent()).isIn(events);
-        Assertions.assertThat(eventManager.getRandomEvent()).isIn(events);
-        Assertions.assertThat(eventManager.getRandomEvent()).isIn(events);
-        Assertions.assertThat(eventManager.getRandomEvent()).isIn(events);
+        for (int i = 0; i < 4; i++) {
+            Assertions.assertThat(eventManager.getRandomEvent()).isIn(events);
+        }
+    }
+
+    @Test
+    public void getRandomEventBySeason() {
+        List<Season> authorizedSeason = new ArrayList<>();
+        authorizedSeason.add(Season.autumn);
+        authorizedSeason.add(null);
+
+        for (int i = 0; i < 5; i++) {
+            Assertions.assertThat(eventManager.getRandomEvent(Season.autumn).getSeason()).isIn(authorizedSeason);
+        }
     }
 
     @Test
     public void getRandomIndex() {
-        int maxSize = events.size();
-        int previousRandom = eventManager.getRandomIndex();
+        int maxSize = 5;
+        int previousRandom = eventManager.getRandomIndex(maxSize);
         Assertions.assertThat(previousRandom).isLessThan(maxSize);
 
         for (int i = 0; i < 10; i++) {
-            int nextRandom = eventManager.getRandomIndex();
+            int nextRandom = eventManager.getRandomIndex(maxSize);
             Assertions.assertThat(nextRandom).isLessThan(maxSize);
             if (nextRandom != previousRandom) {
                 return;
@@ -60,6 +70,7 @@ public class EventManagerTest {
         }
         Assertions.fail("Random don't work");
     }
+
 
     @Test
     public void getNextEvent() {
