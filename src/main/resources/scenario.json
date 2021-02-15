@@ -1,0 +1,13 @@
+{
+  "initialMoney": 2000,
+  "initialIndustrialization": 15,
+  "initialAgriculture": 10,
+  "partisansSatisfaction": 50,
+  "partisans": 10,
+  "loyalistPartisansSatisfaction": 100,
+  "loyalistPartisans": 20,
+  "events": [
+    "event.json",
+    "event2.json"
+  ]
+}
