@@ -56,7 +56,7 @@ public class EventTest {
                 + "Choix :\n" +
                 "- choix\n" +
                 "  Effets :\n" +
-                "  - Capitaliste : +1% de partisans, +2% de satisfaction\n" +
+                "  - Capitalistes : +1% de partisans, +2% de satisfaction\n" +
                 "  - Toute les factions : +1% de partisans, +2% de satisfaction";
 
         Event event = new Event(season, eventDescription, eventChoices);
