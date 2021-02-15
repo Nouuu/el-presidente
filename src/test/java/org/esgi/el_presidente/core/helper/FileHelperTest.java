@@ -1,11 +1,9 @@
-package org.esgi.el_presidente;
+package org.esgi.el_presidente.core.helper;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
-import java.io.IOException;
-
-public class AppTest {
+public class FileHelperTest {
 
     @Test
     public void readFileFromRessource() {
@@ -16,12 +14,12 @@ public class AppTest {
                 "{\n" +
                 "    flkehzf\n" +
                 "}";
-        Assertions.assertThat(App.readFileFromRessource(testFilePath)).isEqualTo(expected);
+        Assertions.assertThat(FileHelper.readFileFromRessource(testFilePath)).isEqualTo(expected);
     }
 
     @Test
     public void readFileFromRessourceInvalidPath() {
 
-        Assertions.assertThatThrownBy(() -> App.readFileFromRessource("invalid")).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> FileHelper.readFileFromRessource("invalid")).isInstanceOf(IllegalArgumentException.class);
     }
 }

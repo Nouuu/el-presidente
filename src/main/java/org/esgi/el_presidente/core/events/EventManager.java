@@ -1,9 +1,8 @@
 package org.esgi.el_presidente.core.events;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.esgi.el_presidente.App;
+import org.esgi.el_presidente.core.helper.FileHelper;
 import org.esgi.el_presidente.core.season.Season;
 
 import java.io.IOException;
@@ -125,7 +124,7 @@ public class EventManager {
      * @throws IOException              the io exception
      */
     public static EventManager getEventManagerFromJson(String ressourceJsonPath) throws IllegalArgumentException, IOException {
-        String inputString = App.readFileFromRessource(ressourceJsonPath);
+        String inputString = FileHelper.readFileFromRessource(ressourceJsonPath);
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(inputString, EventManager.class);
     }
