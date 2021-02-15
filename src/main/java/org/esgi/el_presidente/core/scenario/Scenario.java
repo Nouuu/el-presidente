@@ -6,10 +6,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.esgi.el_presidente.core.events.Event;
 import org.esgi.el_presidente.core.events.EventManager;
 import org.esgi.el_presidente.core.helper.FileHelper;
+import org.esgi.el_presidente.core.season.Season;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Scenario {
     private final String introduction;
@@ -22,7 +22,7 @@ public class Scenario {
     private final int initialIndustrialization;
     private final int initialAgriculture;
 
-    private Scenario(@JsonProperty("introduction") String introduction,
+    protected Scenario(@JsonProperty("introduction") String introduction,
                      @JsonProperty("partisansSatisfaction") int partisansSatisfaction,
                      @JsonProperty("partisans") int partisans,
                      @JsonProperty("loyalistPartisansSatisfaction") int loyalistPartisansSatisfaction,
@@ -78,8 +78,16 @@ public class Scenario {
         return initialLoyalistPartisans;
     }
 
-    public EventManager getEventManager() {
-        return eventManager;
+    public Event getNextEvent(Season season) {
+        return eventManager.getNextEvent();
+    }
+
+    public int getEventManagerStep() {
+        return eventManager.getStep();
+    }
+
+    public int getEventsCount() {
+        return eventManager.getEvents().size();
     }
 
     public int getInitialMoney() {
