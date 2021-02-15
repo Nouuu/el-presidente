@@ -47,7 +47,7 @@ public class EventManager {
      *
      * @return the random event
      */
-    public Event getRandomEvent() {
+    public Event getRandomEventBySeason() {
         if (events.size() == 0) {
             return null;
         }
@@ -60,7 +60,7 @@ public class EventManager {
      * @param season the season
      * @return the random event corresponding to season (or with season set to null)
      */
-    public Event getRandomEvent(Season season) {
+    public Event getRandomEventBySeason(Season season) {
         List<Event> events = this.events.stream().filter(e -> e.getSeason() == season || e.getSeason() == null).collect(Collectors.toList());
         return events.get(getRandomIndex(events.size()));
     }

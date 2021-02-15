@@ -41,7 +41,7 @@ public class EventManagerTest {
     @Test
     public void getRandomEvent() {
         for (int i = 0; i < 4; i++) {
-            Assertions.assertThat(eventManager.getRandomEvent()).isIn(events);
+            Assertions.assertThat(eventManager.getRandomEventBySeason()).isIn(events);
         }
     }
 
@@ -52,7 +52,7 @@ public class EventManagerTest {
         authorizedSeason.add(null);
 
         for (int i = 0; i < 5; i++) {
-            Assertions.assertThat(eventManager.getRandomEvent(Season.autumn).getSeason()).isIn(authorizedSeason);
+            Assertions.assertThat(eventManager.getRandomEventBySeason(Season.autumn).getSeason()).isIn(authorizedSeason);
         }
     }
 
@@ -103,7 +103,7 @@ public class EventManagerTest {
     @Test
     public void getEmptyEvent() {
         EventManager emptyEventManager = new EventManager(null);
-        Assertions.assertThat(emptyEventManager.getRandomEvent()).isNull();
+        Assertions.assertThat(emptyEventManager.getRandomEventBySeason()).isNull();
         Assertions.assertThat(emptyEventManager.getNextEvent()).isNull();
     }
 
