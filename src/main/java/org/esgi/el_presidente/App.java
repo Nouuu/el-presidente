@@ -13,14 +13,14 @@ import java.util.stream.Collectors;
 public class App {
     public static void main(String[] args) throws IOException {
 
-        EventManager eventsManager = EventManager.getEventManagerFromJson("eventManager1.json");
+/*        EventManager eventsManager = EventManager.getEventManagerFromJson("eventManager1.json");
 
         System.out.println(
                 eventsManager.getEvents()
                         .stream()
                         .map(Event::toString)
                         .collect(Collectors.joining("\n"))
-        );
+        );*/
     }
 
     public static String readFileFromRessource(String fileName) {
