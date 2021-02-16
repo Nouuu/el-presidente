@@ -26,8 +26,8 @@ public class Sandbox extends Scenario {
     }
 
 
-    public static Sandbox createFromJson() throws JsonProcessingException {
-        String content = FileHelper.readFileFromRessource("scenarios/sandbox.json");
+    public static Sandbox createFromJson(String ressourceJsonPath) throws JsonProcessingException {
+        String content = FileHelper.readFileFromRessource("scenarios/" + ressourceJsonPath);
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(content, Sandbox.class);
     }
