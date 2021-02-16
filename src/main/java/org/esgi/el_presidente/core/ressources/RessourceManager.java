@@ -1,6 +1,7 @@
 package org.esgi.el_presidente.core.ressources;
 
 import org.esgi.el_presidente.core.factions.Faction;
+import org.esgi.el_presidente.core.factions.FactionType;
 
 public class RessourceManager {
 
@@ -29,6 +30,9 @@ public class RessourceManager {
   }
 
   public void buyBribe(Faction faction) throws Exception {
+    if (faction.getFactionType() == FactionType.loyalist) {
+      throw new Exception("Try to buy loyalist");
+    }
     try {
       double price = finances.buyBribe(faction.getPartisans());
       int loyalistSatisfactionLost = (int) Math.ceil(price / 10);
