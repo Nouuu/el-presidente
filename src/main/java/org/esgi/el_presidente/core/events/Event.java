@@ -1,6 +1,9 @@
 package org.esgi.el_presidente.core.events;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.esgi.el_presidente.core.helper.FileHelper;
 import org.esgi.el_presidente.core.season.Season;
 
 import java.util.ArrayList;
@@ -81,5 +84,11 @@ public class Event {
                 eventChoices.stream()
                         .map(o -> "- " + o.toString())
                         .collect(Collectors.joining("\n"));
+    }
+
+    public static Event createFromJson(String ressourceJsonPath) throws JsonProcessingException {
+        String content = FileHelper.readFileFromRessource("events/" + ressourceJsonPath);
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(content, Event.class);
     }
 }

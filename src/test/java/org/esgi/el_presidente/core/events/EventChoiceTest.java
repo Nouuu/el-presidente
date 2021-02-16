@@ -71,7 +71,7 @@ public class EventChoiceTest {
     public void testToString() {
         String expected = "Event description\n" +
                 "  Effets :\n" +
-                "  - Capitaliste : +1% de partisans, -2% de satisfaction\n" +
+                "  - Capitalistes : +1% de partisans, -2% de satisfaction\n" +
                 "  - Toute les factions : +11% de partisans, +7% de satisfaction\n" +
                 "  - +10% d'industrie\n" +
                 "  - -7% d'agriculture\n" +
