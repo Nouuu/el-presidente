@@ -108,4 +108,8 @@ public class Scenario {
     public int getInitialAgriculture() {
         return initialAgriculture;
     }
+
+    public boolean isLastEvent() {
+        return eventManager.isLooped();
+    }
 }

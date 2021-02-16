@@ -19,6 +19,7 @@ public class EventManager {
     private final List<Event> events;
     private int step;
     private final Random random;
+    private boolean looped;
 
     /**
      * Instantiates a new Event manager.
@@ -29,6 +30,7 @@ public class EventManager {
         this.events = Objects.requireNonNullElseGet(events, ArrayList::new);
         step = 0;
         random = new Random();
+        looped = false;
     }
 
     /**
@@ -86,6 +88,9 @@ public class EventManager {
         }
         Event event = events.get(step);
         step = (step + 1) % events.size();
+        if (step == 0) {
+            looped = true;
+        }
         return event;
     }
 
@@ -112,5 +117,9 @@ public class EventManager {
      */
     public int getStep() {
         return step;
+    }
+
+    public boolean isLooped() {
+        return looped;
     }
 }
