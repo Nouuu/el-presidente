@@ -19,18 +19,20 @@ public class Scenario {
     private final int initialLoyalistPartisans;
     protected final EventManager eventManager;
     private final int initialMoney;
+    private final int initialFood;
     private final int initialIndustrialization;
     private final int initialAgriculture;
 
     protected Scenario(@JsonProperty("introduction") String introduction,
-                     @JsonProperty("partisansSatisfaction") int partisansSatisfaction,
-                     @JsonProperty("partisans") int partisans,
-                     @JsonProperty("loyalistPartisansSatisfaction") int loyalistPartisansSatisfaction,
-                     @JsonProperty("loyalistPartisans") int loyalistPartisans,
-                     @JsonProperty("events") List<String> events,
-                     @JsonProperty("initialMoney") int initialMoney,
-                     @JsonProperty("initialIndustrialization") int initialIndustrialization,
-                     @JsonProperty("initialAgriculture") int initialAgriculture) throws JsonProcessingException {
+                       @JsonProperty("partisansSatisfaction") int partisansSatisfaction,
+                       @JsonProperty("partisans") int partisans,
+                       @JsonProperty("loyalistPartisansSatisfaction") int loyalistPartisansSatisfaction,
+                       @JsonProperty("loyalistPartisans") int loyalistPartisans,
+                       @JsonProperty("events") List<String> events,
+                       @JsonProperty("initialMoney") int initialMoney,
+                       @JsonProperty("initialFood") int initialFood,
+                       @JsonProperty("initialIndustrialization") int initialIndustrialization,
+                       @JsonProperty("initialAgriculture") int initialAgriculture) throws JsonProcessingException {
 
         this.introduction = introduction;
         this.initialPartisansSatisfaction = partisansSatisfaction;
@@ -38,6 +40,7 @@ public class Scenario {
         this.initialPartisans = partisans;
         this.initialLoyalistPartisans = loyalistPartisans;
         this.initialMoney = initialMoney;
+        this.initialFood = initialFood;
         this.initialIndustrialization = initialIndustrialization;
         this.initialAgriculture = initialAgriculture;
         this.eventManager = new EventManager(getEvents(events));
@@ -92,6 +95,10 @@ public class Scenario {
 
     public int getInitialMoney() {
         return initialMoney;
+    }
+
+    public int getInitialFood() {
+        return initialFood;
     }
 
     public int getInitialIndustrialization() {

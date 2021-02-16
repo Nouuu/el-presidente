@@ -1,6 +1,7 @@
 {
   "introduction": "Ceci est le premier scénario créé grâce au Json !\n Il sert à rien mais il a le mérite d'exister :-)",
   "initialMoney": 2000,
+  "initialFood": 0,
   "initialIndustrialization": 15,
   "initialAgriculture": 10,
   "partisansSatisfaction": 50,

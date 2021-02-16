@@ -19,10 +19,11 @@ public class Sandbox extends Scenario {
                       @JsonProperty("loyalistPartisans") int loyalistPartisans,
                       @JsonProperty("events") List<String> events,
                       @JsonProperty("initialMoney") int initialMoney,
+                      @JsonProperty("initialFood") int initialFood,
                       @JsonProperty("initialIndustrialization") int initialIndustrialization,
                       @JsonProperty("initialAgriculture") int initialAgriculture) throws JsonProcessingException {
         super(introduction, partisansSatisfaction, partisans, loyalistPartisansSatisfaction,
-                loyalistPartisans, events, initialMoney, initialIndustrialization, initialAgriculture);
+                loyalistPartisans, events, initialMoney, initialFood, initialIndustrialization, initialAgriculture);
     }
 
 
