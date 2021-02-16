@@ -47,9 +47,7 @@ public class Game {
 
   public void nextTurn() {
     currentEvent = scenario.getNextEvent(timeManager.getSeason());
-    currentEvent.getEventDetails();
-    currentEvent.getEventChoices();
-    // TODO use event
+
     if (timeManager.isTheEndOfTheYear()) {
       // TODO Gestion de Bilan de fin d'année
     }
@@ -66,7 +64,7 @@ public class Game {
   }
 
   // TODO
-  private boolean isItLose() {
-    return false;
+  public boolean isNotLost() {
+    return true;
   }
 }
