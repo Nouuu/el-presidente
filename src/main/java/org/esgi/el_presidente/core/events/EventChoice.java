@@ -1,6 +1,8 @@
 package org.esgi.el_presidente.core.events;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.esgi.el_presidente.core.game.Difficulty;
+import org.esgi.el_presidente.core.helper.MathHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -145,6 +147,58 @@ public class EventChoice {
             string.append("\n  - ").append("+").append(financeEffect).append("$");
         } else if (financeEffect < 0) {
             string.append("\n  - ").append(financeEffect).append("$");
+        }
+
+        return string.toString();
+    }
+
+    public String toString(Difficulty difficulty) {
+        StringBuilder string = new StringBuilder();
+        string.append(choiceName).append("\n")
+                .append("  Effets :");
+
+        if (!factionEffects.isEmpty()) {
+            string.append("\n");
+            string.append(factionEffects.stream().map(f -> "  - " + f.toString(difficulty)).collect(Collectors.joining("\n")));
+        }
+
+        if (industryEffect > 0) {
+            string.append("\n  - ").append("+")
+                    .append(MathHelper.multiplyIntDoubleToFloor(industryEffect, difficulty.getGainMultiplier()))
+                    .append("% d'industrie");
+        } else if (industryEffect < 0) {
+            string.append("\n  - ")
+                    .append(MathHelper.multiplyIntDoubleToFloor(industryEffect, difficulty.getLoseMultiplier()))
+                    .append("% d'industrie");
+        }
+        if (agricultureEffect > 0) {
+            string.append("\n  - ").append("+")
+                    .append(MathHelper.multiplyIntDoubleToFloor(agricultureEffect, difficulty.getGainMultiplier()))
+                    .append("% d'agriculture");
+        } else if (agricultureEffect < 0) {
+            string.append("\n  - ")
+                    .append(MathHelper.multiplyIntDoubleToFloor(agricultureEffect, difficulty.getLoseMultiplier()))
+                    .append("% d'agriculture");
+        }
+
+        if (foodEffect > 0) {
+            string.append("\n  - ").append("+")
+                    .append(MathHelper.multiplyIntDoubleToFloor(foodEffect, difficulty.getGainMultiplier()))
+                    .append(" nourriture");
+        } else if (foodEffect < 0) {
+            string.append("\n  - ")
+                    .append(MathHelper.multiplyIntDoubleToFloor(foodEffect, difficulty.getLoseMultiplier()))
+                    .append(" nourriture");
+
+        }
+        if (financeEffect > 0) {
+            string.append("\n  - ").append("+")
+                    .append(MathHelper.multiplyIntDoubleToFloor(financeEffect, difficulty.getGainMultiplier()))
+                    .append("$");
+        } else if (financeEffect < 0) {
+            string.append("\n  - ")
+                    .append(MathHelper.multiplyIntDoubleToFloor(financeEffect, difficulty.getLoseMultiplier()))
+                    .append("$");
         }
 
         return string.toString();
