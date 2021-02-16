@@ -113,20 +113,4 @@ public class EventManager {
     public int getStep() {
         return step;
     }
-
-    /**
-     * Gets event manager from json.
-     * TODO put this mapper to scenario in the future
-     *
-     * @param ressourceJsonPath the ressource json path
-     * @return the event manager from json
-     * @throws IllegalArgumentException the illegal argument exception
-     * @throws IOException              the io exception
-     */
-    public static EventManager getEventManagerFromJson(String ressourceJsonPath) throws IllegalArgumentException, IOException {
-        String inputString = FileHelper.readFileFromRessource(ressourceJsonPath);
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(inputString, EventManager.class);
-    }
-
 }

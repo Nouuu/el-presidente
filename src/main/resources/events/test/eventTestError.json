@@ -1,8 +1,8 @@
 {
-  "eventDetails": "Un parseur de fichier fait apparition dans le programme.\nCelui-ci est capable de transformer un fichier json en véritable objet java\n",
-  "eventChoices": [
+  "eventDetails": "Event test",
+  "eventChoice": [
     {
-      "choiceName": "Tu saute par dessus bord",
+      "choiceName": "Choice 1",
       "industryEffect": 7,
       "agricultureEffect": -5,
       "foodEffect": 8,
@@ -26,7 +26,7 @@
       ]
     },
     {
-      "choiceName": "Tu reste dans le bato",
+      "choiceName": "Choice 2",
       "financeEffect": 60,
       "factionEffects": [
         {

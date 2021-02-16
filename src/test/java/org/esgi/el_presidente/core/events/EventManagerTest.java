@@ -106,17 +106,4 @@ public class EventManagerTest {
         Assertions.assertThat(emptyEventManager.getRandomEventBySeason()).isNull();
         Assertions.assertThat(emptyEventManager.getNextEvent()).isNull();
     }
-
-    @Test
-    public void getEventManagerFromJson() throws IOException {
-        String eventManagerJsonFilePath = "test/eventManager.json";
-        EventManager eventManager = EventManager.getEventManagerFromJson(eventManagerJsonFilePath);
-
-        Assertions.assertThat(eventManager.getEvents()).hasSize(2);
-
-        Event event1 = eventManager.getEvents().get(0);
-        Assertions.assertThat(event1.getEventDetails()).isEqualTo("Un parseur de fichier fait apparition dans le programme.\n");
-        Assertions.assertThat(event1.getSeason()).isNull();
-        Assertions.assertThat(event1.getEventChoices()).hasSize(2);
-    }
 }
