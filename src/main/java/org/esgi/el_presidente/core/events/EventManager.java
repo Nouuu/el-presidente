@@ -2,7 +2,7 @@ package org.esgi.el_presidente.core.events;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.esgi.el_presidente.App;
+import org.esgi.el_presidente.core.helper.FileHelper;
 import org.esgi.el_presidente.core.season.Season;
 
 import java.io.IOException;
@@ -38,16 +38,26 @@ public class EventManager {
         return this;
     }
 
-    public Event getRandomEvent() {
+    /**
+     * Gets random event.
+     *
+     * @return the random event
+     */
+    public Event getRandomEventBySeason() {
         if (events.size() == 0) {
             return null;
         }
         return events.get(getRandomIndex(events.size()));
     }
 
+    /**
+     * Gets random event by season.
+     *
+     * @param season the season
+     * @return the random event corresponding to season (or with season set to null)
+     */
     public Event getRandomEventBySeason(Season season) {
-        List<Event> events = this.events.stream().filter(e -> e.getSeason() == season || e.getSeason() == null)
-                .collect(Collectors.toList());
+        List<Event> events = this.events.stream().filter(e -> e.getSeason() == season || e.getSeason() == null).collect(Collectors.toList());
         return events.get(getRandomIndex(events.size()));
     }
 
@@ -84,9 +94,8 @@ public class EventManager {
      * @throws IllegalArgumentException the illegal argument exception
      * @throws IOException              the io exception
      */
-    public static EventManager getEventManagerFromJson(String ressourceJsonPath)
-            throws IllegalArgumentException, IOException {
-        String inputString = App.readFileFromRessource(ressourceJsonPath);
+    public static EventManager getEventManagerFromJson(String ressourceJsonPath) throws IllegalArgumentException, IOException {
+        String inputString = FileHelper.readFileFromRessource(ressourceJsonPath);
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(inputString, EventManager.class);
     }
