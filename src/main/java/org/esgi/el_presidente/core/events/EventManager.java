@@ -47,7 +47,7 @@ public class EventManager {
      *
      * @return the random event
      */
-    public Event getRandomEventBySeason() {
+    public Event getRandomEvent() {
         if (events.size() == 0) {
             return null;
         }

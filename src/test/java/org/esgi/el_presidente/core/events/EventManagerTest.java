@@ -5,7 +5,6 @@ import org.esgi.el_presidente.core.season.Season;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +40,7 @@ public class EventManagerTest {
     @Test
     public void getRandomEvent() {
         for (int i = 0; i < 4; i++) {
-            Assertions.assertThat(eventManager.getRandomEventBySeason()).isIn(events);
+            Assertions.assertThat(eventManager.getRandomEvent()).isIn(events);
         }
     }
 
@@ -103,7 +102,7 @@ public class EventManagerTest {
     @Test
     public void getEmptyEvent() {
         EventManager emptyEventManager = new EventManager(null);
-        Assertions.assertThat(emptyEventManager.getRandomEventBySeason()).isNull();
+        Assertions.assertThat(emptyEventManager.getRandomEvent()).isNull();
         Assertions.assertThat(emptyEventManager.getNextEvent()).isNull();
     }
 }

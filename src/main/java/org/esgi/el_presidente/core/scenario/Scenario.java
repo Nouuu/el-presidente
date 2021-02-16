@@ -17,7 +17,7 @@ public class Scenario {
     private final int initialPartisans;
     private final int initialLoyalistPartisansSatisfaction;
     private final int initialLoyalistPartisans;
-    private final EventManager eventManager;
+    protected final EventManager eventManager;
     private final int initialMoney;
     private final int initialIndustrialization;
     private final int initialAgriculture;

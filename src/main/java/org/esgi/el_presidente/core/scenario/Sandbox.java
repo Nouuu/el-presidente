@@ -3,7 +3,9 @@ package org.esgi.el_presidente.core.scenario;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.esgi.el_presidente.core.events.Event;
 import org.esgi.el_presidente.core.helper.FileHelper;
+import org.esgi.el_presidente.core.season.Season;
 
 import java.util.List;
 
@@ -28,6 +30,11 @@ public class Sandbox extends Scenario {
         String content = FileHelper.readFileFromRessource("scenarios/sandbox.json");
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(content, Sandbox.class);
+    }
+
+    @Override
+    public Event getNextEvent(Season season) {
+        return eventManager.getNextEvent();
     }
 
 }
