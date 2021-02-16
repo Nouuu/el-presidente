@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
 import org.esgi.el_presidente.core.events.EventFactionEffect;
 import org.esgi.el_presidente.core.factions.FactionType;
+import org.esgi.el_presidente.core.game.Difficulty;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -79,5 +80,21 @@ public class EventFactionEffectTest {
         EventFactionEffect eventFactionEffect = new EventFactionEffect(null, 0, 0);
 
         Assertions.assertThat(eventFactionEffect.toString()).isEqualTo(expectedString);
+    }
+
+    @Test
+    public void testToString1() {
+        FactionType factionType = FactionType.capitalist;
+        int partisansPercentEffect = 58;
+        int satisfactionEffect = 27;
+        Difficulty difficulty = Difficulty.EASY;
+
+        String expectedString = StringUtils.capitalize(factionType.toString()) + " : "
+                + "+" + partisansPercentEffect + "% de partisans, "
+                + "+" + satisfactionEffect + "% de satisfaction";
+        EventFactionEffect eventFactionEffect = new EventFactionEffect(factionType, partisansPercentEffect, satisfactionEffect);
+
+        Assertions.assertThat(eventFactionEffect.toString(difficulty)).isEqualTo(expectedString);
+
     }
 }
