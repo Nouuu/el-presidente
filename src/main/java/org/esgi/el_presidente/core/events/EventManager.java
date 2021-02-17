@@ -12,9 +12,6 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-/**
- * The Event manager.
- */
 public class EventManager {
     private final List<Event> events;
     private int step;
@@ -32,7 +29,9 @@ public class EventManager {
     }
 
     /**
-     * @param event the event
+     * Add event to event manager
+     *
+     * @param event the event to add
      * @return the current event manager
      */
     public EventManager addEvent(Event event) {
@@ -43,7 +42,7 @@ public class EventManager {
     /**
      * Gets random event.
      *
-     * @return the random event
+     * @return the random event from event manager list
      */
     public Event getRandomEvent() {
         if (events.size() == 0) {
@@ -67,6 +66,11 @@ public class EventManager {
         return random.nextInt(maxExcludedIndex);
     }
 
+    /**
+     * Gets next event in order of the list of events. If this reach the last one, it loop back on the first and set isLooped() to true
+     *
+     * @return Event object
+     */
     public Event getNextEvent() {
         if (events.size() == 0) {
             return null;
@@ -91,6 +95,11 @@ public class EventManager {
         return step;
     }
 
+    /**
+     * Check if all events in scenario have been read
+     *
+     * @return boolean
+     */
     public boolean isLooped() {
         return looped;
     }

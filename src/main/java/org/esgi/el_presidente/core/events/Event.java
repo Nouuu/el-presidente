@@ -11,9 +11,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-/**
- * The type Event.
- */
 public class Event {
     private final Season season;
     private final String eventDetails;
@@ -46,29 +43,15 @@ public class Event {
         return this;
     }
 
-    /**
-     * Gets season.
-     *
-     * @return the season
-     */
     public Season getSeason() {
         return season;
     }
 
-    /**
-     * Gets event details.
-     *
-     * @return the event details
-     */
+
     public String getEventDetails() {
         return eventDetails;
     }
 
-    /**
-     * Gets event choices.
-     *
-     * @return the event choices
-     */
     public List<EventChoice> getEventChoices() {
         return eventChoices;
     }

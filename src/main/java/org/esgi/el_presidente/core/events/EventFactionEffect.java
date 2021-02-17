@@ -9,9 +9,6 @@ import org.esgi.el_presidente.core.helper.MathHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * The type Event faction effect.
- */
 public class EventFactionEffect {
     private final FactionType factionType;
     private final int partisansPercentEffect;
@@ -45,6 +42,11 @@ public class EventFactionEffect {
         return satisfactionEffect;
     }
 
+
+    /**
+     * Get the event faction effect details
+     * @return String
+     */
     @Override
     public String toString() {
         StringBuilder description = new StringBuilder();
@@ -73,6 +75,11 @@ public class EventFactionEffect {
         return description.toString();
     }
 
+    /**
+     * Get the event faction effect details in terms of difficulty ratio
+     * @param difficulty Difficulty enum
+     * @return String
+     */
     public String toString(Difficulty difficulty) {
         StringBuilder description = new StringBuilder();
         List<String> effectList = new ArrayList<>();
