@@ -1,5 +1,6 @@
 Feature: Finance
 
+
   Finance is the money available is the game
   cash can be used to pay for bribes or food
 
@@ -24,11 +25,11 @@ Feature: Finance
 
     Examples:
       | money | units of food desired | new amount |
-      | 0.0   | 0                     | 0.0        |
-      | 12.0  | 1                     | 4.0        |
-      | 120.0 | 4                     | 88.0       |
-      | 8.0   | 1                     | 0.0        |
-      | 32.0  | 4                     | 0.0        |
+      | 0     | 0                     | 0          |
+      | 12    | 1                     | 4          |
+      | 120   | 4                     | 88         |
+      | 8     | 1                     | 0          |
+      | 32    | 4                     | 0          |
 
 
   Scenario: Buys food without the necessary money
@@ -47,12 +48,12 @@ Feature: Finance
 
     Examples:
       | money | partisans | new amount |
-      | 0.0   | 0         | 0.0        |
-      | 19.0  | 1         | 4.0        |
-      | 120.0 | 4         | 60.0       |
-      | 15.0  | 1         | 0.0        |
-      | 480.0 | 4         | 420.0      |
-      | 525.0 | 35        | 0.0        |
+      | 0     | 0         | 0          |
+      | 19    | 1         | 4          |
+      | 120   | 4         | 60         |
+      | 15    | 1         | 0          |
+      | 480   | 4         | 420        |
+      | 525   | 35        | 0          |
 
 
   Scenario Outline: Add money
@@ -62,7 +63,7 @@ Feature: Finance
     Then The amount in coffers should be <expected banking>
     Examples:
       | inital banking | investment | expected banking |
-      | 2021.0         | 40.0       | 2061.0           |
-      | 0.0            | 19.4       | 19.4             |
-      | 50.0           | 47.12      | 97.12            |
-      | 50.0           | -47.12     | 2.88             |
+      | 2021           | 40         | 2061             |
+      | 0              | 19         | 19               |
+      | 50             | 47         | 97               |
+      | 50             | -47        | 3                |

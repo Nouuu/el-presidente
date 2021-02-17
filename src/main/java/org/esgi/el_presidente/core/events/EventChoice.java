@@ -9,9 +9,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-/**
- * The type Event choice.
- */
 public class EventChoice {
     private final String choiceName;
     private final int industryEffect;
@@ -19,7 +16,6 @@ public class EventChoice {
     private final int foodEffect;
     private final int financeEffect;
     private final List<EventFactionEffect> factionEffects;
-
 
     /**
      * Instanciate Event choice
@@ -32,11 +28,10 @@ public class EventChoice {
      * @param factionEffects    List<EventFactionEffect>
      */
     public EventChoice(@JsonProperty("choiceName") String choiceName,
-                       @JsonProperty("industryEffect") int industryEffect,
-                       @JsonProperty("agricultureEffect") int agricultureEffect,
-                       @JsonProperty("foodEffect") int foodEffect,
-                       @JsonProperty("financeEffect") int financeEffect,
-                       @JsonProperty("factionEffects") List<EventFactionEffect> factionEffects) {
+            @JsonProperty("industryEffect") int industryEffect,
+            @JsonProperty("agricultureEffect") int agricultureEffect, @JsonProperty("foodEffect") int foodEffect,
+            @JsonProperty("financeEffect") int financeEffect,
+            @JsonProperty("factionEffects") List<EventFactionEffect> factionEffects) {
         this.choiceName = choiceName;
         this.industryEffect = industryEffect;
         this.agricultureEffect = agricultureEffect;
@@ -45,81 +40,39 @@ public class EventChoice {
         this.factionEffects = Objects.requireNonNullElseGet(factionEffects, ArrayList::new);
     }
 
-    /**
-     * Add faction effect
-     *
-     * @param factionEffect EventFactionEffect
-     * @return current object
-     */
     public EventChoice addEventFactionEffect(EventFactionEffect factionEffect) {
         this.factionEffects.add(factionEffect);
         return this;
     }
 
-    /**
-     * Gets choice name/description.
-     *
-     * @return the choice name
-     */
     public String getChoiceName() {
         return choiceName;
     }
 
-    /**
-     * Gets industry effect.
-     *
-     * @return the industry effect
-     */
     public int getIndustryEffect() {
         return industryEffect;
     }
 
-    /**
-     * Gets agriculture effect.
-     *
-     * @return the agriculture effect
-     */
     public int getAgricultureEffect() {
         return agricultureEffect;
     }
 
-    /**
-     * Gets food effect.
-     *
-     * @return the food effect
-     */
     public int getFoodEffect() {
         return foodEffect;
     }
 
-    /**
-     * Gets finance effect.
-     *
-     * @return the finance effect
-     */
     public int getFinanceEffect() {
         return financeEffect;
     }
 
-    /**
-     * Gets faction effects.
-     *
-     * @return the faction effects
-     */
     public List<EventFactionEffect> getFactionEffects() {
         return factionEffects;
     }
 
-    /**
-     * To string string.
-     *
-     * @return the string
-     */
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();
-        string.append(choiceName).append("\n")
-                .append("  Effets :");
+        string.append(choiceName).append("\n").append("  Effets :");
 
         if (!factionEffects.isEmpty()) {
             string.append("\n");

@@ -11,10 +11,10 @@ Feature: Agriculture
 
         Examples:
             | agriculture part | coefficient | result |
-            | 12.0             | 40.0        | 480.0  |
-            | 43.0             | 10.0        | 430.0  |
-            | 73.0             | 40.0        | 2920.0 |
-            | 100.0            | 98.0        | 9800.0 |
+            | 12               | 40          | 480    |
+            | 43               | 10          | 430    |
+            | 73               | 40          | 2920   |
+            | 100              | 98          | 9800   |
 
     ## Island
     Scenario Outline: Increase and decrease size of the island
@@ -26,8 +26,8 @@ Feature: Agriculture
 
         Examples:
             | intial size | increase size | intermediate size | decrease size | final size |
-            | 0.0         | 10.0          | 10.0              | 5.0           | 5.0        |
-            | 12.0        | 8.0           | 20.0              | 15.0          | 5.0        |
-            | 43.0        | 20.0          | 63.0              | 3.0           | 60.0       |
-            | 73.0        | 10.0          | 83.0              | 80.0          | 3.0        |
-            | 100.0       | 0.0           | 100.0             | 47.0          | 53.0       |
+            | 0           | 10            | 10                | 5             | 5          |
+            | 12          | 8             | 20                | 15            | 5          |
+            | 43          | 20            | 63                | 3             | 60         |
+            | 73          | 10            | 83                | 80            | 3          |
+            | 100         | 0             | 100               | 47            | 53         |
