@@ -8,18 +8,18 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class IndustrySteps {
-  private double islandPart;
-  private double coefficient;
-  private double moneyProduction;
+  private int islandPart;
+  private int coefficient;
+  private int moneyProduction;
   private Industry indsutry;
 
-  @Given("The industry represente {double} of the island")
-  public void setIslandPart(double islandPart) {
+  @Given("The industry represente {int} of the island")
+  public void setIslandPart(int islandPart) {
     this.islandPart = islandPart;
   }
 
-  @And("The coefficient is {double}")
-  public void setCoeff(double coeff) {
+  @And("The coefficient is {int}")
+  public void setCoeff(int coeff) {
     this.coefficient = coeff;
   }
 
@@ -33,8 +33,8 @@ public class IndustrySteps {
     moneyProduction = indsutry.yearlyProductionOfMoney();
   }
 
-  @Then("the result should be {double}")
-  public void testMoneyProduction(double expectedResult) {
+  @Then("the result should be {int}")
+  public void testMoneyProduction(int expectedResult) {
     assertEquals(expectedResult, moneyProduction, 0.001);
   }
 }

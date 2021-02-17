@@ -1,16 +1,16 @@
 package org.esgi.el_presidente.core.ressources;
 
 public class Finances {
-  private double moneyInCoffers;
-  private final double foodPrice = 8;
-  private final double bribePriceByPartisan = 15;
+  private int moneyInCoffers;
+  private final int foodPrice = 8;
+  private final int bribePriceByPartisan = 15;
 
-  public Finances(double initalMoney) {
+  public Finances(int initalMoney) {
     this.moneyInCoffers = initalMoney;
   }
 
-  public double buyFood(int unitsOfFoodDesired) throws Exception {
-    double price = unitsOfFoodDesired * foodPrice;
+  public int buyFood(int unitsOfFoodDesired) throws Exception {
+    int price = unitsOfFoodDesired * foodPrice;
     if (price > moneyInCoffers) {
       throw new Exception("insufficient amount in coffers");
     }
@@ -23,8 +23,8 @@ public class Finances {
    * 
    * Currently I'm not sure if the implementation should be done here
    */
-  public double buyBribe(int partisansBribed) throws Exception {
-    double price = bribePriceByPartisan * partisansBribed;
+  public int buyBribe(int partisansBribed) throws Exception {
+    int price = bribePriceByPartisan * partisansBribed;
     if (price > moneyInCoffers) {
       throw new Exception("insufficient amount in coffers");
     }
@@ -32,11 +32,11 @@ public class Finances {
     return price;
   }
 
-  public double getMoneyInCoffers() {
+  public int getMoneyInCoffers() {
     return moneyInCoffers;
   }
 
-  public void handleMoneyAction(double moneyImpact) {
+  public void handleMoneyAction(int moneyImpact) {
     moneyInCoffers += moneyImpact;
   }
 }
