@@ -1,5 +1,6 @@
 {
   "eventDetails": "Event test 2",
+  "season": "printemps",
   "eventChoices": [
     {
       "choiceName": "Choice 1",
