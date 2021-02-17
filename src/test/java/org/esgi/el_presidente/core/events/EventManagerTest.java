@@ -105,4 +105,15 @@ public class EventManagerTest {
         Assertions.assertThat(emptyEventManager.getRandomEvent()).isNull();
         Assertions.assertThat(emptyEventManager.getNextEvent()).isNull();
     }
+
+    @Test
+    public void isLooped() {
+        Assertions.assertThat(eventManager.isLooped()).isFalse();
+        for (int i = 0; i < eventManager.getEvents().size(); i++) {
+            eventManager.getNextEvent();
+        }
+        Assertions.assertThat(eventManager.isLooped()).isTrue();
+        eventManager.resetStep();
+        Assertions.assertThat(eventManager.isLooped()).isFalse();
+    }
 }

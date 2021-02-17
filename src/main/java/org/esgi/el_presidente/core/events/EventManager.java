@@ -84,6 +84,7 @@ public class EventManager {
     }
 
     public void resetStep() {
+        looped = false;
         step = 0;
     }
 
