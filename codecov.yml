@@ -20,6 +20,20 @@ coverage:
         if_ci_failed: error #success, failure, error, ignore
         informational: false
         only_pulls: false
+    patch:
+      default:
+        # basic
+        target: 90%
+        threshold: 5%
+        base: auto 
+        flags: 
+          - unit
+        paths: 
+          - "src"
+       # advanced settings
+        if_ci_failed: error #success, failure, error, ignore
+        informational: false
+        only_pulls: false
 
 parsers:
   gcov:
