@@ -1,0 +1,12 @@
+{
+  "eventDetails": "Event test 2",
+  "eventChoices": [
+    {
+      "choiceName": "Choice 1",
+      "industryEffect": 7,
+      "agricultureEffect": -5,
+      "foodEffect": 8,
+      "financeEffect": 600
+    }
+  ]
+}
