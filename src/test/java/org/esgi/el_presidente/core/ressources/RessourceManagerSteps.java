@@ -11,7 +11,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class RessourceManagerSteps {
-  private double found;
+  private int found;
   private int foodReservies;
   private Faction loyalist;
   private Faction faction;
@@ -19,8 +19,8 @@ public class RessourceManagerSteps {
   private Agriculture agriculture = new Agriculture(20, 40);
   private Industry industry = new Industry(20, 10);
 
-  @Given("I have {double} €")
-  public void given_money(double amount) {
+  @Given("I have {int} €")
+  public void given_money(int amount) {
     found = amount;
   }
 
@@ -43,13 +43,13 @@ public class RessourceManagerSteps {
     moveSatisfactionTo(loyalist, satisfaction);
   }
 
-  @Given("The Agriculture segment represent {double}")
-  public void given_agricuture_of_size(double size) {
+  @Given("The Agriculture segment represent {int}")
+  public void given_agricuture_of_size(int size) {
     agriculture = new Agriculture(size, 40);
   }
 
-  @Given("The Industrie segment represent {double}")
-  public void given_industry_of_size(double size) {
+  @Given("The Industrie segment represent {int}")
+  public void given_industry_of_size(int size) {
     industry = new Industry(size, 4);
   }
 
@@ -98,8 +98,8 @@ public class RessourceManagerSteps {
     }
   }
 
-  @When("I increase the size of {string} by {double} percent")
-  public void when_i_increase_size_of(String segment, double additionalSize) {
+  @When("I increase the size of {string} by {int} percent")
+  public void when_i_increase_size_of(String segment, int additionalSize) {
     if (segment.equals("agriculture")) {
       manager.increaseSizeOfAgriculture(additionalSize);
     } else if (segment.equals("industry")) {
@@ -107,8 +107,8 @@ public class RessourceManagerSteps {
     }
   }
 
-  @When("I try to grow {string} by {double} it should throw an error")
-  public void when_i_increase_size_it_should_throw_and_error(String segment, double additionalSize) {
+  @When("I try to grow {string} by {int} it should throw an error")
+  public void when_i_increase_size_it_should_throw_and_error(String segment, int additionalSize) {
     try {
       if (segment.equals("agriculture")) {
         manager.increaseSizeOfAgriculture(additionalSize);
@@ -126,8 +126,8 @@ public class RessourceManagerSteps {
     assertEquals(expectedFoodReserves, manager.getFoodReserves());
   }
 
-  @Then("My finacial ressources are of {double}")
-  public void test_financial_reserves(double expectedMoney) {
+  @Then("My finacial ressources are of {int}")
+  public void test_financial_reserves(int expectedMoney) {
     assertEquals(expectedMoney, manager.getMoney(), 0.001);
   }
 
@@ -141,13 +141,13 @@ public class RessourceManagerSteps {
     assertEquals(expectedSatisfaction, loyalist.getSatisfaction(), 0.001);
   }
 
-  @Then("The Agriculture segment should be {double}")
-  public void test_agriculture_size(double expectedSize) {
+  @Then("The Agriculture segment should be {int}")
+  public void test_agriculture_size(int expectedSize) {
     assertEquals(expectedSize, agriculture.getSize(), 0.001);
   }
 
-  @Then("The Industry segment should be {double}")
-  public void test_industry_size(double expectedSize) {
+  @Then("The Industry segment should be {int}")
+  public void test_industry_size(int expectedSize) {
     assertEquals(expectedSize, industry.getSize(), 0.001);
   }
 

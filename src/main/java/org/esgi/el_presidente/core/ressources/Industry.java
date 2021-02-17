@@ -1,27 +1,27 @@
 package org.esgi.el_presidente.core.ressources;
 
 public class Industry implements IslandPart {
-  private double partOfIsland;
-  private final double moneyProductionCoefficient;
+  private int partOfIsland;
+  private final int moneyProductionCoefficient;
 
-  public Industry(double partOfIsland, double moneyProductionCoefficient) {
+  public Industry(int partOfIsland, int moneyProductionCoefficient) {
     this.partOfIsland = partOfIsland;
     this.moneyProductionCoefficient = moneyProductionCoefficient;
   }
 
-  public double yearlyProductionOfMoney() {
+  public int yearlyProductionOfMoney() {
     return partOfIsland * moneyProductionCoefficient;
   }
 
-  public void expand(double additionalSize) {
+  public void expand(int additionalSize) {
     partOfIsland += additionalSize;
   }
 
-  public double getSize() {
+  public int getSize() {
     return partOfIsland;
   }
 
-  public void shrink(double deductSize) {
+  public void shrink(int deductSize) {
     partOfIsland -= deductSize;
   }
 }

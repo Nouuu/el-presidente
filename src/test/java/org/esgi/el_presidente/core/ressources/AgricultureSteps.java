@@ -8,18 +8,18 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class AgricultureSteps {
-  private double islandPart;
-  private double foodProductionCoefficient;
+  private int islandPart;
+  private int foodProductionCoefficient;
   private Agriculture agriculture;
-  private double production;
+  private int production;
 
-  @Given("The agriculture represente {double}% of the islande")
-  public void setIslandPart(double islandPart) {
+  @Given("The agriculture represente {int}% of the islande")
+  public void setIslandPart(int islandPart) {
     this.islandPart = islandPart;
   }
 
-  @And("The food production coefficient is {double}")
-  public void setCoefficient(double coefficient) {
+  @And("The food production coefficient is {int}")
+  public void setCoefficient(int coefficient) {
     this.foodProductionCoefficient = coefficient;
   }
 
@@ -37,8 +37,8 @@ public class AgricultureSteps {
     production = agriculture.yearlyProductionOfFood();
   }
 
-  @Then("The result should be {double}")
-  public void agricultureProductionIsCorrect(double expectedResult) {
+  @Then("The result should be {int}")
+  public void agricultureProductionIsCorrect(int expectedResult) {
     assertEquals(expectedResult, production, 0.001);
   }
 }
