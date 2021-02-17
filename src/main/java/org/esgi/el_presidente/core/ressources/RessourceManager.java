@@ -10,8 +10,7 @@ public class RessourceManager {
   private Agriculture agriculture;
   private Industry industry;
 
-  public RessourceManager(Faction loyalist, double money, int foodReserves, Agriculture agriculture,
-      Industry industry) {
+  public RessourceManager(Faction loyalist, int money, int foodReserves, Agriculture agriculture, Industry industry) {
     finances = new Finances(money);
     this.foodReserves = foodReserves;
     this.loyalist = loyalist;
@@ -30,7 +29,7 @@ public class RessourceManager {
 
   public void buyBribe(Faction faction) throws Exception {
     try {
-      double price = finances.buyBribe(faction.getPartisans());
+      int price = finances.buyBribe(faction.getPartisans());
       int loyalistSatisfactionLost = (int) Math.ceil(price / 10);
 
       if (loyalist.getSatisfaction() < loyalistSatisfactionLost) {
@@ -44,7 +43,7 @@ public class RessourceManager {
     }
   }
 
-  public void increaseSizeOfAgriculture(double additionalSize) {
+  public void increaseSizeOfAgriculture(int additionalSize) {
     try {
       testSizeOfIsland(additionalSize);
       agriculture.expand(additionalSize);
@@ -53,7 +52,7 @@ public class RessourceManager {
     }
   }
 
-  public void increaseSizeOfIndustry(double additionalSize) {
+  public void increaseSizeOfIndustry(int additionalSize) {
     try {
       testSizeOfIsland(additionalSize);
       industry.expand(additionalSize);
@@ -62,13 +61,13 @@ public class RessourceManager {
     }
   }
 
-  private void testSizeOfIsland(double additionalSize) throws Exception {
+  private void testSizeOfIsland(int additionalSize) throws Exception {
     if (agriculture.getSize() + industry.getSize() + additionalSize > 100) {
       throw new Exception("Incorrect size");
     }
   }
 
-  public double getMoney() {
+  public int getMoney() {
     return finances.getMoneyInCoffers();
   }
 

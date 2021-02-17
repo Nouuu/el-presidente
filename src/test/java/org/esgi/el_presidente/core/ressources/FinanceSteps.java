@@ -9,10 +9,10 @@ import io.cucumber.java.en.Then;
 
 public class FinanceSteps {
   private Finances finances;
-  private double moneyInCoffers;
+  private int moneyInCoffers;
 
-  @Given("I have {double} in coffers")
-  public void createFinance(double initalMoney) {
+  @Given("I have {int} in coffers")
+  public void createFinance(int initalMoney) {
     finances = new Finances(initalMoney);
   }
 
@@ -59,13 +59,13 @@ public class FinanceSteps {
     }
   }
 
-  @When("I add {double} €")
-  public void addToCoffers(double addedAmount) {
+  @When("I add {int} €")
+  public void addToCoffers(int addedAmount) {
     finances.addMoney(addedAmount);
   }
 
-  @Then("The amount in coffers should be {double}")
-  public void testValueInCoffers(double expectedAmount) {
+  @Then("The amount in coffers should be {int}")
+  public void testValueInCoffers(int expectedAmount) {
     assertEquals(expectedAmount, moneyInCoffers, 0.0001);
   }
 }
