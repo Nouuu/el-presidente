@@ -19,19 +19,21 @@ public class Cli {
 
     while (game.isNotLost()) {
       game.nextTurn();
-      displayCurrentEvent();
+      Event event = game.getCurrentEvent();
+      displayCurrentEvent(event);
       Scanner input = new Scanner(System.in);
-      System.out.println(input.nextLine());
-      // Deal with input for send update to game
+      game.triggerEventEffect(input.nextInt());
+      System.out.println();
     }
   }
 
-  private void displayCurrentEvent() {
-    Event event = game.getCurrentEvent();
+  private void displayCurrentEvent(Event event) {
     System.out.println(event.getEventDetails());
-    List<EventChoice> EventChoices = event.getEventChoices();
-    EventChoices.forEach(e -> System.out.println(e.getChoiceName()));
-    System.out.println();
+    List<EventChoice> eventChoices = event.getEventChoices();
+    for (int i = 0; i < eventChoices.size(); i += 1) {
+      EventChoice eventChoice = eventChoices.get(i);
+      System.out.println(String.valueOf(i) + ' ' + eventChoice.getChoiceName());
+    }
   }
 
   public void printResult() {

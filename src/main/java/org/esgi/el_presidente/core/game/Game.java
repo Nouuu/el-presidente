@@ -1,5 +1,7 @@
 package org.esgi.el_presidente.core.game;
 
+import java.util.List;
+
 import org.esgi.el_presidente.core.events.*;
 import org.esgi.el_presidente.core.factions.Faction;
 import org.esgi.el_presidente.core.factions.FactionManager;
@@ -36,7 +38,6 @@ public class Game {
   }
 
   public Game(Scenario scenario, Difficulty difficulty) {
-    // How do we use difficulty
     this.difficulty = difficulty;
     this.scenario = scenario;
 
@@ -66,5 +67,23 @@ public class Game {
   // TODO
   public boolean isNotLost() {
     return true;
+  }
+
+  public void triggerEventEffect(int index) {
+    Event event = getCurrentEvent();
+    EventChoice eventChoice = event.getEventChoice(index);
+
+    int agricultureEffect = eventChoice.getAgricultureEffect();
+    int industryEffect = agricultureEffect = eventChoice.getIndustryEffect();
+    int financeEffect = eventChoice.getFinanceEffect();
+    int foodEffect = eventChoice.getFoodEffect();
+    List<EventFactionEffect> factionEffects = eventChoice.getFactionEffects();
+
+    ressourceManager.increaseSizeOfAgriculture(agricultureEffect);
+    ressourceManager.increaseSizeOfIndustry(industryEffect);
+    ressourceManager.handleMoneyAction(financeEffect);
+    ressourceManager.handleFoodAction(foodEffect);
+
+    // FactionEffect
   }
 }

@@ -72,6 +72,14 @@ public class RessourceManager {
     }
   }
 
+  public void handleMoneyAction(int moneyImpact) {
+    finances.handleMoneyAction(moneyImpact);
+  }
+
+  public void handleFoodAction(int foodImpact) {
+    foodReserves += foodImpact;
+  }
+
   public double getMoney() {
     return finances.getMoneyInCoffers();
   }
