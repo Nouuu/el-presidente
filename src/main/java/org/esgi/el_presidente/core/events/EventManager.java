@@ -21,8 +21,6 @@ public class EventManager {
     private final Random random;
 
     /**
-     * Instantiates a new Event manager.
-     *
      * @param events the event list
      */
     public EventManager(@JsonProperty("events") List<Event> events) {
@@ -32,8 +30,6 @@ public class EventManager {
     }
 
     /**
-     * Add event to event manager.
-     *
      * @param event the event
      * @return the current event manager
      */
@@ -65,21 +61,10 @@ public class EventManager {
         return events.get(getRandomIndex(events.size()));
     }
 
-    /**
-     * Gets random index.
-     *
-     * @param maxExcludedIndex the max excluded index
-     * @return the random index
-     */
     public int getRandomIndex(int maxExcludedIndex) {
         return random.nextInt(maxExcludedIndex);
     }
 
-    /**
-     * Gets next event.
-     *
-     * @return the next event
-     */
     public Event getNextEvent() {
         if (events.size() == 0) {
             return null;
@@ -89,34 +74,20 @@ public class EventManager {
         return event;
     }
 
-    /**
-     * Reset step.
-     */
     public void resetStep() {
         step = 0;
     }
 
-    /**
-     * Gets events.
-     *
-     * @return the events
-     */
     public List<Event> getEvents() {
         return events;
     }
 
-    /**
-     * Gets step.
-     *
-     * @return the step
-     */
     public int getStep() {
         return step;
     }
 
     /**
-     * Gets event manager from json.
-     * TODO put this mapper to scenario in the future
+     * Gets event manager from json. TODO put this mapper to scenario in the future
      *
      * @param ressourceJsonPath the ressource json path
      * @return the event manager from json

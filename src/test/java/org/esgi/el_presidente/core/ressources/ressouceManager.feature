@@ -11,11 +11,11 @@ Feature: Ressource Manager
     And My finacial ressources are of <new money>
 
     Examples:
-      | money  | food | amount of food | new food reserves | new money |
-      | 1200.0 | 4    | 7              | 11                | 1144.0    |
-      | 8.0    | 0    | 1              | 1                 | 0.0       |
-      | 80.0   | 5    | 10             | 15                | 0.0       |
-      | 34.0   | 2    | 3              | 5                 | 10.0      |
+      | money | food | amount of food | new food reserves | new money |
+      | 1200  | 4    | 7              | 11                | 1144      |
+      | 8     | 0    | 1              | 1                 | 0         |
+      | 80    | 5    | 10             | 15                | 0         |
+      | 34    | 2    | 3              | 5                 | 10        |
 
 
   Scenario: Buy food without the found
@@ -35,8 +35,8 @@ Feature: Ressource Manager
     And The Loyalist satisfaction should be <new loyalist satifaction>
 
     Examples:
-      | money   | partisans | faction     | satisfaction | loyalist satisfaction | amount of partisans | new satifaction | new money | new loyalist satifaction |
-      | 12000.0 | 10        | 'ecologist' | 60           | 100                   | 10                  | 66              | 11850.0   | 85                       |
+      | money | partisans | faction     | satisfaction | loyalist satisfaction | amount of partisans | new satifaction | new money | new loyalist satifaction |
+      | 12000 | 10        | 'ecologist' | 60           | 100                   | 10                  | 66              | 11850     | 85                       |
 
 
   Scenario: Buy bribe without the found
