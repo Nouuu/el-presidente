@@ -15,6 +15,7 @@ public class ScenarioTest {
     private final String scenarioError2Path = "test/scenarioTestError2.json";
     private final String scenarioError3Path = "test/scenarioTestError3.json";
     private final String scenarioError4Path = "test/scenarioTestError4.json";
+    private final String scenarioError5Path = "test/scenarioTestError5.json";
 
     private final Event expectedEvent1 = Event.createFromJson("test/eventTest.json");
     private final Event expectedEvent2 = Event.createFromJson("test/eventTest2.json");
@@ -55,6 +56,13 @@ public class ScenarioTest {
     @Test
     public void testCreateFromJsonErrorMissingEvents() {
         Assertions.assertThatThrownBy(() -> Scenario.createFromJson(scenarioError4Path))
+                .getCause()
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("You must provide at least 2 events to your scenario !");
+    }
+    @Test
+    public void testCreateFromJsonErrorMissingEvents2() {
+        Assertions.assertThatThrownBy(() -> Scenario.createFromJson(scenarioError5Path))
                 .getCause()
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("You must provide at least 2 events to your scenario !");
