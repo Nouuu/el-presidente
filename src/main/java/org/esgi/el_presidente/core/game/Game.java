@@ -84,6 +84,13 @@ public class Game {
     ressourceManager.handleMoneyAction(financeEffect);
     ressourceManager.handleFoodAction(foodEffect);
 
+    factionEffects.stream().forEach(effect -> triggerEventsFactionEffect(effect));
     // FactionEffect
+  }
+
+  private void triggerEventsFactionEffect(EventFactionEffect effect) {
+    Faction faction = factionManager.getFaction(effect.getFactionType());
+    // handle effect for partisan
+    // handle effect for satisfaction
   }
 }
