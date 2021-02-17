@@ -35,7 +35,7 @@ public class Sandbox extends Scenario {
 
     @Override
     public Event getNextEvent(Season season) {
-        return eventManager.getNextEvent();
+        return eventManager.getRandomEventBySeason(season);
     }
 
 }
