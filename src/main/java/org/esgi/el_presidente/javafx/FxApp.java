@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 
 public class FxApp extends Application {
-    public static void main(String[] args) {
+    public static void launchApp() {
         launch();
     }
 
