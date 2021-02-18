@@ -163,11 +163,11 @@ public class RessourceManagerSteps {
 
   private void moveNumberOfPartisansTo(Faction faction, int expectedNumberOfPartisans) {
     int numberOfPartisansIwantToAdd = expectedNumberOfPartisans - faction.getPartisans();
-    faction.addPartisans(numberOfPartisansIwantToAdd);
+    faction.updatePartisans(numberOfPartisansIwantToAdd);
   }
 
   private void moveSatisfactionTo(Faction faction, int expectedSatisfaction) {
     int numberOfSatisfactionIwantToAdd = expectedSatisfaction - faction.getSatisfaction();
-    faction.addSatisfaction(numberOfSatisfactionIwantToAdd);
+    faction.updateSatisfaction(numberOfSatisfactionIwantToAdd);
   }
 }

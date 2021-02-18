@@ -45,33 +45,33 @@ public class FactionManager {
     }
 
     public void addFactionSatisfaction(FactionType factionType, int satisfaction) {
-        getFaction(factionType).addSatisfaction(satisfaction);
+        getFaction(factionType).updateSatisfaction(satisfaction);
     }
 
     public void addAllFactionSatisfaction(int satisfaction) {
-        factionList.forEach(f -> f.addSatisfaction(satisfaction));
+        factionList.forEach(f -> f.updateSatisfaction(satisfaction));
     }
 
     public void addFactionPartisan(FactionType factionType, int partisans) {
-        getFaction(factionType).addPartisans(partisans);
+        getFaction(factionType).updatePartisans(partisans);
     }
 
     public void addFactionPartisanPercent(FactionType factionType, int partisansPercent) {
-        getFaction(factionType).addPartisansPercent(partisansPercent);
+        getFaction(factionType).updatePartisansPercent(partisansPercent);
     }
 
     public void addAllFactionsPartisan(int partisans) {
-        factionList.forEach(f -> f.addPartisans(partisans));
+        factionList.forEach(f -> f.updatePartisans(partisans));
     }
 
     public void addAllFactionsPartisanPercent(int partisansPercent) {
-        factionList.forEach(f -> f.addPartisansPercent(partisansPercent));
+        factionList.forEach(f -> f.updatePartisansPercent(partisansPercent));
     }
 
     public void removeRandomlyFactionPartisans(int partisansToRemove) {
         Random rand = new Random();
         while (partisansToRemove > 0) {
-            factionList.get(rand.nextInt(factionList.size())).addPartisans(-1);
+            factionList.get(rand.nextInt(factionList.size())).updatePartisans(-1);
             partisansToRemove--;
         }
     }
