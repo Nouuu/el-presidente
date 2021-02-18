@@ -40,4 +40,13 @@ public class DifficultyTest {
             Assertions.assertThat(difficulty.getLoseMultiplier()).isGreaterThanOrEqualTo(0.01);
         }
     }
+
+    @Test
+    public void testDifficultyGetSatisfactionLimit() {
+        int[] expecteds = { 10, 30, 50, 65 };
+        for (Difficulty difficulty : Difficulty.values()) {
+            int expected = expecteds[difficulty.ordinal()];
+            Assertions.assertThat(expected).isEqualTo(difficulty.getSatisfactionLimit());
+        }
+    }
 }

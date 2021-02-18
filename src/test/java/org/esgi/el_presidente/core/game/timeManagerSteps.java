@@ -11,6 +11,10 @@ import io.cucumber.java.en.When;
 public class timeManagerSteps {
   private TimeManager timeManager;
 
+  /**
+   * TODO TEST isItEndOfYear
+   */
+
   @Given("a time manager")
   public void a_time_manager() {
     timeManager = new TimeManager();
