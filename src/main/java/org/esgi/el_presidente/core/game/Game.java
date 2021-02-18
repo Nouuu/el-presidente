@@ -49,10 +49,12 @@ public class Game {
   }
 
   public void nextTurn() {
+    System.out.println(timeManager.getSeason());
     currentEvent = scenario.getNextEvent(timeManager.getSeason());
 
     if (timeManager.isTheEndOfTheYear()) {
-      // TODO Gestion de Bilan de fin d'année
+      // TODO buy bribe / food
+      System.out.println(reviewTheGame());
     }
 
     timeManager.nextSeason();
@@ -63,7 +65,12 @@ public class Game {
   }
 
   // TODO
-  private void reviewTheGame() {
+  public String reviewTheGame() {
+    StringBuilder game = new StringBuilder();
+    game.append("Money: " + ressourceManager.getMoney() + "\n");
+    game.append("FoodReseve: " + ressourceManager.getFoodReserves() + "\n");
+    game.append("GlobalSatisfaction: " + factionManager.getGlobalSatisfaction() + "\n");
+    return game.toString();
   }
 
   public boolean isNotLost() {

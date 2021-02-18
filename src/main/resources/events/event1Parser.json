@@ -9,14 +9,14 @@
       "financeEffect": 600,
       "factionEffects": [
         {
-          "factionType": "",
+          "factionType": "religieux",
           "partisansPercentEffect": 1,
-          "satisfactionEffect": 2
+          "satisfactionEffect": -2
         },
         {
-          "factionType": "communiste",
+          "factionType": "communistes",
           "partisansPercentEffect": 10,
-          "satisfactionEffect": 5
+          "satisfactionEffect": -5
         },
         {
           "factionType": "écologistes",
@@ -30,7 +30,7 @@
       "financeEffect": 60,
       "factionEffects": [
         {
-          "factionType": "",
+          "factionType": "religieux",
           "partisansPercentEffect": 1,
           "satisfactionEffect": 1
         }

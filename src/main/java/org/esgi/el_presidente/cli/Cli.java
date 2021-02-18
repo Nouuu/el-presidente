@@ -37,6 +37,7 @@ public class Cli {
   }
 
   public void printResult() {
+    System.out.println(game.reviewTheGame());
     System.out.println("C'est fini");
   }
 }

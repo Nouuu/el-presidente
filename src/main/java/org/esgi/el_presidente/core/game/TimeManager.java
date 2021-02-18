@@ -17,8 +17,14 @@ public class TimeManager {
   }
 
   public void nextSeason() {
-    // TODO change Season
     seasonCount += 1;
+    if (season == Season.winter) {
+      season = Season.spring;
+    } else {
+      int currentSeasonIndex = season.ordinal();
+      season = Season.values()[currentSeasonIndex + 1];
+    }
+
   }
 
   public Season getSeason() {
