@@ -40,7 +40,7 @@ public class RessourceManager {
         throw new Exception("Can't buy oyalists are not satisfied");
       }
 
-      loyalist.removeSatisfaction(loyalistSatisfactionLost);
+      loyalist.updateSatisfaction(-loyalistSatisfactionLost);
       faction.addSatisfactionPercent(10);
     } catch (Exception e) {
       throw new Exception("Can't buy Bribe");

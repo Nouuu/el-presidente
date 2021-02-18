@@ -112,7 +112,7 @@ public class FactionTest {
         int initialSatisfaction = 15;
         int initialPartisans = 15;
         Faction faction = new Faction(factionType, initialSatisfaction, initialPartisans);
-        faction.removeSatisfaction(15);
+        faction.updateSatisfaction(-15);
         Assertions.assertThat(faction.getSatisfaction()).isEqualTo(0);
     }
 
