@@ -213,4 +213,57 @@ public class FactionManagerTest {
                 .isEqualTo(initialPartisan * 7 - removeRandomlyPartisan);
     }
 
+    @Test
+    public void testFactionManagerAddFactionSatisfactionNull() {
+        int initialPartisan = 15;
+        int initialSatisfaction = 60;
+        int initialLoyalistPartisan = 15;
+        int initialLoyalistSatisfaction = 60;
+        int addSatisfaction = 28;
+
+        FactionManager factionManager = new FactionManager().initFactionList(initialSatisfaction, initialPartisan,
+                initialLoyalistSatisfaction, initialLoyalistPartisan);
+
+        factionManager.addFactionSatisfaction(null, addSatisfaction);
+
+        factionManager.getFactionList().forEach(
+                f -> Assertions.assertThat(f.getSatisfaction()).isEqualTo(initialSatisfaction + addSatisfaction));
+
+    }
+
+    @Test
+    public void testFactionManagerAddFactionPartisanNull() {
+        int initialPartisan = 15;
+        int initialSatisfaction = 60;
+        int initialLoyalistPartisan = 15;
+        int initialLoyalistSatisfaction = 60;
+        int factionAddPartisan = 18;
+
+        FactionManager factionManager = new FactionManager().initFactionList(initialSatisfaction, initialPartisan,
+                initialLoyalistSatisfaction, initialLoyalistPartisan);
+
+        factionManager.addFactionPartisan(null, factionAddPartisan);
+
+        factionManager.getFactionList()
+                .forEach(f -> Assertions.assertThat(f.getPartisans()).isEqualTo(initialPartisan + factionAddPartisan));
+
+    }
+
+    @Test
+    public void testFactionManagerAddFactionPartisanPercentNull() {
+        int initialPartisan = 15;
+        int initialSatisfaction = 60;
+        int initialLoyalistPartisan = 15;
+        int initialLoyalistSatisfaction = 60;
+        int factionAddPartisanPercent = 18;
+
+        FactionManager factionManager = new FactionManager().initFactionList(initialSatisfaction, initialPartisan,
+                initialLoyalistSatisfaction, initialLoyalistPartisan);
+
+        factionManager.addFactionPartisanPercent(null, factionAddPartisanPercent);
+
+        factionManager.getFactionList().forEach(f -> Assertions.assertThat(f.getPartisans()).isEqualTo(17));
+    }
+
+
 }

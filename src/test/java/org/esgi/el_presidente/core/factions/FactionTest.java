@@ -159,7 +159,7 @@ public class FactionTest {
         Faction capitalist = new Faction(FactionType.capitalist, 100, 15);
         Faction loyalist = new Faction(FactionType.loyalist, 100, 15);
         Faction ecologist = new Faction(FactionType.ecologist, 100, 15);
-        assertEquals("capitaliste", capitalist.getType());
+        assertEquals("capitalistes", capitalist.getType());
         assertEquals("loyalistes", loyalist.getType());
         assertEquals("écologistes", ecologist.getType());
     }

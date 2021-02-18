@@ -11,7 +11,7 @@ public class FactionManager {
     }
 
     public FactionManager initFactionList(int initialSatisfaction, int initialPartisan, int initialLoyalistSatisfaction,
-            int initialLoyalistPartisan) {
+                                          int initialLoyalistPartisan) {
         factionList = new ArrayList<>();
 
         for (FactionType factionType : FactionType.values()) {
@@ -45,7 +45,11 @@ public class FactionManager {
     }
 
     public void addFactionSatisfaction(FactionType factionType, int satisfaction) {
-        getFaction(factionType).addSatisfaction(satisfaction);
+        if (factionType == null) {
+            addAllFactionSatisfaction(satisfaction);
+        } else {
+            getFaction(factionType).addSatisfaction(satisfaction);
+        }
     }
 
     public void addAllFactionSatisfaction(int satisfaction) {
@@ -53,11 +57,19 @@ public class FactionManager {
     }
 
     public void addFactionPartisan(FactionType factionType, int partisans) {
-        getFaction(factionType).addPartisans(partisans);
+        if (factionType == null) {
+            addAllFactionsPartisan(partisans);
+        } else {
+            getFaction(factionType).addPartisans(partisans);
+        }
     }
 
     public void addFactionPartisanPercent(FactionType factionType, int partisansPercent) {
-        getFaction(factionType).addPartisansPercent(partisansPercent);
+        if (factionType == null) {
+            addAllFactionsPartisanPercent(partisansPercent);
+        } else {
+            getFaction(factionType).addPartisansPercent(partisansPercent);
+        }
     }
 
     public void addAllFactionsPartisan(int partisans) {

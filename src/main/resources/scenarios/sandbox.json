@@ -1,0 +1,15 @@
+{
+  "introduction": "Bienvenue dans le mode Sandbox !",
+  "initialMoney": 200,
+  "initialFood": 0,
+  "initialIndustrialization": 15,
+  "initialAgriculture": 15,
+  "partisansSatisfaction": 50,
+  "partisans": 15,
+  "loyalistPartisansSatisfaction": 100,
+  "loyalistPartisans": 15,
+  "events": [
+    "event1Parser.json",
+    "event2Bitcoin.json"
+  ]
+}

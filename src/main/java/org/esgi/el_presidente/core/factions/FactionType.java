@@ -5,12 +5,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import java.util.Arrays;
 
 public enum FactionType {
-    capitalist("capitaliste"),
-    communist("communiste"),
+    capitalist("capitalistes"),
+    communist("communistes"),
     liberal("liberaux"),
     religious("religieux"),
     ecologist("écologistes"),
-    nationalist("nationalist"),
+    nationalist("nationalistes"),
     loyalist("loyalistes");
 
     private final String type;

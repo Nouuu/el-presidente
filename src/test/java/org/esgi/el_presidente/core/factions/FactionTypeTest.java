@@ -28,8 +28,8 @@ public class FactionTypeTest {
 
     @Test
     public void fromString() {
-        Assertions.assertThat(FactionType.fromString("capitaliste")).isEqualTo(FactionType.capitalist);
-        Assertions.assertThat(FactionType.fromString("communiste")).isEqualTo(FactionType.communist);
+        Assertions.assertThat(FactionType.fromString("capitalistes")).isEqualTo(FactionType.capitalist);
+        Assertions.assertThat(FactionType.fromString("communistes")).isEqualTo(FactionType.communist);
         Assertions.assertThat(FactionType.fromString("religieux")).isEqualTo(FactionType.religious);
     }
 }
