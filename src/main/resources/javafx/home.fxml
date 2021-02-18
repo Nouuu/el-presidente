@@ -1,8 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.esgi.el_presidente.App">
-
-</AnchorPane>
+<SplitPane fx:id="splitPane1" dividerPositions="0.25" prefHeight="720.0" prefWidth="1280.0" stylesheets="@css/modena_dark.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.esgi.el_presidente.javafx.controller.HomeController">
+   <items>
+      <AnchorPane fx:id="leftPane" stylesheets="@css/modena_dark.css">
+         <children>
+            <Text fx:id="scenarioName" fill="#fefefe" layoutX="23.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choisissez un scénario pour commencer" textAlignment="CENTER" wrappingWidth="270.93675994873047">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <StackPane fx:id="rightStackPane">
+         <children>
+            <AnchorPane fx:id="scenarioChoosePane" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/modena_dark.css">
+               <children>
+                  <Text fill="#e2e2e2" layoutX="89.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choisissez le scénario pour commencer la partie" x="50.0" y="50.0">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Text>
+                  <ComboBox fx:id="scenarioComboBox" layoutX="369.0" layoutY="289.0" prefHeight="70.0" prefWidth="271.0" promptText="Clique lààààààà" />
+                  <Button fx:id="chooseScenarioButton" layoutX="422.0" layoutY="534.0" mnemonicParsing="false" onAction="#onChooseScenario" text="C'est partie !">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="eventPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/modena_dark.css" visible="false">
+               <children>
+                  <Text fill="#e2e2e2" strokeType="OUTSIDE" strokeWidth="0.0" text="Event" x="50.0" y="50.0">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+         </children>
+      </StackPane>
+   </items>
+</SplitPane>

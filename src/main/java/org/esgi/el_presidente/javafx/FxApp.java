@@ -18,10 +18,11 @@ public class FxApp extends Application {
         URL file = getClass().getResource("/javafx/home.fxml");
 
         Parent root = FXMLLoader.load(file);
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root,1280,720);
 
         primaryStage.setScene(scene);
-
+        primaryStage.setResizable(false);
+        primaryStage.setTitle("El Presidente");
         primaryStage.show();
     }
 
