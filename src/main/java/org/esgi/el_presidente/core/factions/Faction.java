@@ -36,6 +36,11 @@ public class Faction {
         this.satisfaction = Math.max(Math.min(this.satisfaction + additionalSatisfaction, 100), 0);
     }
 
+    /**
+     * TODO delete this methode
+     * 
+     * @param satisfaction
+     */
     public void removeSatisfaction(int satisfaction) {
         updateSatisfaction(-satisfaction);
     }

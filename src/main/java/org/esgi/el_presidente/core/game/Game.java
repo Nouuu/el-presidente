@@ -64,9 +64,9 @@ public class Game {
   private void reviewTheGame() {
   }
 
-  // TODO
   public boolean isNotLost() {
-    return true;
+    int satisfactionLimit = difficulty.getSatisfactionLimit();
+    return satisfactionLimit < factionManager.getGlobalSatisfaction();
   }
 
   public void triggerEventEffect(int index) {
