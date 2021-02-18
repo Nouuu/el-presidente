@@ -18,6 +18,7 @@ public class Game {
   private FactionManager factionManager;
   private RessourceManager ressourceManager;
   private Event currentEvent;
+  private int satisfactionLimit;
 
   private FactionManager constructFactionManagerFromScenario(Scenario scenario) {
     int initialPartisansSatisfaction = scenario.getInitialPartisansSatisfaction();
@@ -40,6 +41,7 @@ public class Game {
   public Game(Scenario scenario, Difficulty difficulty) {
     this.difficulty = difficulty;
     this.scenario = scenario;
+    satisfactionLimit = difficulty.getSatisfactionLimit();
 
     this.factionManager = constructFactionManagerFromScenario(scenario);
     this.ressourceManager = constructRessourceManagerFromScenario(scenario);
@@ -65,8 +67,8 @@ public class Game {
   }
 
   public boolean isNotLost() {
-    int satisfactionLimit = difficulty.getSatisfactionLimit();
-    return satisfactionLimit < factionManager.getGlobalSatisfaction();
+    int globalSatisfaction = factionManager.getGlobalSatisfaction();
+    return satisfactionLimit < globalSatisfaction;
   }
 
   public void triggerEventEffect(int index) {

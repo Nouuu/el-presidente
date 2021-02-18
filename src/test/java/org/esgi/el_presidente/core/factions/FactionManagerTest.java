@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.offset;
+import static org.junit.Assert.assertEquals;
 
 public class FactionManagerTest {
 
@@ -70,12 +70,14 @@ public class FactionManagerTest {
         int initialSatisfaction = 60;
         int initialLoyalistPartisan = 17;
         int initialLoyalistSatisfaction = 100;
-        double globalSatisfaction = 66.36;
+        int globalSatisfactionExpected = 66;
 
         FactionManager factionManager = new FactionManager().initFactionList(initialSatisfaction, initialPartisan,
                 initialLoyalistSatisfaction, initialLoyalistPartisan);
 
-        Assertions.assertThat(factionManager.getGlobalSatisfaction()).isEqualTo(globalSatisfaction, offset(0.001));
+        assertEquals(globalSatisfactionExpected, factionManager.getGlobalSatisfaction());
+
+        // Assertions.assertThat().isEqualTo(globalSatisfaction, offset(0.001));
     }
 
     @Test

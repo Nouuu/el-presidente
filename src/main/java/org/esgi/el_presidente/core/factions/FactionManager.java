@@ -24,11 +24,11 @@ public class FactionManager {
         return this;
     }
 
-    public double getGlobalSatisfaction() {
+    public int getGlobalSatisfaction() {
         double dividend = factionList.stream().mapToDouble(f -> f.getPartisans() * f.getSatisfaction()).sum();
         double divider = getTotalPartisan();
 
-        return Math.round(dividend / divider * 100) / 100.;
+        return (int) Math.round(dividend / divider);
     }
 
     public List<Faction> getFactionList() {
