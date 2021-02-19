@@ -1,15 +1,23 @@
 package org.esgi.el_presidente.javafx.controller;
 
 
-import javafx.event.ActionEvent;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.util.StringConverter;
+import org.apache.commons.lang3.StringUtils;
+import org.esgi.el_presidente.core.game.Difficulty;
 import org.esgi.el_presidente.core.scenario.ScenarioList;
 import org.esgi.el_presidente.javafx.FxApp;
 
@@ -38,13 +46,32 @@ public class HomeController implements Initializable {
     private Text scenarioName;
 
     @FXML
+    private Label scenarioDetails;
+
+    @FXML
+    private Label difficultyLabel;
+
+    @FXML
     private ComboBox<ScenarioList> scenarioComboBox;
+
+    @FXML
+    private ComboBox<Difficulty> difficultyComboBox;
+
+    @FXML
+    private ListView<String> gameInfos;
+
+    @FXML
+    private ListView<String> factionsInfos;
+
+    @FXML
+    private VBox statusVbox;
 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         preventDividerMove();
         initScenarioList();
+        initDifficultyList();
     }
 
     private void preventDividerMove() {
@@ -52,14 +79,13 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    private void onChooseScenario(ActionEvent event) {
-        fxApp.testOut();
+    private void onChooseGameMode() throws JsonProcessingException {
         ScenarioList scenario = scenarioComboBox.getValue();
-        if (scenario == null) {
-            System.out.println("Action");
-        } else {
-            scenarioName.setText(scenario.getName());
+        Difficulty difficulty = difficultyComboBox.getValue();
+        if (scenario != null && difficulty != null) {
+            fxApp.chooseGameMode(scenario, difficulty, scenarioName, scenarioDetails, difficultyLabel);
             setVisibleStackPane(eventPane);
+            statusVbox.setVisible(true);
         }
     }
 
@@ -71,9 +97,43 @@ public class HomeController implements Initializable {
 
     private void initScenarioList() {
         scenarioComboBox.getItems().addAll(ScenarioList.values());
+        scenarioComboBox.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(ScenarioList object) {
+                return StringUtils.capitalize(object.getName());
+            }
+
+            @Override
+            public ScenarioList fromString(String string) {
+                return scenarioComboBox.getItems()
+                        .stream()
+                        .filter(s -> s.getName().equals(string))
+                        .findFirst().orElse(null);
+            }
+        });
+    }
+
+    private void initDifficultyList() {
+        difficultyComboBox.getItems().addAll(Difficulty.values());
+        difficultyComboBox.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Difficulty object) {
+                return StringUtils.capitalize(object.toString());
+            }
+
+            @Override
+            public Difficulty fromString(String string) {
+                return difficultyComboBox.getItems()
+                        .stream()
+                        .filter(s -> s.toString().equals(string))
+                        .findFirst().orElse(null);
+            }
+        });
     }
 
     public void setFxApp(FxApp fxApp) {
         this.fxApp = fxApp;
+        gameInfos.setItems(fxApp.getGameInfosObservable());
+        factionsInfos.setItems(fxApp.getFactionsInfosObservable());
     }
 }

@@ -1,16 +1,31 @@
 package org.esgi.el_presidente.javafx;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.StringUtils;
+import org.esgi.el_presidente.core.game.Difficulty;
+import org.esgi.el_presidente.core.game.Game;
+import org.esgi.el_presidente.core.scenario.Scenario;
+import org.esgi.el_presidente.core.scenario.ScenarioList;
 import org.esgi.el_presidente.javafx.controller.HomeController;
 
 import java.io.IOException;
 import java.net.URL;
 
 public class FxApp extends Application {
+    private Game game;
+    public ObservableList<String> gameInfosObservable = FXCollections.observableArrayList();
+    public ObservableList<String> factionsInfosObservable = FXCollections.observableArrayList();
+
     public static void launchApp() {
         launch();
     }
@@ -40,14 +55,66 @@ public class FxApp extends Application {
         controller.setFxApp(this);
     }
 
-    public void testOut() {
-        System.out.println("OUT");
-    }
-
     private void showApp(Stage primaryStage, Scene scene) {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.setTitle("El Presidente");
         primaryStage.show();
+    }
+
+    public void chooseGameMode(ScenarioList scenarioL, Difficulty difficulty, Text scenarioName, Label scenarioDescription, Label difficultyLabel) throws JsonProcessingException {
+        scenarioName.setText(scenarioL.getName());
+        difficultyLabel.setText(difficulty.toString().toUpperCase());
+        difficultyLabel.setVisible(true);
+        switch (difficulty) {
+            case EASY:
+                difficultyLabel.setTextFill(Paint.valueOf("#00FF08"));
+                break;
+            case MEDIUM:
+                difficultyLabel.setTextFill(Paint.valueOf("#BEFF00"));
+                break;
+            case HARD:
+                difficultyLabel.setTextFill(Paint.valueOf("#FFAD1C"));
+                break;
+            case HARDCORE:
+                difficultyLabel.setTextFill(Paint.valueOf("#FF0800"));
+                break;
+            default:
+                difficultyLabel.setTextFill(Paint.valueOf("#ffffff"));
+                break;
+        }
+
+        Scenario scenario = Scenario.createFromJson(scenarioL.getPath());
+        scenarioDescription.setText(scenario.getIntroduction());
+        scenarioDescription.setVisible(true);
+        game = new Game(scenario, difficulty);
+        refreshGameInfos();
+    }
+
+    public ObservableList<String> getGameInfosObservable() {
+        return gameInfosObservable;
+    }
+
+    public ObservableList<String> getFactionsInfosObservable() {
+        return factionsInfosObservable;
+    }
+
+    public void refreshGameInfos() {
+        gameInfosObservable.clear();
+        gameInfosObservable.add("Argent : " + game.getRessourceManager().getMoney() + "$");
+        gameInfosObservable.add("Nourriture : " + game.getRessourceManager().getFoodReserves());
+        gameInfosObservable.add("Occupation industrie : " + game.getRessourceManager().getIndustryOccupation() + "%");
+        gameInfosObservable.add("Occupation agriculture : " + game.getRessourceManager().getAgricultureOccupation() + "%");
+        gameInfosObservable.add("Satisfaction globale minimum : " + game.getSatisfactionLimit() + "%");
+        gameInfosObservable.add("Satisfaction globale actuelle : " + game.getFactionManager().getGlobalSatisfaction() + "%");
+        gameInfosObservable.add("Population totale : " + game.getFactionManager().getTotalPartisan());
+
+        factionsInfosObservable.clear();
+
+        game.getFactionManager().getFactionList().forEach(f ->
+                factionsInfosObservable.add(
+                        StringUtils.capitalize(f.getFactionType().toString())
+                                + "\nPartisans : " + f.getPartisans()
+                                + "\nSatisfaction : " + f.getSatisfaction() + "%"));
     }
 }
