@@ -5,85 +5,93 @@ import org.esgi.el_presidente.core.factions.FactionType;
 
 public class RessourceManager {
 
-  private Finances finances;
-  private int foodReserves;
-  private Faction loyalist;
-  private Agriculture agriculture;
-  private Industry industry;
+    private Finances finances;
+    private int foodReserves;
+    private Faction loyalist;
+    private Agriculture agriculture;
+    private Industry industry;
 
-  public RessourceManager(Faction loyalist, int money, int foodReserves, Agriculture agriculture, Industry industry) {
-    finances = new Finances(money);
-    this.foodReserves = foodReserves;
-    this.loyalist = loyalist;
-    this.industry = industry;
-    this.agriculture = agriculture;
-  }
-
-  public void buyFood(int unitOfFood) throws Exception {
-    try {
-      finances.buyFood(unitOfFood);
-      foodReserves += unitOfFood;
-    } catch (Exception e) {
-      throw new Exception("Can't buy Food");
+    public RessourceManager(Faction loyalist, int money, int foodReserves, Agriculture agriculture, Industry industry) {
+        finances = new Finances(money);
+        this.foodReserves = foodReserves;
+        this.loyalist = loyalist;
+        this.industry = industry;
+        this.agriculture = agriculture;
     }
-  }
 
-  public void buyBribe(Faction faction) throws Exception {
-    if (faction.getFactionType() == FactionType.loyalist) {
-      throw new Exception("Try to buy loyalist");
+    public void buyFood(int unitOfFood) throws Exception {
+        try {
+            finances.buyFood(unitOfFood);
+            foodReserves += unitOfFood;
+        } catch (Exception e) {
+            throw new Exception("Can't buy Food");
+        }
     }
-    try {
-      int price = finances.buyBribe(faction.getPartisans());
-      int loyalistSatisfactionLost = (int) Math.ceil(price / 10);
 
-      if (loyalist.getSatisfaction() < loyalistSatisfactionLost) {
-        throw new Exception("Can't buy oyalists are not satisfied");
-      }
+    public void buyBribe(Faction faction) throws Exception {
+        if (faction.getFactionType() == FactionType.loyalist) {
+            throw new Exception("Try to buy loyalist");
+        }
+        try {
+            int price = finances.buyBribe(faction.getPartisans());
+            int loyalistSatisfactionLost = (int) Math.ceil(price / 10);
 
-      loyalist.updateSatisfaction(-loyalistSatisfactionLost);
-      faction.addSatisfactionPercent(10);
-    } catch (Exception e) {
-      throw new Exception("Can't buy Bribe");
+            if (loyalist.getSatisfaction() < loyalistSatisfactionLost) {
+                throw new Exception("Can't buy oyalists are not satisfied");
+            }
+
+            loyalist.updateSatisfaction(-loyalistSatisfactionLost);
+            faction.addSatisfactionPercent(10);
+        } catch (Exception e) {
+            throw new Exception("Can't buy Bribe");
+        }
     }
-  }
 
-  public void increaseSizeOfAgriculture(int additionalSize) {
-    try {
-      testSizeOfIsland(additionalSize);
-      agriculture.expand(additionalSize);
-    } catch (Exception e) {
-      System.err.println("Cannot grow as expected");
+    public void increaseSizeOfAgriculture(int additionalSize) {
+        try {
+            testSizeOfIsland(additionalSize);
+            agriculture.expand(additionalSize);
+        } catch (Exception e) {
+            System.err.println("Cannot grow as expected");
+        }
     }
-  }
 
-  public void increaseSizeOfIndustry(int additionalSize) {
-    try {
-      testSizeOfIsland(additionalSize);
-      industry.expand(additionalSize);
-    } catch (Exception e) {
-      System.err.println("Cannot grow as expected");
+    public void increaseSizeOfIndustry(int additionalSize) {
+        try {
+            testSizeOfIsland(additionalSize);
+            industry.expand(additionalSize);
+        } catch (Exception e) {
+            System.err.println("Cannot grow as expected");
+        }
     }
-  }
 
-  private void testSizeOfIsland(int additionalSize) throws Exception {
-    if (agriculture.getSize() + industry.getSize() + additionalSize > 100) {
-      throw new Exception("Incorrect size");
+    private void testSizeOfIsland(int additionalSize) throws Exception {
+        if (agriculture.getSize() + industry.getSize() + additionalSize > 100) {
+            throw new Exception("Incorrect size");
+        }
     }
-  }
 
-  public void handleMoneyAction(int moneyImpact) {
-    finances.handleMoneyAction(moneyImpact);
-  }
+    public void handleMoneyAction(int moneyImpact) {
+        finances.handleMoneyAction(moneyImpact);
+    }
 
-  public void handleFoodAction(int foodImpact) {
-    foodReserves += foodImpact;
-  }
+    public void handleFoodAction(int foodImpact) {
+        foodReserves += foodImpact;
+    }
 
-  public int getMoney() {
-    return finances.getMoneyInCoffers();
-  }
+    public int getMoney() {
+        return finances.getMoneyInCoffers();
+    }
 
-  public int getFoodReserves() {
-    return foodReserves;
-  }
+    public int getFoodReserves() {
+        return foodReserves;
+    }
+
+    public int getAgricultureOccupation() {
+        return agriculture.getSize();
+    }
+
+    public int getIndustryOccupation() {
+        return industry.getSize();
+    }
 }
