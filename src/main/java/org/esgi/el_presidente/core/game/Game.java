@@ -10,6 +10,7 @@ import org.esgi.el_presidente.core.ressources.Agriculture;
 import org.esgi.el_presidente.core.ressources.Industry;
 import org.esgi.el_presidente.core.ressources.RessourceManager;
 import org.esgi.el_presidente.core.scenario.Scenario;
+import org.esgi.el_presidente.core.season.Season;
 
 public class Game {
     private Difficulty difficulty;
@@ -112,5 +113,13 @@ public class Game {
 
     public int getSatisfactionLimit() {
         return satisfactionLimit;
+    }
+
+    public Season getCurrentSeason() {
+        return timeManager.getSeason();
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
     }
 }

@@ -58,7 +58,7 @@
       </AnchorPane>
       <StackPane fx:id="rightStackPane">
          <children>
-            <AnchorPane fx:id="scenarioChoosePane" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/modena_dark.css">
+            <AnchorPane fx:id="scenarioChoosePane" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/modena_dark.css" visible="false">
                <children>
                   <Text fill="#e2e2e2" layoutX="-12.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choisissez le scénario et la difficulté pour commencer la partie" x="50.0" y="50.0">
                      <font>
@@ -67,20 +67,35 @@
                   </Text>
                   <ComboBox fx:id="scenarioComboBox" layoutX="342.0" layoutY="276.0" prefHeight="70.0" prefWidth="271.0" promptText="Scénario" />
                   <ComboBox fx:id="difficultyComboBox" layoutX="342.0" layoutY="409.0" prefHeight="70.0" prefWidth="271.0" promptText="Difficulté" />
-                  <Button fx:id="chooseScenarioButton" layoutX="400.0" layoutY="569.0" mnemonicParsing="false" onAction="#onChooseGameMode" stylesheets="@css/modena_dark.css" text="C'est partie !">
+                  <Button fx:id="chooseScenarioButton" layoutX="395.0" layoutY="559.0" mnemonicParsing="false" onAction="#onChooseGameMode" stylesheets="@css/modena_dark.css" text="C'est partie !">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Button>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="eventPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/modena_dark.css" visible="false">
+            <AnchorPane fx:id="eventPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/modena_dark.css">
                <children>
-                  <Text fill="#e2e2e2" strokeType="OUTSIDE" strokeWidth="0.0" text="Event" x="50.0" y="50.0">
+                  <VBox layoutX="28.0" layoutY="29.0" prefHeight="96.0" prefWidth="899.0" spacing="20.0">
+                     <children>
+                        <Label fx:id="eventSeason" alignment="TOP_CENTER" prefHeight="35.0" prefWidth="896.0" text="Season" wrapText="true">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="eventDescription" alignment="TOP_CENTER" prefHeight="35.0" prefWidth="896.0" text="Event Description" wrapText="true">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="eventRadioButtonStack" layoutX="124.0" layoutY="181.0" prefHeight="357.0" prefWidth="707.0" spacing="20.0" />
+                  <Button layoutX="405.0" layoutY="560.0" mnemonicParsing="false" onAction="#onSelectChoice" prefHeight="51.0" prefWidth="146.0" text="Choisir">
                      <font>
-                        <Font size="32.0" />
+                        <Font size="18.0" />
                      </font>
-                  </Text>
+                  </Button>
                </children>
             </AnchorPane>
          </children>

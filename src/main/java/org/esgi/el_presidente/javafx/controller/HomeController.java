@@ -6,10 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SplitPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -26,6 +23,7 @@ import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
     private FxApp fxApp;
+    private ToggleGroup radioToggleGroup;
 
     @FXML
     private SplitPane splitPane1;
@@ -66,10 +64,20 @@ public class HomeController implements Initializable {
     @FXML
     private VBox statusVbox;
 
+    @FXML
+    private Label eventDescription;
+
+    @FXML
+    private VBox eventRadioButtonStack;
+
+    @FXML
+    private Label eventSeason;
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         preventDividerMove();
+        setVisibleStackPane(scenarioChoosePane);
         initScenarioList();
         initDifficultyList();
     }
@@ -86,6 +94,7 @@ public class HomeController implements Initializable {
             fxApp.chooseGameMode(scenario, difficulty, scenarioName, scenarioDetails, difficultyLabel);
             setVisibleStackPane(eventPane);
             statusVbox.setVisible(true);
+            getNextEvent();
         }
     }
 
@@ -136,4 +145,17 @@ public class HomeController implements Initializable {
         gameInfos.setItems(fxApp.getGameInfosObservable());
         factionsInfos.setItems(fxApp.getFactionsInfosObservable());
     }
+
+    private void getNextEvent() {
+//        setVisibleStackPane(eventPane);
+        radioToggleGroup = fxApp.nextEvent(eventDescription, eventRadioButtonStack, eventSeason);
+    }
+
+    @FXML
+    private void onSelectChoice() {
+        RadioButton radioButton = (RadioButton) radioToggleGroup.getSelectedToggle();
+        int index = Integer.parseInt(radioButton.getId());
+        radioToggleGroup = fxApp.chooseEventChoice(index, eventDescription, eventRadioButtonStack, eventSeason);
+    }
+
 }

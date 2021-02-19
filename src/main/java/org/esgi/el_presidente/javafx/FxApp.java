@@ -8,15 +8,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.StringUtils;
+import org.esgi.el_presidente.core.events.Event;
+import org.esgi.el_presidente.core.events.EventChoice;
 import org.esgi.el_presidente.core.game.Difficulty;
 import org.esgi.el_presidente.core.game.Game;
 import org.esgi.el_presidente.core.scenario.Scenario;
 import org.esgi.el_presidente.core.scenario.ScenarioList;
+import org.esgi.el_presidente.core.season.Season;
 import org.esgi.el_presidente.javafx.controller.HomeController;
 
 import javafx.scene.media.Media;
@@ -122,6 +129,38 @@ public class FxApp extends Application {
                                 + "\nSatisfaction : " + f.getSatisfaction() + "%"));
     }
 
+    public ToggleGroup nextEvent(Label eventDescription, VBox eventRadioButtonStack, Label eventSeason) {
+        Season season = game.getCurrentSeason();
+        game.nextTurn();
+        Event event = game.getCurrentEvent();
+
+        eventDescription.setText(event.getEventDetails());
+        eventSeason.setText(season.toString().toUpperCase());
+
+        eventRadioButtonStack.getChildren().clear();
+        ToggleGroup toggleGroup = new ToggleGroup();
+
+        for (int i = 0; i < event.getEventChoices().size(); i++) {
+            RadioButton radioButton = new RadioButton();
+            if (i == 0) {
+                radioButton.setSelected(true);
+            }
+            EventChoice eventChoice = event.getEventChoices().get(i);
+            radioButton.setToggleGroup(toggleGroup);
+            radioButton.setId(String.valueOf(i));
+            radioButton.setText(eventChoice.toString(game.getDifficulty()));
+            eventRadioButtonStack.getChildren().add(radioButton);
+
+        }
+        return toggleGroup;
+    }
+
+    public ToggleGroup chooseEventChoice(int choiceIndex, Label eventDescription, VBox eventRadioButtonStack, Label eventSeason) {
+        game.triggerEventEffect(choiceIndex);
+        refreshGameInfos();
+        return nextEvent(eventDescription, eventRadioButtonStack, eventSeason);
+    }
+
     private void playIt() {
         Media media1;
         Media media2;
@@ -134,7 +173,7 @@ public class FxApp extends Application {
         }
 
         ObservableList<Media> mediaList = FXCollections.observableArrayList();
-        mediaList.addAll(media1,media2);
+        mediaList.addAll(media1, media2);
 
 
         playList(mediaList, 0);
@@ -147,6 +186,7 @@ public class FxApp extends Application {
         MediaPlayer player = new MediaPlayer(mediaList.get(i));
         int nextI = (i + 1) % mediaList.size();
         player.setOnEndOfMedia(() -> playList(mediaList, nextI));
+        player.setAutoPlay(true);
         player.play();
     }
 }
