@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -17,6 +18,8 @@ import org.esgi.el_presidente.core.game.Game;
 import org.esgi.el_presidente.core.scenario.Scenario;
 import org.esgi.el_presidente.core.scenario.ScenarioList;
 import org.esgi.el_presidente.javafx.controller.HomeController;
+
+import javafx.scene.media.Media;
 
 import java.io.IOException;
 import java.net.URL;
@@ -35,6 +38,7 @@ public class FxApp extends Application {
         FXMLLoader loader = getLoader();
         Scene scene = new Scene(getRootLayout(loader));
         linkController(loader);
+        playIt();
         showApp(primaryStage, scene);
     }
 
@@ -116,5 +120,33 @@ public class FxApp extends Application {
                         StringUtils.capitalize(f.getFactionType().toString())
                                 + "\nPartisans : " + f.getPartisans()
                                 + "\nSatisfaction : " + f.getSatisfaction() + "%"));
+    }
+
+    private void playIt() {
+        Media media1;
+        Media media2;
+        try {
+            media1 = new Media(getClass().getResource("/music/glorious-morning.mp3").toString());
+            media2 = new Media(getClass().getResource("/music/glorious-morning-2.mp3").toString());
+        } catch (Exception e) {
+            System.out.println("Can't read sound files !");
+            return;
+        }
+
+        ObservableList<Media> mediaList = FXCollections.observableArrayList();
+        mediaList.addAll(media1,media2);
+
+
+        playList(mediaList, 0);
+    }
+
+    private void playList(ObservableList<Media> mediaList, int i) {
+        if (mediaList.size() == 0) {
+            return;
+        }
+        MediaPlayer player = new MediaPlayer(mediaList.get(i));
+        int nextI = (i + 1) % mediaList.size();
+        player.setOnEndOfMedia(() -> playList(mediaList, nextI));
+        player.play();
     }
 }
