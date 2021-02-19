@@ -48,7 +48,7 @@ public class FactionManager {
         if (factionType == null) {
             addAllFactionSatisfaction(satisfaction);
         } else {
-            getFaction(factionType).addSatisfaction(satisfaction);
+            getFaction(factionType).updateSatisfaction(satisfaction);
         }
     }
 
@@ -60,7 +60,7 @@ public class FactionManager {
         if (factionType == null) {
             addAllFactionsPartisan(partisans);
         } else {
-            getFaction(factionType).addPartisans(partisans);
+            getFaction(factionType).updatePartisans(partisans);
         }
     }
 
@@ -68,7 +68,7 @@ public class FactionManager {
         if (factionType == null) {
             addAllFactionsPartisanPercent(partisansPercent);
         } else {
-            getFaction(factionType).addPartisansPercent(partisansPercent);
+            getFaction(factionType).updatePartisansPercent(partisansPercent);
         }
     }
 
