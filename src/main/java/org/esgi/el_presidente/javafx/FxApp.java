@@ -4,10 +4,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.esgi.el_presidente.javafx.controller.HomeController;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class FxApp extends Application {
@@ -17,25 +17,37 @@ public class FxApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = getLoader();
+        Scene scene = new Scene(getRootLayout(loader));
+        linkController(loader);
+        showApp(primaryStage, scene);
+    }
+
+    private Parent getRootLayout(FXMLLoader loader) throws IOException {
+        return loader.load();
+    }
+
+    private FXMLLoader getLoader() {
         URL file = getClass().getResource("/javafx/home.fxml");
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(file);
+        return loader;
+    }
 
-        Parent rootLayout = loader.load();
+    private void linkController(FXMLLoader loader) {
         HomeController controller = loader.getController();
         controller.setFxApp(this);
-
-        Scene scene = new Scene(rootLayout);
-
-
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.setTitle("El Presidente");
-        primaryStage.show();
     }
 
     public void testOut() {
         System.out.println("OUT");
+    }
+
+    private void showApp(Stage primaryStage, Scene scene) {
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.setTitle("El Presidente");
+        primaryStage.show();
     }
 }
