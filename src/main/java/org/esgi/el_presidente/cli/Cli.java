@@ -57,7 +57,14 @@ public class Cli {
     game.append("Money: " + ressourceManager.getMoney() + "\n");
     game.append("FoodReseve: " + ressourceManager.getFoodReserves() + "\n");
     game.append("GlobalSatisfaction: " + factionManager.getGlobalSatisfaction() + "\n");
+    game.append("Agriculture part: " + ressourceManager.getAgriculturePart() + "\n");
+    game.append("Industry part: " + ressourceManager.getIndustryPart() + "\n");
+    game.append(reviewFaction());
     return game.toString();
+  }
+
+  private String reviewFaction() {
+    return "";
   }
 
   public void printResult() {

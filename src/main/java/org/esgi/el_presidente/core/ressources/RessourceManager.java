@@ -93,4 +93,12 @@ public class RessourceManager {
     foodReserves += foodProduced;
     finances.handleMoneyAction(moneyProduced);
   }
+
+  public int getAgriculturePart() {
+    return agriculture.getSize();
+  }
+
+  public int getIndustryPart() {
+    return industry.getSize();
+  }
 }
