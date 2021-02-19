@@ -5,7 +5,9 @@ import java.util.Scanner;
 
 import org.esgi.el_presidente.core.events.Event;
 import org.esgi.el_presidente.core.events.EventChoice;
+import org.esgi.el_presidente.core.factions.FactionManager;
 import org.esgi.el_presidente.core.game.Game;
+import org.esgi.el_presidente.core.ressources.RessourceManager;
 
 public class Cli {
 
@@ -23,8 +25,20 @@ public class Cli {
       displayCurrentEvent(event);
       Scanner input = new Scanner(System.in);
       game.triggerEventEffect(input.nextInt());
-      System.out.println();
+      if (game.isTheEndOfTheYear()) {
+        RessourceManager ressourceManager = game.getRessourceManager();
+        ressourceManager.triggerEndOfYearAction();
+        displayEndOfYearBilan();
+        handleEndOfYearAction();
+        displayEndOfYearBilan();
+      }
     }
+  }
+
+  private void handleEndOfYearAction() {
+  }
+
+  private void displayEndOfYearBilan() {
   }
 
   private void displayCurrentEvent(Event event) {
@@ -36,8 +50,18 @@ public class Cli {
     }
   }
 
+  public String reviewTheGame() {
+    RessourceManager ressourceManager = game.getRessourceManager();
+    FactionManager factionManager = game.getFactionManager();
+    StringBuilder game = new StringBuilder();
+    game.append("Money: " + ressourceManager.getMoney() + "\n");
+    game.append("FoodReseve: " + ressourceManager.getFoodReserves() + "\n");
+    game.append("GlobalSatisfaction: " + factionManager.getGlobalSatisfaction() + "\n");
+    return game.toString();
+  }
+
   public void printResult() {
-    System.out.println(game.reviewTheGame());
+    System.out.println(reviewTheGame());
     System.out.println("C'est fini");
   }
 }

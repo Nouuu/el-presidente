@@ -86,4 +86,11 @@ public class RessourceManager {
   public int getFoodReserves() {
     return foodReserves;
   }
+
+  public void triggerEndOfYearAction() {
+    int moneyProduced = industry.yearlyProductionOfMoney();
+    int foodProduced = agriculture.yearlyProductionOfFood();
+    foodReserves += foodProduced;
+    finances.handleMoneyAction(moneyProduced);
+  }
 }
