@@ -11,11 +11,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import org.esgi.el_presidente.core.scenario.ScenarioList;
+import org.esgi.el_presidente.javafx.FxApp;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
+    private FxApp fxApp;
 
     @FXML
     private SplitPane splitPane1;
@@ -51,6 +53,7 @@ public class HomeController implements Initializable {
 
     @FXML
     private void onChooseScenario(ActionEvent event) {
+        fxApp.testOut();
         ScenarioList scenario = scenarioComboBox.getValue();
         if (scenario == null) {
             System.out.println("Action");
@@ -68,5 +71,9 @@ public class HomeController implements Initializable {
 
     private void initScenarioList() {
         scenarioComboBox.getItems().addAll(ScenarioList.values());
+    }
+
+    public void setFxApp(FxApp fxApp) {
+        this.fxApp = fxApp;
     }
 }
