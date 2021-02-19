@@ -46,7 +46,7 @@ public class FactionTest {
         int initialPartisans = 15;
 
         Faction faction = new Faction(factionType, initialSatisfaction, initialPartisans);
-        faction.addSatisfaction(addSatisfaction);
+        faction.updateSatisfaction(addSatisfaction);
         Assertions.assertThat(faction.getSatisfaction()).isEqualTo(initialSatisfaction + addSatisfaction);
     }
 
@@ -58,7 +58,7 @@ public class FactionTest {
         int initialPartisans = 15;
 
         Faction faction = new Faction(factionType, initialSatisfaction, initialPartisans);
-        faction.addSatisfaction(addSatisfaction);
+        faction.updateSatisfaction(addSatisfaction);
         Assertions.assertThat(faction.getSatisfaction()).isEqualTo(100);
     }
 
@@ -70,7 +70,7 @@ public class FactionTest {
         int initialPartisans = 15;
 
         Faction faction = new Faction(factionType, initialSatisfaction, initialPartisans);
-        faction.addSatisfaction(addSatisfaction);
+        faction.updateSatisfaction(addSatisfaction);
         Assertions.assertThat(faction.getSatisfaction()).isEqualTo(0);
     }
 
@@ -82,7 +82,7 @@ public class FactionTest {
         int initialPartisans = 15;
 
         Faction faction = new Faction(factionType, initialSatisfaction, initialPartisans);
-        faction.addSatisfaction(addSatisfaction);
+        faction.updateSatisfaction(addSatisfaction);
         Assertions.assertThat(faction.getSatisfaction()).isEqualTo(0);
     }
 
@@ -112,7 +112,7 @@ public class FactionTest {
         int initialSatisfaction = 15;
         int initialPartisans = 15;
         Faction faction = new Faction(factionType, initialSatisfaction, initialPartisans);
-        faction.removeSatisfaction(15);
+        faction.updateSatisfaction(-15);
         Assertions.assertThat(faction.getSatisfaction()).isEqualTo(0);
     }
 
@@ -124,7 +124,7 @@ public class FactionTest {
         int addPartisans = 10;
 
         Faction faction = new Faction(factionType, initialSatisfaction, initialPartisans);
-        faction.addPartisans(addPartisans);
+        faction.updatePartisans(addPartisans);
         Assertions.assertThat(faction.getPartisans()).isEqualTo(initialPartisans + addPartisans);
     }
 
@@ -136,7 +136,7 @@ public class FactionTest {
         int addPartisans = -80;
 
         Faction faction = new Faction(factionType, initialSatisfaction, initialPartisans);
-        faction.addPartisans(addPartisans);
+        faction.updatePartisans(addPartisans);
         Assertions.assertThat(faction.getPartisans()).isEqualTo(0);
     }
 
@@ -148,9 +148,9 @@ public class FactionTest {
         int addPartisansPercent = 20;
 
         Faction faction = new Faction(factionType, initialSatisfaction, initialPartisans);
-        faction.addPartisansPercent(addPartisansPercent);
+        faction.updatePartisansPercent(addPartisansPercent);
         Assertions.assertThat(faction.getPartisans()).isEqualTo(60);
-        faction.addPartisansPercent(-2 * addPartisansPercent);
+        faction.updatePartisansPercent(-2 * addPartisansPercent);
         Assertions.assertThat(faction.getPartisans()).isEqualTo(36);
     }
 

@@ -60,8 +60,8 @@ public class FinanceSteps {
   }
 
   @When("I add {int} €")
-  public void addToCoffers(int addedAmount) {
-    finances.addMoney(addedAmount);
+  public void addToCoffers(int moneyImpact) {
+    finances.handleMoneyAction(moneyImpact);
   }
 
   @Then("The amount in coffers should be {int}")

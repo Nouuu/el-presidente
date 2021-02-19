@@ -36,7 +36,7 @@ public class Finances {
     return moneyInCoffers;
   }
 
-  public void addMoney(int addedAmount) {
-    moneyInCoffers += addedAmount;
+  public void handleMoneyAction(int moneyImpact) {
+    moneyInCoffers += moneyImpact;
   }
 }

@@ -121,6 +121,16 @@ public class RessourceManagerSteps {
     }
   }
 
+  @When("I trigger an money action with {int} action")
+  public void when_i_trigger_money_action(int financeEffect) {
+    manager.handleMoneyAction(financeEffect);
+  }
+
+  @When("I trigger an food action with {int} action")
+  public void when_i_trigger_food_action(int foodEffect) {
+    manager.handleFoodAction(foodEffect);
+  }
+
   @Then("My food reserves is equal to {int}")
   public void test_food_reserves(int expectedFoodReserves) {
     assertEquals(expectedFoodReserves, manager.getFoodReserves());
@@ -153,11 +163,11 @@ public class RessourceManagerSteps {
 
   private void moveNumberOfPartisansTo(Faction faction, int expectedNumberOfPartisans) {
     int numberOfPartisansIwantToAdd = expectedNumberOfPartisans - faction.getPartisans();
-    faction.addPartisans(numberOfPartisansIwantToAdd);
+    faction.updatePartisans(numberOfPartisansIwantToAdd);
   }
 
   private void moveSatisfactionTo(Faction faction, int expectedSatisfaction) {
     int numberOfSatisfactionIwantToAdd = expectedSatisfaction - faction.getSatisfaction();
-    faction.addSatisfaction(numberOfSatisfactionIwantToAdd);
+    faction.updateSatisfaction(numberOfSatisfactionIwantToAdd);
   }
 }

@@ -23,9 +23,8 @@ public class Event {
      * @param eventDetails the event details
      * @param eventChoices the event faction effect list
      */
-    public Event(@JsonProperty("season") Season season,
-                 @JsonProperty("eventDetails") String eventDetails,
-                 @JsonProperty("eventChoices") List<EventChoice> eventChoices) {
+    public Event(@JsonProperty("season") Season season, @JsonProperty("eventDetails") String eventDetails,
+            @JsonProperty("eventChoices") List<EventChoice> eventChoices) {
         this.season = season;
         this.eventDetails = eventDetails;
 
@@ -56,6 +55,10 @@ public class Event {
         return eventChoices;
     }
 
+    public EventChoice getEventChoice(int index) {
+        return eventChoices.get(index);
+    }
+
     /**
      * To string string.
      *
@@ -63,10 +66,8 @@ public class Event {
      */
     @Override
     public String toString() {
-        return eventDetails + "\nChoix :\n" +
-                eventChoices.stream()
-                        .map(o -> "- " + o.toString())
-                        .collect(Collectors.joining("\n"));
+        return eventDetails + "\nChoix :\n"
+                + eventChoices.stream().map(o -> "- " + o.toString()).collect(Collectors.joining("\n"));
     }
 
     public static Event createFromJson(String ressourceJsonPath) throws JsonProcessingException {

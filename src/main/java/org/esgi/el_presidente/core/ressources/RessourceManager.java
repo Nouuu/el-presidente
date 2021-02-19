@@ -1,6 +1,7 @@
 package org.esgi.el_presidente.core.ressources;
 
 import org.esgi.el_presidente.core.factions.Faction;
+import org.esgi.el_presidente.core.factions.FactionType;
 
 public class RessourceManager {
 
@@ -28,6 +29,9 @@ public class RessourceManager {
   }
 
   public void buyBribe(Faction faction) throws Exception {
+    if (faction.getFactionType() == FactionType.loyalist) {
+      throw new Exception("Try to buy loyalist");
+    }
     try {
       int price = finances.buyBribe(faction.getPartisans());
       int loyalistSatisfactionLost = (int) Math.ceil(price / 10);
@@ -36,7 +40,7 @@ public class RessourceManager {
         throw new Exception("Can't buy oyalists are not satisfied");
       }
 
-      loyalist.removeSatisfaction(loyalistSatisfactionLost);
+      loyalist.updateSatisfaction(-loyalistSatisfactionLost);
       faction.addSatisfactionPercent(10);
     } catch (Exception e) {
       throw new Exception("Can't buy Bribe");
@@ -65,6 +69,14 @@ public class RessourceManager {
     if (agriculture.getSize() + industry.getSize() + additionalSize > 100) {
       throw new Exception("Incorrect size");
     }
+  }
+
+  public void handleMoneyAction(int moneyImpact) {
+    finances.handleMoneyAction(moneyImpact);
+  }
+
+  public void handleFoodAction(int foodImpact) {
+    foodReserves += foodImpact;
   }
 
   public int getMoney() {

@@ -81,3 +81,29 @@ Feature: Ressource Manager
       | 50                  | 50               | agriculture | 20              |
       | 70                  | 20               | agriculture | 20              |
       | 70                  | 20               | industry    | 20              |
+
+  Scenario Outline: trigger Money Action
+    Given I have <inital money> €
+    When I create Ressource Manager
+    And I trigger an money action with <effect> action
+    Then My finacial ressources are of <new money>
+
+    Examples:
+      | inital money | effect | new money |
+      | 200          | 20     | 220       |
+      | 200          | -20    | 180       |
+      | 200          | -200   | 0         |
+      | 0            | 20     | 20        |
+
+  Scenario Outline: trigger food Action
+    Given I have <inital food> food
+    When I create Ressource Manager
+    And I trigger an food action with <effect> action
+    Then My food reserves is equal to <new food>
+
+    Examples:
+      | inital food | effect | new food |
+      | 20          | 4      | 24       |
+      | 200         | -20    | 180      |
+      | 2           | -2     | 0        |
+      | 0           | 2      | 2        |
