@@ -31,17 +31,10 @@ public class Cli {
       if (game.isTheEndOfTheYear()) {
         ressourceManager.triggerEndOfYearAction();
         displayEndOfYearBilan();
-        handleEndOfYearAction();
         game.triggerEndOfYearCost();
         displayEndOfYearBilan();
       }
     }
-  }
-
-  private void handleEndOfYearAction() {
-    // choice
-    // add action
-    // loop
   }
 
   private void displayEndOfYearBilan() {
@@ -73,7 +66,7 @@ public class Cli {
     RessourceManager ressourceManager = game.getRessourceManager();
     Scanner scanner = new Scanner(System.in);
     do {
-      System.out.println("enter the type of your faction or \"q\" for exit\n");
+      System.out.println("enter the type of your faction or \"q\" for exit");
       factionTypeStr = scanner.next();
       factionType = FactionType.fromString(factionTypeStr);
       if (factionType != null) {
@@ -83,8 +76,9 @@ public class Cli {
         } catch (Exception exception) {
           System.out.println(exception.getMessage());
         }
+      } else if (!factionTypeStr.equals("q")) {
+        System.out.println("Your faction is lot in the list");
       }
-      System.out.println(factionTypeStr);
     } while (!factionTypeStr.equals("q"));
   }
 
@@ -97,7 +91,7 @@ public class Cli {
       unitOfFood = scanner.nextInt();
       ressourceManager.buyFood(unitOfFood);
     } catch (Exception e) {
-      System.out.println("You didn't have the money to do that");
+      System.out.println(e.getMessage());
     }
   }
 
@@ -128,8 +122,8 @@ public class Cli {
   private void askForFactionsDetails(StringBuilder gameStrBuilder) {
     if (game.isNotLost()) {
       System.out.println("Do you want to see the details of the factions ? (true/false)");
-      Scanner detail = new Scanner(System.in);
-      if (detail.nextBoolean()) {
+      Scanner input = new Scanner(System.in);
+      if (input.nextBoolean()) {
         gameStrBuilder.append(reviewFaction());
       }
     } else {
