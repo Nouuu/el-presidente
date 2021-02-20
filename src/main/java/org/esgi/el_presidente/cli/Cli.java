@@ -55,8 +55,45 @@ public class Cli {
     }
   }
 
+  public String reviewTheGame() {
+    RessourceManager ressourceManager = game.getRessourceManager();
+    FactionManager factionManager = game.getFactionManager();
+    StringBuilder gameStrBuilder = new StringBuilder();
+
+    gameStrBuilder.append("GlobalSatisfaction: " + factionManager.getGlobalSatisfaction() + "\n");
+    askForFactionsDetails(gameStrBuilder);
+
+    gameStrBuilder.append("Money: " + ressourceManager.getMoney() + "\n");
+    gameStrBuilder.append("FoodReseve: " + ressourceManager.getFoodReserves() + "\n");
+    gameStrBuilder.append("Agriculture part: " + ressourceManager.getAgriculturePart() + "\n");
+    gameStrBuilder.append("Industry part: " + ressourceManager.getIndustryPart() + "\n");
+    return gameStrBuilder.toString();
+  }
+
+  private void askForFactionsDetails(StringBuilder gameStrBuilder) {
+    if (game.isNotLost() == false) {
+      gameStrBuilder.append("Do you want to see the details of the factions ? (Y/n)\n");
+      Scanner detail = new Scanner(System.in);
+      if (detail.nextBoolean()) {
+        gameStrBuilder.append(reviewFaction());
+      }
+    } else {
+      gameStrBuilder.append(reviewFaction());
+    }
+  }
+
+  private String reviewFaction() {
+    StringBuilder factionReview = new StringBuilder();
+    FactionManager factionManager = game.getFactionManager();
+    List<Faction> factionList = factionManager.getFactionList();
+    for (Faction faction : factionList) {
+      factionReview.append(faction);
+    }
+    return factionReview.toString();
+  }
+
   public void printResult() {
-    System.out.println(game.reviewTheGame());
+    System.out.println(reviewTheGame());
     System.out.println("C'est fini");
   }
 }
