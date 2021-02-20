@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.StringConverter;
 import org.apache.commons.lang3.StringUtils;
+import org.esgi.el_presidente.core.factions.FactionType;
 import org.esgi.el_presidente.core.game.Difficulty;
 import org.esgi.el_presidente.core.scenario.ScenarioList;
 import org.esgi.el_presidente.javafx.FxApp;
@@ -25,6 +26,7 @@ public class HomeController implements Initializable {
     private FxApp fxApp;
     private ToggleGroup radioToggleGroup;
 
+    //////////// GENERAL //////////////////////////////////
     @FXML
     private SplitPane splitPane1;
 
@@ -32,13 +34,10 @@ public class HomeController implements Initializable {
     private AnchorPane leftPane;
 
     @FXML
-    private AnchorPane scenarioChoosePane;
-
-    @FXML
-    private AnchorPane eventPane;
-
-    @FXML
     private StackPane rightStackPane;
+
+
+    /////////// LEFT PANE /////////////////////////////////
 
     @FXML
     private Text scenarioName;
@@ -50,10 +49,7 @@ public class HomeController implements Initializable {
     private Label difficultyLabel;
 
     @FXML
-    private ComboBox<ScenarioList> scenarioComboBox;
-
-    @FXML
-    private ComboBox<Difficulty> difficultyComboBox;
+    private VBox statusVbox;
 
     @FXML
     private ListView<String> gameInfos;
@@ -61,8 +57,24 @@ public class HomeController implements Initializable {
     @FXML
     private ListView<String> factionsInfos;
 
+    /////// SCENARIO CHOOSE ///////////////////////////////
+
     @FXML
-    private VBox statusVbox;
+    private AnchorPane scenarioChoosePane;
+
+    @FXML
+    private ComboBox<ScenarioList> scenarioComboBox;
+
+    @FXML
+    private ComboBox<Difficulty> difficultyComboBox;
+
+    /////// EVENT PANE ////////////////////////////////////
+
+    @FXML
+    private AnchorPane eventPane;
+
+    @FXML
+    private Label eventSeason;
 
     @FXML
     private Label eventDescription;
@@ -70,8 +82,45 @@ public class HomeController implements Initializable {
     @FXML
     private VBox eventRadioButtonStack;
 
+    ///// END YEAR PANE ///////////////////////////////////
+
     @FXML
-    private Label eventSeason;
+    private AnchorPane endOfYearPane;
+
+    @FXML
+    private Label endOfYearFoodGain;
+
+    @FXML
+    private Label endOfYearMoneyGain;
+
+    @FXML
+    private Label endOfYearFoodImpact;
+
+    @FXML
+    private Label endOfYearPartisanImpact;
+
+    @FXML
+    private Spinner<Integer> buyFoodSpinner;
+
+    private SpinnerValueFactory<Integer> buyFoodSpinnerValueFactory;
+
+    @FXML
+    private Label buyFoodLabel;
+
+    @FXML
+    private Button buyFoodButton;
+
+    @FXML
+    private ListView<FactionType> brideFactionListView;
+
+    @FXML
+    private Label brideFactionCostLabel;
+
+    @FXML
+    private Button buyBrideButton;
+
+    @FXML
+    private Button nextYearButton;
 
 
     @Override
@@ -80,6 +129,7 @@ public class HomeController implements Initializable {
         setVisibleStackPane(scenarioChoosePane);
         initScenarioList();
         initDifficultyList();
+        initbuyFoodSpinner();
     }
 
     private void preventDividerMove() {
@@ -156,6 +206,38 @@ public class HomeController implements Initializable {
         RadioButton radioButton = (RadioButton) radioToggleGroup.getSelectedToggle();
         int index = Integer.parseInt(radioButton.getId());
         radioToggleGroup = fxApp.chooseEventChoice(index, eventDescription, eventRadioButtonStack, eventSeason);
+        if (radioToggleGroup == null) {
+            //End of year
+            endOfYear();
+        }
     }
 
+    private void endOfYear() {
+        setVisibleStackPane(endOfYearPane);
+        fxApp.endOfYear(endOfYearMoneyGain, endOfYearFoodGain, endOfYearFoodImpact, endOfYearPartisanImpact);
+        buyFoodSpinnerValueFactory.setValue(1);
+        buyFoodSpinnerNewValue(1);
+    }
+
+    private void initbuyFoodSpinner() {
+        buyFoodSpinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 99999, 1);
+        buyFoodSpinnerValueFactory.valueProperty().addListener((obs, oldValue, newValue)
+                -> buyFoodSpinnerNewValue(newValue));
+        buyFoodSpinner.setValueFactory(buyFoodSpinnerValueFactory);
+    }
+
+    private void buyFoodSpinnerNewValue(int newValue) {
+        fxApp.refreshBuyFoodCosts(buyFoodLabel, buyFoodButton, newValue);
+    }
+
+    @FXML
+    private void onNextYear() {
+        System.out.println("Next Year");
+    }
+
+    @FXML
+    private void onBuyFood() {
+        fxApp.buyFood(buyFoodSpinnerValueFactory.getValue(), endOfYearFoodImpact, endOfYearPartisanImpact);
+        buyFoodSpinnerValueFactory.setValue(1);
+    }
 }

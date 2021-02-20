@@ -5,8 +5,10 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -74,7 +76,7 @@
                   </Button>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="eventPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/modena_dark.css">
+            <AnchorPane fx:id="eventPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/modena_dark.css" visible="false">
                <children>
                   <VBox layoutX="28.0" layoutY="29.0" prefHeight="96.0" prefWidth="899.0" spacing="20.0">
                      <children>
@@ -94,6 +96,102 @@
                   <Button layoutX="405.0" layoutY="560.0" mnemonicParsing="false" onAction="#onSelectChoice" prefHeight="51.0" prefWidth="146.0" text="Choisir">
                      <font>
                         <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="endOfYearPane" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label layoutX="26.0" layoutY="25.0" text="Fin d'année">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="26.0" layoutY="126.0" text="Récapitulatif de l'année">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="477.0" layoutY="126.0" text="Coût de l'année">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <VBox layoutX="26.0" layoutY="180.0" prefHeight="96.0" prefWidth="381.0" spacing="20.0">
+                     <children>
+                        <Label fx:id="endOfYearFoodGain" text="endOfYearFoodGain">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="endOfYearMoneyGain" text="endOfYearMoneyGain">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="477.0" layoutY="180.0" prefHeight="96.0" prefWidth="381.0" spacing="20.0">
+                     <children>
+                        <Label fx:id="endOfYearFoodImpact" text="endOfYearFoodImpact">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="endOfYearPartisanImpact" text="endOfYearPartisanImpact">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <Label layoutX="26.0" layoutY="324.0" text="Acheter de la nourriture">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="477.0" layoutY="324.0" text="Soudoyer une faction (+10%)">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <VBox layoutX="477.0" layoutY="384.0" prefHeight="263.0" prefWidth="382.0" spacing="15.0">
+                     <children>
+                        <ListView fx:id="brideFactionListView" prefHeight="200.0" prefWidth="200.0" />
+                        <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="48.0" prefWidth="381.0" spacing="10.0">
+                           <children>
+                              <Label fx:id="brideFactionCostLabel" prefHeight="27.0" prefWidth="302.0" text="Coût : 120$" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="buyBrideButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="96.0" text="Soudoyer" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="26.0" layoutY="384.0" prefHeight="53.0" prefWidth="381.0" spacing="15.0">
+                     <children>
+                        <Spinner fx:id="buyFoodSpinner" prefHeight="34.0" prefWidth="100.0" />
+                        <Label fx:id="buyFoodLabel" prefHeight="27.0" prefWidth="170.0" text="x 7$ = ~~$">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="buyFoodButton" alignment="CENTER" mnemonicParsing="false" onAction="#onBuyFood" prefHeight="37.0" prefWidth="75.0" text="Acheter">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Button fx:id="nextYearButton" alignment="CENTER" layoutX="26.0" layoutY="595.0" mnemonicParsing="false" onAction="#onNextYear" style="-fx-background-color: #25AE2F;" text="Année suivante" textAlignment="CENTER" textFill="#fafafa">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
                      </font>
                   </Button>
                </children>

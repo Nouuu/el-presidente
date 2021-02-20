@@ -7,13 +7,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.StringUtils;
@@ -25,8 +26,6 @@ import org.esgi.el_presidente.core.scenario.Scenario;
 import org.esgi.el_presidente.core.scenario.ScenarioList;
 import org.esgi.el_presidente.core.season.Season;
 import org.esgi.el_presidente.javafx.controller.HomeController;
-
-import javafx.scene.media.Media;
 
 import java.io.IOException;
 import java.net.URL;
@@ -156,6 +155,12 @@ public class FxApp extends Application {
     }
 
     public ToggleGroup chooseEventChoice(int choiceIndex, Label eventDescription, VBox eventRadioButtonStack, Label eventSeason) {
+        if (isTheEndOfTheYear(eventSeason)) {
+            game.triggerEventEffect(choiceIndex);
+            game.triggerEndOfYearRessource();
+            refreshGameInfos();
+            return null;
+        }
         game.triggerEventEffect(choiceIndex);
         refreshGameInfos();
         return nextEvent(eventDescription, eventRadioButtonStack, eventSeason);
@@ -188,5 +193,41 @@ public class FxApp extends Application {
         player.setOnEndOfMedia(() -> playList(mediaList, nextI));
         player.setAutoPlay(true);
         player.play();
+    }
+
+    public void endOfYear(Label moneyGain, Label foodGain, Label foodImpact, Label partisanImpact) {
+        refreshEndOfYearGains(moneyGain, foodGain);
+        refreshEndOfYearImpacts(foodImpact, partisanImpact);
+    }
+
+    private void refreshEndOfYearImpacts(Label foodImpact, Label partisanImpact) {
+        foodImpact.setText("Coût en nourriture de l'année : " + game.calculateFoodImpact() + " => " +
+                Math.max(0, game.getRessourceManager().getFoodReserves() - game.calculateFoodImpact()));
+        partisanImpact.setText("Estimation de partisans mort de famine : " + game.calculatePartisanToRemove());
+    }
+
+    private void refreshEndOfYearGains(Label moneyGain, Label foodGain) {
+        moneyGain.setText("Argent gagné : " + game.getEndOfYearMoneyProduction() + "$");
+        foodGain.setText("Nourriture gagnée : " + game.getEndOfYearFoodProduction());
+    }
+
+    public void refreshBuyFoodCosts(Label foodCost, Button buyFoodButton, int food) {
+        int price = food * game.getFoodPrice();
+        foodCost.setText("x " + game.getFoodPrice() + "$ = " + price + "$");
+        if (price > game.getRessourceManager().getMoney()) {
+            buyFoodButton.setDisable(true);
+        } else {
+            buyFoodButton.setDisable(false);
+        }
+    }
+
+    private boolean isTheEndOfTheYear(Label season) {
+        return Season.fromString(season.getText()).equals(Season.winter);
+    }
+
+    public void buyFood(int value, Label foodImpact, Label partisanImpact) {
+        game.buyFood(value);
+        refreshGameInfos();
+        refreshEndOfYearImpacts(foodImpact, partisanImpact);
     }
 }

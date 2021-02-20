@@ -109,4 +109,16 @@ public class RessourceManager {
     public int getIndustryPart() {
         return industry.getSize();
     }
+
+    public int getEndOfYearMoneyProduction() {
+        return industry.yearlyProductionOfMoney();
+    }
+    public int getEndOfYearFoodProduction() {
+        return agriculture.yearlyProductionOfFood();
+    }
+
+    public int getFoodPrice() {
+        return finances.getFoodPrice();
+    }
+
 }

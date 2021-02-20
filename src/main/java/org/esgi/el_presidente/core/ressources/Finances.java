@@ -34,4 +34,8 @@ public class Finances {
   public void handleMoneyAction(int moneyImpact) {
     moneyInCoffers += moneyImpact;
   }
+
+  public int getFoodPrice() {
+    return foodPrice;
+  }
 }
