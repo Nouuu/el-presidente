@@ -61,7 +61,7 @@ public class Game {
         EventChoice eventChoice = event.getEventChoice(index);
 
         int agricultureEffect = eventChoice.getAgricultureEffect();
-        int industryEffect = agricultureEffect = eventChoice.getIndustryEffect();
+        int industryEffect = eventChoice.getIndustryEffect();
         int financeEffect = eventChoice.getFinanceEffect();
         int foodEffect = eventChoice.getFoodEffect();
         List<EventFactionEffect> factionEffects = eventChoice.getFactionEffects();
