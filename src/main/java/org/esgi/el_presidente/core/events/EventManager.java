@@ -1,11 +1,8 @@
 package org.esgi.el_presidente.core.events;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.esgi.el_presidente.core.helper.FileHelper;
 import org.esgi.el_presidente.core.season.Season;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -67,7 +64,8 @@ public class EventManager {
     }
 
     /**
-     * Gets next event in order of the list of events. If this reach the last one, it loop back on the first and set isLooped() to true
+     * Gets next event in order of the list of events. If this reach the last one,
+     * it loop back on the first and set isLooped() to true
      *
      * @return Event object
      */

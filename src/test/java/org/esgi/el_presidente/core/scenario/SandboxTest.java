@@ -1,13 +1,10 @@
 package org.esgi.el_presidente.core.scenario;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import io.cucumber.gherkin.internal.com.eclipsesource.json.Json;
 import org.assertj.core.api.Assertions;
 import org.esgi.el_presidente.core.season.Season;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class SandboxTest {
 
