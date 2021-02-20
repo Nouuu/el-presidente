@@ -18,11 +18,6 @@ public class Finances {
     return price;
   }
 
-  /**
-   * TODO Should be change by loyalist rules
-   * 
-   * Currently I'm not sure if the implementation should be done here
-   */
   public int buyBribe(int partisansBribed) throws Exception {
     int price = bribePriceByPartisan * partisansBribed;
     if (price > moneyInCoffers) {

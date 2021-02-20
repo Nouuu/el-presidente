@@ -105,6 +105,9 @@ public class Game {
         int foodImpact = calculateFoodImpact();
         int foodReserves = ressourceManager.getFoodReserves();
         int partisansToRemove = 0;
+
+        System.out.println("foodImpact: " + foodImpact);
+
         if (foodImpact > foodReserves) {
             partisansToRemove = (foodImpact - foodReserves) / 4;
             factionManager.removeRandomlyFactionPartisans(partisansToRemove);

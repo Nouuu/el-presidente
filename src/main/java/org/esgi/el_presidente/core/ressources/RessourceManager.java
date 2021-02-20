@@ -34,7 +34,7 @@ public class RessourceManager {
     }
     try {
       int price = finances.buyBribe(faction.getPartisans());
-      int loyalistSatisfactionLost = (int) Math.ceil(price / 10);
+      int loyalistSatisfactionLost = (int) Math.floor(price / 10);
 
       if (loyalist.getSatisfaction() < loyalistSatisfactionLost) {
         throw new Exception("Can't buy loyalists are not satisfied");
@@ -43,7 +43,7 @@ public class RessourceManager {
       loyalist.updateSatisfaction(-loyalistSatisfactionLost);
       faction.updateSatisfaction(10);
     } catch (Exception e) {
-      throw new Exception("Can't buy Bribe money issue");
+      throw new Exception(e.getMessage());
     }
   }
 
@@ -52,8 +52,8 @@ public class RessourceManager {
       int maxSize = getMaxSizeForAgriculture();
       int expectedSize = additionalSize + agriculture.getSize();
 
-      int sizeToAdd = Math.min(maxSize, expectedSize);
-      agriculture.setSize(sizeToAdd);
+      int newSize = Math.min(maxSize, expectedSize);
+      agriculture.setSize(newSize);
     } catch (Exception e) {
       throw new Error("cannot grow as expected");
     }
@@ -64,8 +64,8 @@ public class RessourceManager {
       int maxSize = getMaxSizeForIndustry();
       int expectedSize = additionalSize + industry.getSize();
 
-      int sizeToAdd = Math.min(maxSize, expectedSize);
-      industry.setSize(sizeToAdd);
+      int newSize = Math.min(maxSize, expectedSize);
+      industry.setSize(newSize);
     } catch (Exception e) {
       throw new Error("cannot grow as expected");
     }

@@ -22,17 +22,19 @@ public class Cli {
   public void loop() {
     Scanner input = new Scanner(System.in);
     RessourceManager ressourceManager = game.getRessourceManager();
+    Event event;
 
     while (game.isNotLost()) {
       game.nextTurn();
-      Event event = game.getCurrentEvent();
+      event = game.getCurrentEvent();
       displayCurrentEvent(event);
       game.triggerEventEffect(input.nextInt());
+
       if (game.isTheEndOfTheYear()) {
         ressourceManager.triggerEndOfYearAction();
         displayEndOfYearBilan();
         game.triggerEndOfYearCost();
-        displayEndOfYearBilan();
+        System.out.println(reviewTheGame());
       }
     }
   }
