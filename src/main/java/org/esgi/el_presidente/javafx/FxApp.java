@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -141,9 +142,9 @@ public class FxApp extends Application {
     public void refreshFactionsBride() {
         List<FactionType> factions = Arrays.stream(FactionType.values()).filter(fT -> fT != FactionType.loyalist).collect(Collectors.toList());
         factionsBrideInfosObservable.clear();
-        factions.forEach(f->{
+        factions.forEach(f -> {
             Faction faction = game.getFactionManager().getFaction(f);
-            factionsBrideInfosObservable.add(StringUtils.capitalize(f.toString()) + ": Satisfaction à " + faction.getSatisfaction() + "%");
+            factionsBrideInfosObservable.add(StringUtils.capitalize(f.toString()) + ": Satisfaction à " + faction.getSatisfaction() + "%, " + faction.getPartisans() + " partisans");
         });
     }
 
@@ -234,15 +235,23 @@ public class FxApp extends Application {
     public void refreshBuyFoodCosts(Label foodCost, Button buyFoodButton, int food) {
         int price = food * game.getFoodPrice();
         foodCost.setText("x " + game.getFoodPrice() + "$ = " + price + "$");
-        if (price > game.getRessourceManager().getMoney()) {
-            buyFoodButton.setDisable(true);
-        } else {
-            buyFoodButton.setDisable(false);
-        }
+        buyFoodButton.setDisable(price > game.getRessourceManager().getMoney());
     }
 
     private boolean isTheEndOfTheYear(Label season) {
         return Season.fromString(season.getText()).equals(Season.winter);
+    }
+
+    public void selectFactionToBride(Label costLabel, Button buyBribeButton, String selectedLine) {
+        FactionType selectedFaction = FactionType.fromString(selectedLine.split(":")[0]);
+        if (selectedFaction == null) {
+            System.out.println("Error ! Can't find selected faction");
+            return;
+        }
+        Faction faction = game.getFactionManager().getFaction(selectedFaction);
+        int cost = game.getRessourceManager().getBrideCost(faction.getPartisans());
+        costLabel.setText("Coût : " + cost + "$");
+        buyBribeButton.setDisable(cost > game.getRessourceManager().getMoney());
     }
 
     public void buyFood(int value, Label foodImpact, Label partisanImpact) {
@@ -250,4 +259,5 @@ public class FxApp extends Application {
         refreshGameInfos();
         refreshEndOfYearImpacts(foodImpact, partisanImpact);
     }
+
 }

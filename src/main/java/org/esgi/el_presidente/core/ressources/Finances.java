@@ -1,5 +1,7 @@
 package org.esgi.el_presidente.core.ressources;
 
+import org.esgi.el_presidente.core.factions.Faction;
+
 public class Finances {
   private int moneyInCoffers;
   private final int foodPrice = 8;
@@ -25,6 +27,10 @@ public class Finances {
     }
     moneyInCoffers -= price;
     return price;
+  }
+
+  public int getBrideCost(int partisansCount) {
+    return bribePriceByPartisan * partisansCount;
   }
 
   public int getMoneyInCoffers() {
