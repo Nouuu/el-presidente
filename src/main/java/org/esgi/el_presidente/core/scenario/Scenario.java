@@ -9,6 +9,7 @@ import org.esgi.el_presidente.core.helper.FileHelper;
 import org.esgi.el_presidente.core.season.Season;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Scenario {
@@ -17,20 +18,22 @@ public class Scenario {
     private final int initialPartisans;
     private final int initialLoyalistPartisansSatisfaction;
     private final int initialLoyalistPartisans;
-    private final EventManager eventManager;
+    protected final EventManager eventManager;
     private final int initialMoney;
+    private final int initialFood;
     private final int initialIndustrialization;
     private final int initialAgriculture;
 
     protected Scenario(@JsonProperty("introduction") String introduction,
-                     @JsonProperty("partisansSatisfaction") int partisansSatisfaction,
-                     @JsonProperty("partisans") int partisans,
-                     @JsonProperty("loyalistPartisansSatisfaction") int loyalistPartisansSatisfaction,
-                     @JsonProperty("loyalistPartisans") int loyalistPartisans,
-                     @JsonProperty("events") List<String> events,
-                     @JsonProperty("initialMoney") int initialMoney,
-                     @JsonProperty("initialIndustrialization") int initialIndustrialization,
-                     @JsonProperty("initialAgriculture") int initialAgriculture) throws JsonProcessingException {
+                    @JsonProperty("partisansSatisfaction") int partisansSatisfaction,
+                    @JsonProperty("partisans") int partisans,
+                    @JsonProperty("loyalistPartisansSatisfaction") int loyalistPartisansSatisfaction,
+                    @JsonProperty("loyalistPartisans") int loyalistPartisans,
+                    @JsonProperty("events") List<String> events,
+                    @JsonProperty("initialMoney") int initialMoney,
+                    @JsonProperty("initialFood") int initialFood,
+                    @JsonProperty("initialIndustrialization") int initialIndustrialization,
+                    @JsonProperty("initialAgriculture") int initialAgriculture) throws JsonProcessingException {
 
         this.introduction = introduction;
         this.initialPartisansSatisfaction = partisansSatisfaction;
@@ -38,6 +41,7 @@ public class Scenario {
         this.initialPartisans = partisans;
         this.initialLoyalistPartisans = loyalistPartisans;
         this.initialMoney = initialMoney;
+        this.initialFood = initialFood;
         this.initialIndustrialization = initialIndustrialization;
         this.initialAgriculture = initialAgriculture;
         this.eventManager = new EventManager(getEvents(events));
@@ -45,6 +49,9 @@ public class Scenario {
     }
 
     private List<Event> getEvents(List<String> eventsPath) throws JsonProcessingException {
+        if (eventsPath == null || eventsPath.size() < 2) {
+            throw new IllegalArgumentException("You must provide at least 2 events to your scenario !");
+        }
         List<Event> events = new ArrayList<>();
         for (String path : eventsPath) {
             events.add(Event.createFromJson(path));
@@ -94,11 +101,19 @@ public class Scenario {
         return initialMoney;
     }
 
+    public int getInitialFood() {
+        return initialFood;
+    }
+
     public int getInitialIndustrialization() {
         return initialIndustrialization;
     }
 
     public int getInitialAgriculture() {
         return initialAgriculture;
+    }
+
+    public boolean isLastEvent() {
+        return eventManager.isLooped();
     }
 }

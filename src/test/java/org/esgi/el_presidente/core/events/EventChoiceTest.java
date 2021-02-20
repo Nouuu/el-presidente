@@ -2,6 +2,7 @@ package org.esgi.el_presidente.core.events;
 
 import org.assertj.core.api.Assertions;
 import org.esgi.el_presidente.core.factions.FactionType;
+import org.esgi.el_presidente.core.game.Difficulty;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -97,5 +98,39 @@ public class EventChoiceTest {
         EventChoice eventChoice = new EventChoice(choiceName2, industryEffect2, agricultureEffect2, foodEffect2, financeEffect2, factionEffects2);
 
         Assertions.assertThat(eventChoice.toString()).isEqualTo(expected);
+    }
+
+    @Test
+    public void testToStringDifficulty() {
+        String expected = "Event description\n" +
+                "  Effets :\n" +
+                "  - Capitalistes : +0% de partisans, -3% de satisfaction\n" +
+                "  - Toute les factions : +8% de partisans, +5% de satisfaction\n" +
+                "  - +7% d'industrie\n" +
+                "  - -11% d'agriculture\n" +
+                "  - +6$";
+        Difficulty difficulty = Difficulty.HARD;
+        Assertions.assertThat(eventChoice.toString(difficulty)).isEqualTo(expected);
+    }
+
+    @Test
+    public void testToStringDifficulty2() {
+        String expected = "Event description\n" +
+                "  Effets :\n" +
+                "  - -5% d'industrie\n" +
+                "  - +6% d'agriculture\n" +
+                "  - -15 nourriture\n" +
+                "  - -8$";
+
+        Difficulty difficulty = Difficulty.HARD;
+        String choiceName2 = "Event description";
+        int industryEffect2 = -3;
+        int agricultureEffect2 = 9;
+        int foodEffect2 = -10;
+        int financeEffect2 = -5;
+        List<EventFactionEffect> factionEffects2 = new ArrayList<>();
+        EventChoice eventChoice = new EventChoice(choiceName2, industryEffect2, agricultureEffect2, foodEffect2, financeEffect2, factionEffects2);
+
+        Assertions.assertThat(eventChoice.toString(difficulty)).isEqualTo(expected);
     }
 }

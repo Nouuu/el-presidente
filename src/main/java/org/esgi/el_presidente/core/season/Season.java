@@ -23,6 +23,6 @@ public enum Season {
 
     @JsonCreator
     public static Season fromString(String string) {
-        return Arrays.stream(Season.values()).filter(o -> o.season.equals(string)).findFirst().orElse(null);
+        return Arrays.stream(Season.values()).filter(o -> o.season.equalsIgnoreCase(string)).findFirst().orElse(null);
     }
 }

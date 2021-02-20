@@ -27,6 +27,6 @@ public enum FactionType {
 
     @JsonCreator
     public static FactionType fromString(String string) {
-        return Arrays.stream(FactionType.values()).filter(o -> o.type.equals(string)).findFirst().orElse(null);
+        return Arrays.stream(FactionType.values()).filter(o -> o.type.equalsIgnoreCase(string)).findFirst().orElse(null);
     }
 }

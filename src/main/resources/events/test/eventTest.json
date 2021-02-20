@@ -1,0 +1,41 @@
+{
+  "eventDetails": "Event test",
+  "season": "hiver",
+  "eventChoices": [
+    {
+      "choiceName": "Choice 1",
+      "industryEffect": 7,
+      "agricultureEffect": -5,
+      "foodEffect": 8,
+      "financeEffect": 600,
+      "factionEffects": [
+        {
+          "factionType": "",
+          "partisansPercentEffect": 1,
+          "satisfactionEffect": 2
+        },
+        {
+          "factionType": "communistes",
+          "partisansPercentEffect": 10,
+          "satisfactionEffect": 5
+        },
+        {
+          "factionType": "écologistes",
+          "partisansPercentEffect": -10,
+          "satisfactionEffect": 0
+        }
+      ]
+    },
+    {
+      "choiceName": "Choice 2",
+      "financeEffect": 60,
+      "factionEffects": [
+        {
+          "factionType": "",
+          "partisansPercentEffect": 1,
+          "satisfactionEffect": 1
+        }
+      ]
+    }
+  ]
+}

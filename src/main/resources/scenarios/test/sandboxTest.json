@@ -1,0 +1,15 @@
+{
+  "introduction": "Bienvenue dans le mode Sandbox Test !",
+  "initialMoney": 200,
+  "initialFood": 42,
+  "initialIndustrialization": 15,
+  "initialAgriculture": 15,
+  "partisansSatisfaction": 50,
+  "partisans": 15,
+  "loyalistPartisansSatisfaction": 100,
+  "loyalistPartisans": 15,
+  "events": [
+    "test/eventTest.json",
+    "test/eventTest2.json"
+  ]
+}

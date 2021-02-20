@@ -12,13 +12,11 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-/**
- * The Event manager.
- */
 public class EventManager {
     private final List<Event> events;
     private int step;
     private final Random random;
+    private boolean looped;
 
     /**
      * @param events the event list
@@ -27,10 +25,13 @@ public class EventManager {
         this.events = Objects.requireNonNullElseGet(events, ArrayList::new);
         step = 0;
         random = new Random();
+        looped = false;
     }
 
     /**
-     * @param event the event
+     * Add event to event manager
+     *
+     * @param event the event to add
      * @return the current event manager
      */
     public EventManager addEvent(Event event) {
@@ -41,9 +42,9 @@ public class EventManager {
     /**
      * Gets random event.
      *
-     * @return the random event
+     * @return the random event from event manager list
      */
-    public Event getRandomEventBySeason() {
+    public Event getRandomEvent() {
         if (events.size() == 0) {
             return null;
         }
@@ -65,16 +66,25 @@ public class EventManager {
         return random.nextInt(maxExcludedIndex);
     }
 
+    /**
+     * Gets next event in order of the list of events. If this reach the last one, it loop back on the first and set isLooped() to true
+     *
+     * @return Event object
+     */
     public Event getNextEvent() {
         if (events.size() == 0) {
             return null;
         }
         Event event = events.get(step);
         step = (step + 1) % events.size();
+        if (step == 0) {
+            looped = true;
+        }
         return event;
     }
 
     public void resetStep() {
+        looped = false;
         step = 0;
     }
 
@@ -87,17 +97,11 @@ public class EventManager {
     }
 
     /**
-     * Gets event manager from json. TODO put this mapper to scenario in the future
+     * Check if all events in scenario have been read
      *
-     * @param ressourceJsonPath the ressource json path
-     * @return the event manager from json
-     * @throws IllegalArgumentException the illegal argument exception
-     * @throws IOException              the io exception
+     * @return boolean
      */
-    public static EventManager getEventManagerFromJson(String ressourceJsonPath) throws IllegalArgumentException, IOException {
-        String inputString = FileHelper.readFileFromRessource(ressourceJsonPath);
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(inputString, EventManager.class);
+    public boolean isLooped() {
+        return looped;
     }
-
 }

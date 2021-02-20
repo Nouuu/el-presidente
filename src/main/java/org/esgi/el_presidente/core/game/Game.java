@@ -11,6 +11,7 @@ import org.esgi.el_presidente.core.ressources.Agriculture;
 import org.esgi.el_presidente.core.ressources.Industry;
 import org.esgi.el_presidente.core.ressources.RessourceManager;
 import org.esgi.el_presidente.core.scenario.Scenario;
+import org.esgi.el_presidente.core.season.Season;
 
 public class Game {
     private Difficulty difficulty;
@@ -104,12 +105,11 @@ public class Game {
     public void triggerEndOfYearCost() {
         int foodImpact = calculateFoodImpact();
         int foodReserves = ressourceManager.getFoodReserves();
-        int partisansToRemove = 0;
+        int partisansToRemove = calculatePartisanToRemove();
 
         System.out.println("foodImpact: " + foodImpact);
 
         if (foodImpact > foodReserves) {
-            partisansToRemove = (foodImpact - foodReserves) / 4;
             factionManager.removeRandomlyFactionPartisans(partisansToRemove);
             foodImpact = calculateFoodImpact();
         } else {
@@ -124,9 +124,55 @@ public class Game {
         ressourceManager.handleFoodAction(-foodImpact);
     }
 
-    private int calculateFoodImpact() {
+    public int calculateFoodImpact() {
         int yearlyConsomationOfFoodByPartisan = 4;
         int totalPartisan = factionManager.getTotalPartisan();
         return totalPartisan * yearlyConsomationOfFoodByPartisan;
+    }
+
+    public int calculatePartisanToRemove() {
+        if (calculateFoodImpact() <= ressourceManager.getFoodReserves()) {
+            return 0;
+        }
+        return (calculateFoodImpact() - ressourceManager.getFoodReserves()) / 4;
+    }
+
+    public int getSatisfactionLimit() {
+        return satisfactionLimit;
+    }
+
+    public Season getCurrentSeason() {
+        return timeManager.getSeason();
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void triggerEndOfYearRessource() {
+        ressourceManager.triggerEndOfYearAction();
+    }
+
+    public int getEndOfYearMoneyProduction() {
+        return ressourceManager.getEndOfYearMoneyProduction();
+    }
+
+    public int getEndOfYearFoodProduction() {
+        return ressourceManager.getEndOfYearFoodProduction();
+    }
+
+    public void buyFood(int unitOfFood) {
+        int price = ressourceManager.getFoodPrice() * unitOfFood;
+        if (price <= ressourceManager.getMoney()) {
+            try {
+                ressourceManager.buyFood(unitOfFood);
+            } catch (Exception e) {
+                System.out.println("Error when buying food !");
+            }
+        }
+    }
+
+    public int getFoodPrice() {
+        return ressourceManager.getFoodPrice();
     }
 }

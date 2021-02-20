@@ -1,7 +1,9 @@
 package org.esgi.el_presidente.core.game;
 
 public enum Difficulty {
-    EASY("facile", 1.5, 0.75, 10), MEDIUM("normal", 1, 1, 30), HARD("difficile", 0.75, 1.5, 50),
+    EASY("facile", 1.5, 0.75, 10),
+    MEDIUM("normal", 1, 1, 30),
+    HARD("difficile", 0.75, 1.5, 50),
     HARDCORE("niveau JDG", 0.5, 2, 65);
 
     private final String name;

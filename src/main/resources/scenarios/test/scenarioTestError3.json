@@ -1,0 +1,15 @@
+{
+  "introduction": "Scenario test",
+  "initialMoney": 2000,
+  "initialFood: 0,
+  "initialIndustrialization": 15,
+  "initialAgriculture": 10,
+  "partisansSatisfaction": 50,
+  "partisans": 10,
+  "loyalistPartisansSatisfaction": 100,
+  "loyalistPartisans": 20,
+  "events": [
+    "test/eventTest.json",
+    "test/eventTest2.json"
+  ]
+}

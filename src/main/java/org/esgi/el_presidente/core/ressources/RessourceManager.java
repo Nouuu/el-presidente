@@ -71,14 +71,6 @@ public class RessourceManager {
     }
   }
 
-  private int getMaxSizeForAgriculture() {
-    return Math.min(100, 100 - industry.getSize());
-  }
-
-  private int getMaxSizeForIndustry() {
-    return Math.min(100, 100 - agriculture.getSize());
-  }
-
   public void handleMoneyAction(int moneyImpact) {
     finances.handleMoneyAction(moneyImpact);
   }
@@ -109,5 +101,25 @@ public class RessourceManager {
 
   public int getIndustryPart() {
     return industry.getSize();
+  }
+
+  public int getEndOfYearMoneyProduction() {
+    return industry.yearlyProductionOfMoney();
+  }
+
+  public int getEndOfYearFoodProduction() {
+    return agriculture.yearlyProductionOfFood();
+  }
+
+  public int getFoodPrice() {
+    return finances.getFoodPrice();
+  }
+
+  private int getMaxSizeForAgriculture() {
+    return Math.min(100, 100 - industry.getSize());
+  }
+
+  private int getMaxSizeForIndustry() {
+    return Math.min(100, 100 - agriculture.getSize());
   }
 }
