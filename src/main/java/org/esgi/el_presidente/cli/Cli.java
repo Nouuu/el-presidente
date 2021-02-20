@@ -51,6 +51,19 @@ public class Cli {
     }
   }
 
+
+  /**
+   * I espect it should be like:
+   * your global staisfaction is XXX
+   * Do you want to see the details of the factions ? (Y/n)
+   *  - print faction Religion
+   *  Satiscation = X
+   *  size = Y
+   * Money: X
+   * Food: Y
+   * Agri part : A
+   * Indu part : d
+   */
   public String reviewTheGame() {
     RessourceManager ressourceManager = game.getRessourceManager();
     FactionManager factionManager = game.getFactionManager();
@@ -61,6 +74,7 @@ public class Cli {
     game.append("Agriculture part: " + ressourceManager.getAgriculturePart() + "\n");
     game.append("Industry part: " + ressourceManager.getIndustryPart() + "\n");
     game.append(reviewFaction());
+    // see faction detail ?
     return game.toString();
   }
 
