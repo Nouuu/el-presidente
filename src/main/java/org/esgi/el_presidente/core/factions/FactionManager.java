@@ -89,6 +89,6 @@ public class FactionManager {
     }
 
     public void handleEndOfYearFoodAction(int partisansToRemove) {
-        factionList.forEach(faction -> faction.updateSatisfactionPercent(-2));
+        factionList.forEach(faction -> faction.updateSatisfaction(-2));
     }
 }

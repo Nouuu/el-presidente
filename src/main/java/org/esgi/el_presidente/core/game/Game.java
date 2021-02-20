@@ -62,7 +62,7 @@ public class Game {
         EventChoice eventChoice = event.getEventChoice(index);
 
         int agricultureEffect = eventChoice.getAgricultureEffect();
-        int industryEffect = agricultureEffect = eventChoice.getIndustryEffect();
+        int industryEffect = eventChoice.getIndustryEffect();
         int financeEffect = eventChoice.getFinanceEffect();
         int foodEffect = eventChoice.getFoodEffect();
         List<EventFactionEffect> factionEffects = eventChoice.getFactionEffects();
@@ -119,8 +119,9 @@ public class Game {
             int partisanPercentToadd = rand.nextInt(max + min) + min;
             factionManager.addAllFactionsPartisanPercent(partisanPercentToadd);
         }
+        System.out.println("Il y a eu " + partisansToRemove + " mort(s)");
         factionManager.handleEndOfYearFoodAction(partisansToRemove);
-        ressourceManager.handleFoodAction(foodImpact);
+        ressourceManager.handleFoodAction(-foodImpact);
     }
 
     public int calculateFoodImpact() {
