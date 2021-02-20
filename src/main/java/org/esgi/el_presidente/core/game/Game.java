@@ -120,7 +120,7 @@ public class Game {
             factionManager.addAllFactionsPartisanPercent(partisanPercentToadd);
         }
         factionManager.handleEndOfYearFoodAction(partisansToRemove);
-        ressourceManager.handleFoodAction(foodImpact);
+        ressourceManager.handleFoodAction(-foodImpact);
     }
 
     private int calculateFoodImpact() {

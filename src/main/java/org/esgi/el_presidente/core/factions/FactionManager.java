@@ -77,6 +77,8 @@ public class FactionManager {
     }
 
     public void handleEndOfYearFoodAction(int partisansToRemove) {
-        factionList.forEach(faction -> faction.updateSatisfactionPercent(-2));
+        System.out.println("Il y a eu " + partisansToRemove + " mort(s)");
+        factionList.forEach(faction -> faction.updateSatisfaction(-2));
+        removeRandomlyFactionPartisans(partisansToRemove);
     }
 }
