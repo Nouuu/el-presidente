@@ -114,8 +114,8 @@ public class FxApp extends Application {
         gameInfosObservable.clear();
         gameInfosObservable.add("Argent : " + game.getRessourceManager().getMoney() + "$");
         gameInfosObservable.add("Nourriture : " + game.getRessourceManager().getFoodReserves());
-        gameInfosObservable.add("Occupation industrie : " + game.getRessourceManager().getIndustryOccupation() + "%");
-        gameInfosObservable.add("Occupation agriculture : " + game.getRessourceManager().getAgricultureOccupation() + "%");
+        gameInfosObservable.add("Occupation industrie : " + game.getRessourceManager().getIndustryPart() + "%");
+        gameInfosObservable.add("Occupation agriculture : " + game.getRessourceManager().getAgriculturePart() + "%");
         gameInfosObservable.add("Satisfaction globale minimum : " + game.getSatisfactionLimit() + "%");
         gameInfosObservable.add("Satisfaction globale actuelle : " + game.getFactionManager().getGlobalSatisfaction() + "%");
         gameInfosObservable.add("Population totale : " + game.getFactionManager().getTotalPartisan());

@@ -34,41 +34,49 @@ public class RessourceManager {
         }
         try {
             int price = finances.buyBribe(faction.getPartisans());
-            int loyalistSatisfactionLost = (int) Math.ceil(price / 10);
+            int loyalistSatisfactionLost = (int) Math.floor(price / 10);
 
             if (loyalist.getSatisfaction() < loyalistSatisfactionLost) {
-                throw new Exception("Can't buy oyalists are not satisfied");
+                throw new Exception("Can't buy loyalists are not satisfied");
             }
 
             loyalist.updateSatisfaction(-loyalistSatisfactionLost);
-            faction.addSatisfactionPercent(10);
+            faction.updateSatisfaction(10);
         } catch (Exception e) {
-            throw new Exception("Can't buy Bribe");
+            throw new Exception(e.getMessage());
         }
     }
 
-    public void increaseSizeOfAgriculture(int additionalSize) {
+    public void updateSizeOfAgriculture(int additionalSize) {
         try {
-            testSizeOfIsland(additionalSize);
-            agriculture.expand(additionalSize);
+            int maxSize = getMaxSizeForAgriculture();
+            int expectedSize = additionalSize + agriculture.getSize();
+
+            int newSize = Math.min(maxSize, expectedSize);
+            agriculture.setSize(newSize);
         } catch (Exception e) {
-            System.err.println("Cannot grow as expected");
+            throw new Error("cannot grow as expected");
         }
     }
 
-    public void increaseSizeOfIndustry(int additionalSize) {
+    public void updateSizeOfIndustry(int additionalSize) {
         try {
-            testSizeOfIsland(additionalSize);
-            industry.expand(additionalSize);
+            int maxSize = getMaxSizeForIndustry();
+            int expectedSize = additionalSize + industry.getSize();
+
+            int newSize = Math.min(maxSize, expectedSize);
+            industry.setSize(newSize);
         } catch (Exception e) {
-            System.err.println("Cannot grow as expected");
+            throw new Error("cannot grow as expected");
         }
     }
 
-    private void testSizeOfIsland(int additionalSize) throws Exception {
-        if (agriculture.getSize() + industry.getSize() + additionalSize > 100) {
-            throw new Exception("Incorrect size");
-        }
+    private int getMaxSizeForAgriculture() {
+        return 100 - industry.getSize();
+    }
+
+    private int getMaxSizeForIndustry() {
+        return 100 - agriculture.getSize();
     }
 
     public void handleMoneyAction(int moneyImpact) {
@@ -87,11 +95,18 @@ public class RessourceManager {
         return foodReserves;
     }
 
-    public int getAgricultureOccupation() {
+    public void triggerEndOfYearAction() {
+        int moneyProduced = industry.yearlyProductionOfMoney();
+        int foodProduced = agriculture.yearlyProductionOfFood();
+        foodReserves += foodProduced;
+        finances.handleMoneyAction(moneyProduced);
+    }
+
+    public int getAgriculturePart() {
         return agriculture.getSize();
     }
 
-    public int getIndustryOccupation() {
+    public int getIndustryPart() {
         return industry.getSize();
     }
 }

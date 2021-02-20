@@ -1,6 +1,7 @@
 package org.esgi.el_presidente.core.game;
 
 import java.util.List;
+import java.util.Random;
 
 import org.esgi.el_presidente.core.events.*;
 import org.esgi.el_presidente.core.factions.Faction;
@@ -32,8 +33,8 @@ public class Game {
     }
 
     private RessourceManager constructRessourceManagerFromScenario(Scenario scenario) {
-        Agriculture agriculture = new Agriculture(scenario.getInitialAgriculture(), 4);
-        Industry industry = new Industry(scenario.getInitialIndustrialization(), 15);
+        Agriculture agriculture = new Agriculture(scenario.getInitialAgriculture(), 40);
+        Industry industry = new Industry(scenario.getInitialIndustrialization(), 10);
         Faction loyalist = factionManager.getFaction(FactionType.loyalist);
         int initialMoney = scenario.getInitialMoney();
         return new RessourceManager(loyalist, initialMoney, 0, agriculture, industry);
@@ -53,30 +54,7 @@ public class Game {
         System.out.println(timeManager.getSeason());
         currentEvent = scenario.getNextEvent(timeManager.getSeason());
 
-        if (timeManager.isTheEndOfTheYear()) {
-            // TODO buy bribe / food
-            System.out.println(reviewTheGame());
-        }
-
         timeManager.nextSeason();
-    }
-
-    public Event getCurrentEvent() {
-        return currentEvent;
-    }
-
-    // TODO
-    public String reviewTheGame() {
-        StringBuilder game = new StringBuilder();
-        game.append("Money: " + ressourceManager.getMoney() + "\n");
-        game.append("FoodReseve: " + ressourceManager.getFoodReserves() + "\n");
-        game.append("GlobalSatisfaction: " + factionManager.getGlobalSatisfaction() + "\n");
-        return game.toString();
-    }
-
-    public boolean isNotLost() {
-        int globalSatisfaction = factionManager.getGlobalSatisfaction();
-        return satisfactionLimit < globalSatisfaction;
     }
 
     public void triggerEventEffect(int index) {
@@ -89,8 +67,8 @@ public class Game {
         int foodEffect = eventChoice.getFoodEffect();
         List<EventFactionEffect> factionEffects = eventChoice.getFactionEffects();
 
-        ressourceManager.increaseSizeOfAgriculture(agricultureEffect);
-        ressourceManager.increaseSizeOfIndustry(industryEffect);
+        ressourceManager.updateSizeOfAgriculture(agricultureEffect);
+        ressourceManager.updateSizeOfIndustry(industryEffect);
         ressourceManager.handleMoneyAction(financeEffect);
         ressourceManager.handleFoodAction(foodEffect);
 
@@ -103,12 +81,53 @@ public class Game {
         faction.updateSatisfaction(effect.getSatisfactionEffect());
     }
 
-    public FactionManager getFactionManager() {
-        return factionManager;
+    public boolean isTheEndOfTheYear() {
+        return timeManager.isTheEndOfTheYear();
+    }
+
+    public boolean isNotLost() {
+        int globalSatisfaction = factionManager.getGlobalSatisfaction();
+        return satisfactionLimit < globalSatisfaction;
     }
 
     public RessourceManager getRessourceManager() {
         return ressourceManager;
+    }
+
+    public FactionManager getFactionManager() {
+        return factionManager;
+    }
+
+    public Event getCurrentEvent() {
+        return currentEvent;
+    }
+
+    public void triggerEndOfYearCost() {
+        int foodImpact = calculateFoodImpact();
+        int foodReserves = ressourceManager.getFoodReserves();
+        int partisansToRemove = 0;
+
+        System.out.println("foodImpact: " + foodImpact);
+
+        if (foodImpact > foodReserves) {
+            partisansToRemove = (foodImpact - foodReserves) / 4;
+            factionManager.removeRandomlyFactionPartisans(partisansToRemove);
+            foodImpact = calculateFoodImpact();
+        } else {
+            Random rand = new Random();
+            int max = 10;
+            int min = 1;
+            int partisanPercentToadd = rand.nextInt(max + min) + min;
+            factionManager.addAllFactionsPartisanPercent(partisanPercentToadd);
+        }
+        factionManager.handleEndOfYearFoodAction(partisansToRemove);
+        ressourceManager.handleFoodAction(foodImpact);
+    }
+
+    private int calculateFoodImpact() {
+        int yearlyConsomationOfFoodByPartisan = 4;
+        int totalPartisan = factionManager.getTotalPartisan();
+        return totalPartisan * yearlyConsomationOfFoodByPartisan;
     }
 
     public int getSatisfactionLimit() {
