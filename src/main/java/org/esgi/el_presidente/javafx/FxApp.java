@@ -20,6 +20,8 @@ import javafx.stage.Stage;
 import org.apache.commons.lang3.StringUtils;
 import org.esgi.el_presidente.core.events.Event;
 import org.esgi.el_presidente.core.events.EventChoice;
+import org.esgi.el_presidente.core.factions.Faction;
+import org.esgi.el_presidente.core.factions.FactionType;
 import org.esgi.el_presidente.core.game.Difficulty;
 import org.esgi.el_presidente.core.game.Game;
 import org.esgi.el_presidente.core.scenario.Scenario;
@@ -29,11 +31,15 @@ import org.esgi.el_presidente.javafx.controller.HomeController;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class FxApp extends Application {
     private Game game;
     public ObservableList<String> gameInfosObservable = FXCollections.observableArrayList();
     public ObservableList<String> factionsInfosObservable = FXCollections.observableArrayList();
+    public ObservableList<String> factionsBrideInfosObservable = FXCollections.observableArrayList();
 
     public static void launchApp() {
         launch();
@@ -109,6 +115,10 @@ public class FxApp extends Application {
         return factionsInfosObservable;
     }
 
+    public ObservableList<String> getFactionsBrideInfosObservable() {
+        return factionsBrideInfosObservable;
+    }
+
     public void refreshGameInfos() {
         gameInfosObservable.clear();
         gameInfosObservable.add("Argent : " + game.getRessourceManager().getMoney() + "$");
@@ -126,6 +136,15 @@ public class FxApp extends Application {
                         StringUtils.capitalize(f.getFactionType().toString())
                                 + "\nPartisans : " + f.getPartisans()
                                 + "\nSatisfaction : " + f.getSatisfaction() + "%"));
+    }
+
+    public void refreshFactionsBride() {
+        List<FactionType> factions = Arrays.stream(FactionType.values()).filter(fT -> fT != FactionType.loyalist).collect(Collectors.toList());
+        factionsBrideInfosObservable.clear();
+        factions.forEach(f->{
+            Faction faction = game.getFactionManager().getFaction(f);
+            factionsBrideInfosObservable.add(StringUtils.capitalize(f.toString()) + ": Satisfaction à " + faction.getSatisfaction() + "%");
+        });
     }
 
     public ToggleGroup nextEvent(Label eventDescription, VBox eventRadioButtonStack, Label eventSeason) {
@@ -198,6 +217,7 @@ public class FxApp extends Application {
     public void endOfYear(Label moneyGain, Label foodGain, Label foodImpact, Label partisanImpact) {
         refreshEndOfYearGains(moneyGain, foodGain);
         refreshEndOfYearImpacts(foodImpact, partisanImpact);
+        refreshFactionsBride();
     }
 
     private void refreshEndOfYearImpacts(Label foodImpact, Label partisanImpact) {

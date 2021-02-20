@@ -111,7 +111,7 @@ public class HomeController implements Initializable {
     private Button buyFoodButton;
 
     @FXML
-    private ListView<FactionType> brideFactionListView;
+    private ListView<String> brideFactionListView;
 
     @FXML
     private Label brideFactionCostLabel;
@@ -194,6 +194,7 @@ public class HomeController implements Initializable {
         this.fxApp = fxApp;
         gameInfos.setItems(fxApp.getGameInfosObservable());
         factionsInfos.setItems(fxApp.getFactionsInfosObservable());
+        brideFactionListView.setItems(fxApp.getFactionsBrideInfosObservable());
     }
 
     private void getNextEvent() {
