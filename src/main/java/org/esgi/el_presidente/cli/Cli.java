@@ -36,10 +36,14 @@ public class Cli {
   }
 
   private void handleEndOfYearAction() {
+    // choice
+    // add action
+    // loop
   }
 
   private void displayEndOfYearBilan() {
     System.out.println(reviewTheGame());
+    // Sysout you can buy bribe and buy food with your money
   }
 
   private void displayCurrentEvent(Event event) {
@@ -51,38 +55,8 @@ public class Cli {
     }
   }
 
-
-  /**
-   * I espect it should be like:
-   * your global staisfaction is XXX
-   * Do you want to see the details of the factions ? (Y/n)
-   *  - print faction Religion
-   *  Satiscation = X
-   *  size = Y
-   * Money: X
-   * Food: Y
-   * Agri part : A
-   * Indu part : d
-   */
-  public String reviewTheGame() {
-    RessourceManager ressourceManager = game.getRessourceManager();
-    FactionManager factionManager = game.getFactionManager();
-    StringBuilder game = new StringBuilder();
-    game.append("Money: " + ressourceManager.getMoney() + "\n");
-    game.append("FoodReseve: " + ressourceManager.getFoodReserves() + "\n");
-    game.append("GlobalSatisfaction: " + factionManager.getGlobalSatisfaction() + "\n");
-    game.append("Agriculture part: " + ressourceManager.getAgriculturePart() + "\n");
-    game.append("Industry part: " + ressourceManager.getIndustryPart() + "\n");
-    game.append(reviewFaction());
-    // see faction detail ?
-    return game.toString();
-  }
-
-  private String reviewFaction() {
-    return "";
-  }
-
   public void printResult() {
+    System.out.println(game.reviewTheGame());
     System.out.println("C'est fini");
   }
 }
