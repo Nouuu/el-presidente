@@ -41,7 +41,7 @@ public class RessourceManager {
       }
 
       loyalist.updateSatisfaction(-loyalistSatisfactionLost);
-      faction.addSatisfactionPercent(10);
+      faction.updateSatisfactionPercent(10);
     } catch (Exception e) {
       throw new Exception("Can't buy Bribe");
     }

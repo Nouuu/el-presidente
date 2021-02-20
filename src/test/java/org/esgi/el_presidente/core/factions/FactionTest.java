@@ -92,7 +92,7 @@ public class FactionTest {
         int initialSatisfaction = 60;
         int initialPartisans = 15;
         Faction faction = new Faction(factionType, initialSatisfaction, initialPartisans);
-        faction.addSatisfactionPercent(10);
+        faction.updateSatisfactionPercent(10);
         Assertions.assertThat(faction.getSatisfaction()).isEqualTo(66);
     }
 
@@ -102,7 +102,7 @@ public class FactionTest {
         int initialSatisfaction = 0;
         int initialPartisans = 15;
         Faction faction = new Faction(factionType, initialSatisfaction, initialPartisans);
-        faction.addSatisfactionPercent(100);
+        faction.updateSatisfactionPercent(100);
         Assertions.assertThat(faction.getSatisfaction()).isEqualTo(0);
     }
 

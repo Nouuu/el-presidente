@@ -1,6 +1,7 @@
 package org.esgi.el_presidente.core.game;
 
 import java.util.List;
+import java.util.Random;
 
 import org.esgi.el_presidente.core.events.*;
 import org.esgi.el_presidente.core.factions.Faction;
@@ -31,8 +32,8 @@ public class Game {
     }
 
     private RessourceManager constructRessourceManagerFromScenario(Scenario scenario) {
-        Agriculture agriculture = new Agriculture(scenario.getInitialAgriculture(), 4);
-        Industry industry = new Industry(scenario.getInitialIndustrialization(), 15);
+        Agriculture agriculture = new Agriculture(scenario.getInitialAgriculture(), 40);
+        Industry industry = new Industry(scenario.getInitialIndustrialization(), 10);
         Faction loyalist = factionManager.getFaction(FactionType.loyalist);
         int initialMoney = scenario.getInitialMoney();
         return new RessourceManager(loyalist, initialMoney, 0, agriculture, industry);
@@ -98,5 +99,30 @@ public class Game {
 
     public Event getCurrentEvent() {
         return currentEvent;
+    }
+
+    public void triggerEndOfYearCost() {
+        int foodImpact = calculateFoodImpact();
+        int foodReserves = ressourceManager.getFoodReserves();
+        int partisansToRemove = 0;
+        if (foodImpact > foodReserves) {
+            partisansToRemove = (foodImpact - foodReserves) / 4;
+            factionManager.removeRandomlyFactionPartisans(partisansToRemove);
+            foodImpact = calculateFoodImpact();
+        } else {
+            Random rand = new Random();
+            int max = 10;
+            int min = 1;
+            int partisanPercentToadd = rand.nextInt(max + min) + min;
+            factionManager.addAllFactionsPartisanPercent(partisanPercentToadd);
+        }
+        factionManager.handleEndOfYearFoodAction(partisansToRemove);
+        ressourceManager.handleFoodAction(foodImpact);
+    }
+
+    private int calculateFoodImpact() {
+        int yearlyConsomationOfFoodByPartisan = 4;
+        int totalPartisan = factionManager.getTotalPartisan();
+        return totalPartisan * yearlyConsomationOfFoodByPartisan;
     }
 }

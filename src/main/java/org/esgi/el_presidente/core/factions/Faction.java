@@ -23,8 +23,13 @@ public class Faction {
         return partisans;
     }
 
-    public void addSatisfactionPercent(int additionalSatisfactionPercent) {
-        this.satisfaction += (int) Math.floor(additionalSatisfactionPercent * satisfaction / 100);
+    public void updateSatisfactionPercent(int additionalSatisfactionPercent) {
+        if (satisfaction <= 0) {
+            return;
+        }
+
+        int additionalSatisfaction = (int) Math.floor(additionalSatisfactionPercent * satisfaction / 100);
+        satisfaction += Math.max(Math.min(this.satisfaction + additionalSatisfaction, 100), 0);
     }
 
     public void updateSatisfaction(int additionalSatisfaction) {
