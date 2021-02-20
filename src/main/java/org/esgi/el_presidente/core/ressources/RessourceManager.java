@@ -47,28 +47,36 @@ public class RessourceManager {
     }
   }
 
-  public void increaseSizeOfAgriculture(int additionalSize) {
+  public void updateSizeOfAgriculture(int additionalSize) {
     try {
-      testSizeOfIsland(additionalSize);
-      agriculture.expand(additionalSize);
+      int maxSize = getMaxSizeForAgriculture();
+      int expectedSize = additionalSize + agriculture.getSize();
+
+      int sizeToAdd = Math.min(maxSize, expectedSize);
+      agriculture.setSize(sizeToAdd);
     } catch (Exception e) {
-      System.err.println("Cannot grow as expected");
+      throw new Error("cannot grow as expected");
     }
   }
 
-  public void increaseSizeOfIndustry(int additionalSize) {
+  public void updateSizeOfIndustry(int additionalSize) {
     try {
-      testSizeOfIsland(additionalSize);
-      industry.expand(additionalSize);
+      int maxSize = getMaxSizeForIndustry();
+      int expectedSize = additionalSize + industry.getSize();
+
+      int sizeToAdd = Math.min(maxSize, expectedSize);
+      industry.setSize(sizeToAdd);
     } catch (Exception e) {
-      System.err.println("Cannot grow as expected");
+      throw new Error("cannot grow as expected");
     }
   }
 
-  private void testSizeOfIsland(int additionalSize) throws Exception {
-    if (agriculture.getSize() + industry.getSize() + additionalSize > 100) {
-      throw new Exception("Incorrect size");
-    }
+  private int getMaxSizeForAgriculture() {
+    return 100 - industry.getSize();
+  }
+
+  private int getMaxSizeForIndustry() {
+    return 100 - agriculture.getSize();
   }
 
   public void handleMoneyAction(int moneyImpact) {

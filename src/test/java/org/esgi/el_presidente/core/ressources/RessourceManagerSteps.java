@@ -101,9 +101,9 @@ public class RessourceManagerSteps {
   @When("I increase the size of {string} by {int} percent")
   public void when_i_increase_size_of(String segment, int additionalSize) {
     if (segment.equals("agriculture")) {
-      manager.increaseSizeOfAgriculture(additionalSize);
+      manager.updateSizeOfAgriculture(additionalSize);
     } else if (segment.equals("industry")) {
-      manager.increaseSizeOfIndustry(additionalSize);
+      manager.updateSizeOfIndustry(additionalSize);
     }
   }
 
@@ -111,9 +111,9 @@ public class RessourceManagerSteps {
   public void when_i_increase_size_it_should_throw_and_error(String segment, int additionalSize) {
     try {
       if (segment.equals("agriculture")) {
-        manager.increaseSizeOfAgriculture(additionalSize);
+        manager.updateSizeOfAgriculture(additionalSize);
       } else if (segment.equals("industry")) {
-        manager.increaseSizeOfIndustry(additionalSize);
+        manager.updateSizeOfIndustry(additionalSize);
       }
       fail("error should throw an error");
     } catch (Exception e) {

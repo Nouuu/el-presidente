@@ -13,15 +13,11 @@ public class Industry implements IslandPart {
     return partOfIsland * moneyProductionCoefficient;
   }
 
-  public void expand(int additionalSize) {
-    partOfIsland += additionalSize;
+  public void setSize(int newSize) {
+    partOfIsland = newSize;
   }
 
   public int getSize() {
     return partOfIsland;
-  }
-
-  public void shrink(int deductSize) {
-    partOfIsland -= deductSize;
   }
 }

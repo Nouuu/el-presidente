@@ -21,16 +21,16 @@ Feature: Industry
   ## Island
   Scenario Outline: Increase and decrease size of the island
     Given A Industry of size <intial size>
-    When I increase size by <increase size>
-    Then The size should be <intermediate size>
-    When I decrease size by <decrease size>
-    Then The size should be <final size>
+    When I set size to <size1>
+    Then The size should be <size1>
+    When I set size to <size2>
+    Then The size should be <size2>
 
     Examples:
-      | intial size | increase size | intermediate size | decrease size | final size |
-      | 0           | 10            | 10                | 5             | 5          |
-      | 12          | 8             | 20                | 15            | 5          |
-      | 43          | 20            | 63                | 3             | 60         |
-      | 73          | 10            | 83                | 80            | 3          |
-      | 100         | 0             | 100               | 47            | 53         |
-      | 10          | 0             | 10                | 10            | 0          |
+      | intial size | size1 | size2 |
+      | 0           | 10    | 48    |
+      | 12          | 8     | 47    |
+      | 43          | 20    | 2     |
+      | 73          | 10    | 25    |
+      | 100         | 0     | 100   |
+      | 10          | 0     | 85    |

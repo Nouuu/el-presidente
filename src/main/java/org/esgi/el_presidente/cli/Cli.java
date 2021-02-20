@@ -39,6 +39,7 @@ public class Cli {
   }
 
   private void displayEndOfYearBilan() {
+    System.out.println(reviewTheGame());
   }
 
   private void displayCurrentEvent(Event event) {
@@ -68,7 +69,6 @@ public class Cli {
   }
 
   public void printResult() {
-    System.out.println(reviewTheGame());
     System.out.println("C'est fini");
   }
 }

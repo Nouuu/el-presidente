@@ -13,15 +13,12 @@ public class Agriculture implements IslandPart {
     return partOfIsland * foodProductionCoefficient;
   }
 
-  public void expand(int additionalSize) {
-    partOfIsland += additionalSize;
+  public void setSize(int newSize) {
+    partOfIsland = newSize;
   }
 
   public int getSize() {
     return partOfIsland;
   }
 
-  public void shrink(int deductSize) {
-    partOfIsland -= deductSize;
-  }
 }
