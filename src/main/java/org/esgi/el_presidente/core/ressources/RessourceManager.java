@@ -37,13 +37,13 @@ public class RessourceManager {
       int loyalistSatisfactionLost = (int) Math.ceil(price / 10);
 
       if (loyalist.getSatisfaction() < loyalistSatisfactionLost) {
-        throw new Exception("Can't buy oyalists are not satisfied");
+        throw new Exception("Can't buy loyalists are not satisfied");
       }
 
       loyalist.updateSatisfaction(-loyalistSatisfactionLost);
-      faction.updateSatisfactionPercent(10);
+      faction.updateSatisfaction(10);
     } catch (Exception e) {
-      throw new Exception("Can't buy Bribe");
+      throw new Exception("Can't buy Bribe money issue");
     }
   }
 

@@ -70,6 +70,7 @@ public class Cli {
     FactionType factionType;
     FactionManager factionManager = game.getFactionManager();
     Faction faction;
+    RessourceManager ressourceManager = game.getRessourceManager();
     Scanner scanner = new Scanner(System.in);
     do {
       System.out.println("enter the type of your faction or \"q\" for exit\n");
@@ -77,13 +78,27 @@ public class Cli {
       factionType = FactionType.fromString(factionTypeStr);
       if (factionType != null) {
         faction = factionManager.getFaction(factionType);
-        // Take Effect on faction
+        try {
+          ressourceManager.buyBribe(faction);// TODO Ce n'est pas a ressourceManager de faire ça
+        } catch (Exception exception) {
+          System.out.println(exception.getMessage());
+        }
       }
       System.out.println(factionTypeStr);
     } while (!factionTypeStr.equals("q"));
   }
 
   private void buyFood() {
+    RessourceManager ressourceManager = game.getRessourceManager();
+    Scanner scanner = new Scanner(System.in);
+    int unitOfFood;
+    try {
+      System.out.println("How many unit of food do you want ?");
+      unitOfFood = scanner.nextInt();
+      ressourceManager.buyFood(unitOfFood);
+    } catch (Exception e) {
+      System.out.println("You didn't have the money to do that");
+    }
   }
 
   private void displayCurrentEvent(Event event) {
