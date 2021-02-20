@@ -51,4 +51,9 @@ public class Faction {
     public String getType() {
         return factionType.toString();
     }
+
+    @Override
+    public String toString() {
+        return "Faction " + factionType + ": partisans=" + partisans + ", satisfaction=" + satisfaction + "\n";
+    }
 }
