@@ -23,15 +23,6 @@ public class Faction {
         return partisans;
     }
 
-    public void updateSatisfactionPercent(int additionalSatisfactionPercent) {
-        if (satisfaction <= 0) {
-            return;
-        }
-
-        int additionalSatisfaction = (int) Math.floor(additionalSatisfactionPercent * satisfaction / 100);
-        satisfaction += Math.max(Math.min(this.satisfaction + additionalSatisfaction, 100), 0);
-    }
-
     public void updateSatisfaction(int additionalSatisfaction) {
         // Si une faction tombe à 0% de satisfaction, alors il ne sera plus possible de
         // remonter ce pourcentage

@@ -36,7 +36,7 @@ Feature: Ressource Manager
 
     Examples:
       | money | partisans | faction     | satisfaction | loyalist satisfaction | amount of partisans | new satifaction | new money | new loyalist satifaction |
-      | 12000 | 10        | 'ecologist' | 60           | 100                   | 10                  | 66              | 11850     | 85                       |
+      | 12000 | 10        | 'ecologist' | 60           | 100                   | 10                  | 70              | 11850     | 85                       |
 
 
   Scenario: Buy bribe without the found
@@ -85,7 +85,7 @@ Feature: Ressource Manager
   Scenario Outline: trigger Money Action
     Given I have <inital money> €
     When I create Ressource Manager
-    And I trigger an money action with <effect> action
+    And I trigger a money action with <effect> action
     Then My finacial ressources are of <new money>
 
     Examples:
@@ -98,7 +98,7 @@ Feature: Ressource Manager
   Scenario Outline: trigger food Action
     Given I have <inital food> food
     When I create Ressource Manager
-    And I trigger an food action with <effect> action
+    And I trigger a food action with <effect> action
     Then My food reserves is equal to <new food>
 
     Examples:

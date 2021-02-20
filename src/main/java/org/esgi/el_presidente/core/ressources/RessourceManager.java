@@ -72,11 +72,11 @@ public class RessourceManager {
   }
 
   private int getMaxSizeForAgriculture() {
-    return 100 - industry.getSize();
+    return Math.min(100, 100 - industry.getSize());
   }
 
   private int getMaxSizeForIndustry() {
-    return 100 - agriculture.getSize();
+    return Math.min(100, 100 - agriculture.getSize());
   }
 
   public void handleMoneyAction(int moneyImpact) {
@@ -84,7 +84,8 @@ public class RessourceManager {
   }
 
   public void handleFoodAction(int foodImpact) {
-    foodReserves += foodImpact;
+    int newFood = foodReserves + foodImpact;
+    foodReserves = Math.max(0, newFood);
   }
 
   public int getMoney() {

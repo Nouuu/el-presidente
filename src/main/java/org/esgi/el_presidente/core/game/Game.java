@@ -119,6 +119,7 @@ public class Game {
             int partisanPercentToadd = rand.nextInt(max + min) + min;
             factionManager.addAllFactionsPartisanPercent(partisanPercentToadd);
         }
+        System.out.println("Il y a eu " + partisansToRemove + " mort(s)");
         factionManager.handleEndOfYearFoodAction(partisansToRemove);
         ressourceManager.handleFoodAction(-foodImpact);
     }

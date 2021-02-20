@@ -121,12 +121,12 @@ public class RessourceManagerSteps {
     }
   }
 
-  @When("I trigger an money action with {int} action")
+  @When("I trigger a money action with {int} action")
   public void when_i_trigger_money_action(int financeEffect) {
     manager.handleMoneyAction(financeEffect);
   }
 
-  @When("I trigger an food action with {int} action")
+  @When("I trigger a food action with {int} action")
   public void when_i_trigger_food_action(int foodEffect) {
     manager.handleFoodAction(foodEffect);
   }
