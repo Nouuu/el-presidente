@@ -4,9 +4,11 @@ package org.esgi.el_presidente.javafx.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -194,7 +196,12 @@ public class HomeController implements Initializable {
         this.fxApp = fxApp;
         gameInfos.setItems(fxApp.getGameInfosObservable());
         factionsInfos.setItems(fxApp.getFactionsInfosObservable());
+        initializeFactionBrideListView();
+    }
+
+    private void initializeFactionBrideListView() {
         brideFactionListView.setItems(fxApp.getFactionsBrideInfosObservable());
+        brideFactionListView.setOnMouseClicked(event -> fxApp.selectFactionToBride(brideFactionCostLabel,buyBrideButton, brideFactionListView.getSelectionModel().getSelectedItem()));
     }
 
     private void getNextEvent() {
@@ -240,5 +247,10 @@ public class HomeController implements Initializable {
     private void onBuyFood() {
         fxApp.buyFood(buyFoodSpinnerValueFactory.getValue(), endOfYearFoodImpact, endOfYearPartisanImpact);
         buyFoodSpinnerValueFactory.setValue(1);
+    }
+
+    @FXML
+    private void onBuyBride() {
+        System.out.println("Buy !");
     }
 }
