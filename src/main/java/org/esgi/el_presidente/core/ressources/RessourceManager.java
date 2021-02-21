@@ -46,10 +46,9 @@ public class RessourceManager {
 
     public void updateSizeOfAgriculture(int additionalSize) {
         try {
-            int maxSize = getMaxSizeForAgriculture();
-            int expectedSize = additionalSize + agriculture.getSize();
-
-            int newSize = Math.min(maxSize, expectedSize);
+            int freeTerrain = getMaxSizeForAgriculture();
+            int currentSize = getAgriculturePart();
+            int newSize = MathHelper.restrictValue(additionalSize + currentSize, 0, freeTerrain);
             agriculture.setSize(newSize);
         } catch (Exception e) {
             throw new Error("cannot grow as expected");
@@ -58,10 +57,9 @@ public class RessourceManager {
 
     public void updateSizeOfIndustry(int additionalSize) {
         try {
-            int maxSize = getMaxSizeForIndustry();
-            int expectedSize = additionalSize + industry.getSize();
-
-            int newSize = Math.min(maxSize, expectedSize);
+            int freeTerrain = getMaxSizeForIndustry();
+            int currentSize = getIndustryPart();
+            int newSize = MathHelper.restrictValue(additionalSize + currentSize, 0, freeTerrain);
             industry.setSize(newSize);
         } catch (Exception e) {
             throw new Error("cannot grow as expected");

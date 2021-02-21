@@ -124,6 +124,29 @@ public class HomeController implements Initializable {
     @FXML
     private Button nextYearButton;
 
+    /////////// GAME OVER PANE ////////////////////////////
+
+    @FXML
+    private AnchorPane gameOverPane;
+
+    @FXML
+    private Label gameOverStatusLabel;
+
+    @FXML
+    private Label gameOverMoney;
+
+    @FXML
+    private Label gameOverFood;
+
+    @FXML
+    private Label gameOverSatisfaction;
+
+    @FXML
+    private Label gameOverSatisfactionLimit;
+
+    @FXML
+    private Label gameOverPartisans;
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -241,7 +264,18 @@ public class HomeController implements Initializable {
 
     @FXML
     private void onNextYear() {
-        System.out.println("Next Year");
+        if (fxApp.nextYear()) {
+            setVisibleStackPane(eventPane);
+            getNextEvent();
+        } else {
+            setVisibleStackPane(gameOverPane);
+            fxApp.gameOver(gameOverStatusLabel,
+                    gameOverMoney,
+                    gameOverFood,
+                    gameOverSatisfaction,
+                    gameOverSatisfactionLimit,
+                    gameOverPartisans);
+        }
     }
 
     @FXML
@@ -255,5 +289,15 @@ public class HomeController implements Initializable {
         if (selectedFactionType != null) {
             fxApp.buyBride(selectedFactionType, brideLoyalistSatisfactionLabel);
         }
+    }
+
+    @FXML
+    private void onNewGame() {
+        setVisibleStackPane(scenarioChoosePane);
+        scenarioName.setText("Choisissez un scénario et une difficulté pour commencer");
+        difficultyLabel.setVisible(false);
+        scenarioDetails.setVisible(false);
+        statusVbox.setVisible(false);
+
     }
 }

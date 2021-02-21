@@ -24,6 +24,7 @@ import org.esgi.el_presidente.core.factions.Faction;
 import org.esgi.el_presidente.core.factions.FactionType;
 import org.esgi.el_presidente.core.game.Difficulty;
 import org.esgi.el_presidente.core.game.Game;
+import org.esgi.el_presidente.core.scenario.Sandbox;
 import org.esgi.el_presidente.core.scenario.Scenario;
 import org.esgi.el_presidente.core.scenario.ScenarioList;
 import org.esgi.el_presidente.core.season.Season;
@@ -37,6 +38,7 @@ import java.util.stream.Collectors;
 
 public class FxApp extends Application {
     private Game game;
+    private ScenarioList scenario;
     public ObservableList<String> gameInfosObservable = FXCollections.observableArrayList();
     public ObservableList<String> factionsInfosObservable = FXCollections.observableArrayList();
     public ObservableList<String> factionsBrideInfosObservable = FXCollections.observableArrayList();
@@ -79,6 +81,7 @@ public class FxApp extends Application {
     }
 
     public void chooseGameMode(ScenarioList scenarioL, Difficulty difficulty, Text scenarioName, Label scenarioDescription, Label difficultyLabel) throws JsonProcessingException {
+        scenario = scenarioL;
         scenarioName.setText(scenarioL.getName());
         difficultyLabel.setText(difficulty.toString().toUpperCase());
         difficultyLabel.setVisible(true);
@@ -100,7 +103,12 @@ public class FxApp extends Application {
                 break;
         }
 
-        Scenario scenario = Scenario.createFromJson(scenarioL.getPath());
+        Scenario scenario;
+        if (scenarioL.equals(ScenarioList.SANDBOX)) {
+            scenario = Sandbox.createFromJson(scenarioL.getPath());
+        } else {
+            scenario = Scenario.createFromJson(scenarioL.getPath());
+        }
         scenarioDescription.setText(scenario.getIntroduction());
         scenarioDescription.setVisible(true);
         game = new Game(scenario, difficulty);
@@ -283,5 +291,37 @@ public class FxApp extends Application {
         } else {
             brideLoyalistSatisfactionLabel.setTextFill(Paint.valueOf("#DCDCDC"));
         }
+    }
+
+    public boolean nextYear() {
+        game.triggerEndOfYearCost();
+        refreshGameInfos();
+        return game.isNotLost();
+    }
+
+    public void gameOver(Label gameOverStatusLabel,
+                         Label gameOverMoney,
+                         Label gameOverFood,
+                         Label gameOverSatisfaction,
+                         Label gameOverSatisfactionLimit,
+                         Label gameOverPartisans) {
+
+        if (game.getScenario() instanceof Sandbox) {
+            gameOverStatusLabel.setText("Vous avez perdu cette partie... T'es nul !");
+            gameOverStatusLabel.setTextFill(Paint.valueOf("#940300"));
+        } else if (game.isEndOfScenario()) {
+            //Win
+            gameOverStatusLabel.setText("Félicitations !\nVous avez complété le scénario '" + scenario.getName() + "'");
+            gameOverStatusLabel.setTextFill(Paint.valueOf("#25AE2F"));
+        } else {
+            // Loose
+            gameOverStatusLabel.setText("Vous avez perdu cette partie... T'es nul !");
+            gameOverStatusLabel.setTextFill(Paint.valueOf("#940300"));
+        }
+        gameOverMoney.setText("Argent : " + game.getRessourceManager().getMoney() + "$");
+        gameOverFood.setText("Nourriture : " + game.getRessourceManager().getFoodReserves());
+        gameOverSatisfaction.setText("Satisfaction globale : " + game.getFactionManager().getGlobalSatisfaction());
+        gameOverSatisfactionLimit.setText("Satisfaction minimum requise : " + game.getSatisfactionLimit());
+        gameOverPartisans.setText("Partisans : " + game.getFactionManager().getTotalPartisan());
     }
 }

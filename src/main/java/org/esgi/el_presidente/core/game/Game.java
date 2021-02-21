@@ -175,4 +175,12 @@ public class Game {
     public int getFoodPrice() {
         return ressourceManager.getFoodPrice();
     }
+
+    public boolean isEndOfScenario() {
+        return scenario.isLastEvent();
+    }
+
+    public Scenario getScenario() {
+        return scenario;
+    }
 }
