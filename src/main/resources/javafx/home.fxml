@@ -157,6 +157,11 @@
                   </Label>
                   <VBox layoutX="477.0" layoutY="384.0" prefHeight="263.0" prefWidth="382.0" spacing="15.0">
                      <children>
+                        <Label fx:id="brideLoyalistSatisfactionLabel" text="Bride loyalist label">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
                         <ListView fx:id="brideFactionListView" prefHeight="200.0" prefWidth="200.0" />
                         <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="48.0" prefWidth="381.0" spacing="10.0">
                            <children>

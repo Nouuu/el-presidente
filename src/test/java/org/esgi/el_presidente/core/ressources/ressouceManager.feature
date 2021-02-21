@@ -47,14 +47,6 @@ Feature: Ressource Manager
     And I buy partisans of this faction it sould throw
 
 
-  Scenario: Buy bribe without loyalist satifaction
-    Given I have 1000 €
-    And I have 10 partisans in "capitalist" faction with 20 satisfaction
-    And The loyalist have 0 satifaction
-    When I create Ressource Manager
-    And I buy partisans of this faction it sould throw
-
-
   Scenario Outline: Grow segment
     Given The Agriculture segment represent <size of agricutlure>
     And The Industrie segment represent <size of industry>

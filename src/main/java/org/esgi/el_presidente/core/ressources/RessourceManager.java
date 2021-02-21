@@ -2,6 +2,7 @@ package org.esgi.el_presidente.core.ressources;
 
 import org.esgi.el_presidente.core.factions.Faction;
 import org.esgi.el_presidente.core.factions.FactionType;
+import org.esgi.el_presidente.core.helper.MathHelper;
 
 public class RessourceManager {
 
@@ -34,11 +35,7 @@ public class RessourceManager {
         }
         try {
             int price = finances.buyBribe(faction.getPartisans());
-            int loyalistSatisfactionLost = (int) Math.floor(price / 10);
-
-            if (loyalist.getSatisfaction() < loyalistSatisfactionLost) {
-                throw new Exception("Can't buy loyalists are not satisfied");
-            }
+            int loyalistSatisfactionLost = MathHelper.divideIntDoubleToFloor(price, 10);
 
             loyalist.updateSatisfaction(-loyalistSatisfactionLost);
             faction.updateSatisfaction(10);

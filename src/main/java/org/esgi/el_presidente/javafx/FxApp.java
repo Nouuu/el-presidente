@@ -214,9 +214,10 @@ public class FxApp extends Application {
         player.play();
     }
 
-    public void endOfYear(Label moneyGain, Label foodGain, Label foodImpact, Label partisanImpact) {
+    public void endOfYear(Label moneyGain, Label foodGain, Label foodImpact, Label partisanImpact, Label brideLoyalistSatisfactionLabel) {
         refreshEndOfYearGains(moneyGain, foodGain);
         refreshEndOfYearImpacts(foodImpact, partisanImpact);
+        refreshBrideLoyalistSatifsfactionLabel(brideLoyalistSatisfactionLabel);
         refreshFactionsBride();
     }
 
@@ -241,16 +242,17 @@ public class FxApp extends Application {
         return Season.fromString(season.getText()).equals(Season.winter);
     }
 
-    public void selectFactionToBride(Label costLabel, Button buyBribeButton, String selectedLine) {
+    public FactionType selectFactionToBride(Label costLabel, Button buyBribeButton, String selectedLine) {
         FactionType selectedFaction = FactionType.fromString(selectedLine.split(":")[0]);
         if (selectedFaction == null) {
             System.out.println("Error ! Can't find selected faction");
-            return;
+            return null;
         }
         Faction faction = game.getFactionManager().getFaction(selectedFaction);
         int cost = game.getRessourceManager().getBrideCost(faction.getPartisans());
         costLabel.setText("Coût : " + cost + "$");
         buyBribeButton.setDisable(cost > game.getRessourceManager().getMoney());
+        return selectedFaction;
     }
 
     public void buyFood(int value, Label foodImpact, Label partisanImpact) {
@@ -259,4 +261,27 @@ public class FxApp extends Application {
         refreshEndOfYearImpacts(foodImpact, partisanImpact);
     }
 
+    public void buyBride(FactionType factionType, Label brideLoyalistSatisfactionLabel) {
+        assert factionType != null;
+        Faction faction = game.getFactionManager().getFaction(factionType);
+        try {
+            game.getRessourceManager().buyBribe(faction);
+        } catch (Exception e) {
+            System.out.println("Error while bride faction !!");
+        }
+        refreshBrideLoyalistSatifsfactionLabel(brideLoyalistSatisfactionLabel);
+
+        refreshGameInfos();
+        refreshFactionsBride();
+    }
+
+    private void refreshBrideLoyalistSatifsfactionLabel(Label brideLoyalistSatisfactionLabel) {
+        Faction loyalist = game.getFactionManager().getFaction(FactionType.loyalist);
+        brideLoyalistSatisfactionLabel.setText("Satisfaction des Loyalistes : " + loyalist.getSatisfaction() + "%");
+        if (loyalist.getSatisfaction() == 0) {
+            brideLoyalistSatisfactionLabel.setTextFill(Paint.valueOf("#940300"));
+        } else {
+            brideLoyalistSatisfactionLabel.setTextFill(Paint.valueOf("#DCDCDC"));
+        }
+    }
 }

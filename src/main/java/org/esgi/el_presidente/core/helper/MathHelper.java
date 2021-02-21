@@ -4,4 +4,8 @@ public class MathHelper {
     public static int multiplyIntDoubleToFloor(int intV, double doubleV) {
         return (int) Math.floor(((double) intV) * doubleV);
     }
+
+    public static int divideIntDoubleToFloor(int intV, double doubleV) {
+        return (int) Math.floor(((double) intV) / doubleV);
+    }
 }

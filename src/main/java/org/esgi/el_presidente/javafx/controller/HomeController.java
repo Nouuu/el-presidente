@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.StringConverter;
 import org.apache.commons.lang3.StringUtils;
+import org.esgi.el_presidente.core.factions.FactionType;
 import org.esgi.el_presidente.core.game.Difficulty;
 import org.esgi.el_presidente.core.scenario.ScenarioList;
 import org.esgi.el_presidente.javafx.FxApp;
@@ -107,7 +108,12 @@ public class HomeController implements Initializable {
     private Button buyFoodButton;
 
     @FXML
+    private Label brideLoyalistSatisfactionLabel;
+
+    @FXML
     private ListView<String> brideFactionListView;
+
+    private FactionType selectedFactionType;
 
     @FXML
     private Label brideFactionCostLabel;
@@ -195,7 +201,7 @@ public class HomeController implements Initializable {
 
     private void initializeFactionBrideListView() {
         brideFactionListView.setItems(fxApp.getFactionsBrideInfosObservable());
-        brideFactionListView.setOnMouseClicked(event -> fxApp.selectFactionToBride(brideFactionCostLabel,buyBrideButton, brideFactionListView.getSelectionModel().getSelectedItem()));
+        brideFactionListView.setOnMouseClicked(event -> selectedFactionType = fxApp.selectFactionToBride(brideFactionCostLabel, buyBrideButton, brideFactionListView.getSelectionModel().getSelectedItem()));
     }
 
     private void getNextEvent() {
@@ -216,9 +222,10 @@ public class HomeController implements Initializable {
 
     private void endOfYear() {
         setVisibleStackPane(endOfYearPane);
-        fxApp.endOfYear(endOfYearMoneyGain, endOfYearFoodGain, endOfYearFoodImpact, endOfYearPartisanImpact);
+        fxApp.endOfYear(endOfYearMoneyGain, endOfYearFoodGain, endOfYearFoodImpact, endOfYearPartisanImpact, brideLoyalistSatisfactionLabel);
         buyFoodSpinnerValueFactory.setValue(1);
         buyFoodSpinnerNewValue(1);
+        selectedFactionType = null;
     }
 
     private void initbuyFoodSpinner() {
@@ -245,6 +252,8 @@ public class HomeController implements Initializable {
 
     @FXML
     private void onBuyBride() {
-        System.out.println("Buy !");
+        if (selectedFactionType != null) {
+            fxApp.buyBride(selectedFactionType, brideLoyalistSatisfactionLabel);
+        }
     }
 }
