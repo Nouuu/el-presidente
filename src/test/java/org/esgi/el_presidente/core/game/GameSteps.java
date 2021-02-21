@@ -1,13 +1,16 @@
 package org.esgi.el_presidente.core.game;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import org.esgi.el_presidente.core.events.Event;
+import org.esgi.el_presidente.core.factions.FactionManager;
+import org.esgi.el_presidente.core.ressources.RessourceManager;
 import org.esgi.el_presidente.core.scenario.Scenario;
+import org.esgi.el_presidente.core.season.Season;
 
+import io.cucumber.core.plugin.PublishFormatter;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -58,6 +61,25 @@ public class GameSteps {
     Event expectedEvent = getEventFromString(eventName);
     Event currentEvent = game.getCurrentEvent();
     assertEquals(expectedEvent.toString(), currentEvent.toString());
+  }
+
+  @Then("the current season is {string}")
+  public void seasonIs(String season) {
+    Season currentSeason = game.getCurrentSeason();
+    assertEquals(season, currentSeason.toString());
+  }
+
+  @Then("the total amount of partisan is {int}")
+  public void testAmountOfPartisan(int expectedAmountOfPartisan) {
+    FactionManager factionManager = game.getFactionManager();
+    int totalPartisan = factionManager.getTotalPartisan();
+    assertEquals(expectedAmountOfPartisan, totalPartisan);
+  }
+
+  @Then("the food impact is {int}")
+  public void testFoodImpact(int expectedFoodImpact) {
+    int foodImpact = game.calculateFoodImpact();
+    assertEquals(expectedFoodImpact, foodImpact);
   }
 
   private Event getEventFromString(String eventName) throws Exception {
