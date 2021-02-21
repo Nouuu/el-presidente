@@ -18,3 +18,21 @@ Feature: Time Managment
     Then the season count is 4
     And the season is "printemps"
     And the current year is 1
+
+
+  Scenario: test yeat count
+    Given a time manager
+    Then the current year is 0
+    When i go to next season
+    Then the current year is 0
+    When i go to next season
+    When i go to next season
+    Then the current year is 0
+    When i go to next season
+    Then the current year is 1
+    When i go to next season
+    When i go to next season
+    When i go to next season
+    When i go to next season
+    When i go to next season
+    Then the current year is 2

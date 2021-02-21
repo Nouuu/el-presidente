@@ -64,7 +64,8 @@ public class EventManager {
     }
 
     /**
-     * Gets next event in order of the list of events. If this reach the last one, it loop back on the first and set isLooped() to true
+     * Gets next event in order of the list of events. If this reach the last one,
+     * it loop back on the first and set isLooped() to true
      *
      * @return Event object
      */

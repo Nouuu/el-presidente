@@ -3,11 +3,8 @@ package org.esgi.el_presidente.core.scenario;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.assertj.core.api.Assertions;
 import org.esgi.el_presidente.core.events.Event;
-import org.esgi.el_presidente.core.events.EventManager;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class ScenarioTest {
     private final String scenarioPath = "test/scenarioTest.json";
