@@ -9,7 +9,6 @@ import org.esgi.el_presidente.core.helper.FileHelper;
 import org.esgi.el_presidente.core.season.Season;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Scenario {

@@ -1,14 +1,9 @@
 package org.esgi.el_presidente.javafx.controller;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -16,7 +11,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.StringConverter;
 import org.apache.commons.lang3.StringUtils;
-import org.esgi.el_presidente.core.factions.FactionType;
 import org.esgi.el_presidente.core.game.Difficulty;
 import org.esgi.el_presidente.core.scenario.ScenarioList;
 import org.esgi.el_presidente.javafx.FxApp;

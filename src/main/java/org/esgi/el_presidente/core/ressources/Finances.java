@@ -1,7 +1,5 @@
 package org.esgi.el_presidente.core.ressources;
 
-import org.esgi.el_presidente.core.factions.Faction;
-
 public class Finances {
   private int moneyInCoffers;
   private final int foodPrice = 8;
