@@ -23,11 +23,7 @@ public class Faction {
         return partisans;
     }
 
-    public void addSatisfactionPercent(int additionalSatisfactionPercent) {
-        this.satisfaction += (int) Math.floor(additionalSatisfactionPercent * satisfaction / 100);
-    }
-
-    public void addSatisfaction(int additionalSatisfaction) {
+    public void updateSatisfaction(int additionalSatisfaction) {
         // Si une faction tombe à 0% de satisfaction, alors il ne sera plus possible de
         // remonter ce pourcentage
         if (this.satisfaction <= 0) {
@@ -36,19 +32,12 @@ public class Faction {
         this.satisfaction = Math.max(Math.min(this.satisfaction + additionalSatisfaction, 100), 0);
     }
 
-    public void removeSatisfaction(int satisfaction) {
-        addSatisfaction(-satisfaction);
-    }
-
-    public void addPartisansPercent(int percent) {
+    public void updatePartisansPercent(int percent) {
         double diff = (double) partisans * ((double) percent / 100);
         this.partisans += Math.floor(diff);
     }
 
-    /**
-     * TODO throw error when partisans is negative
-     */
-    public void addPartisans(int partisans) {
+    public void updatePartisans(int partisans) {
         this.partisans = Math.max(0, this.partisans + partisans);
     }
 
@@ -57,5 +46,10 @@ public class Faction {
      */
     public String getType() {
         return factionType.toString();
+    }
+
+    @Override
+    public String toString() {
+        return "Faction " + factionType + ": partisans=" + partisans + ", satisfaction=" + satisfaction + "\n";
     }
 }

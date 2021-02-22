@@ -101,9 +101,9 @@ public class RessourceManagerSteps {
   @When("I increase the size of {string} by {int} percent")
   public void when_i_increase_size_of(String segment, int additionalSize) {
     if (segment.equals("agriculture")) {
-      manager.increaseSizeOfAgriculture(additionalSize);
+      manager.updateSizeOfAgriculture(additionalSize);
     } else if (segment.equals("industry")) {
-      manager.increaseSizeOfIndustry(additionalSize);
+      manager.updateSizeOfIndustry(additionalSize);
     }
   }
 
@@ -111,14 +111,24 @@ public class RessourceManagerSteps {
   public void when_i_increase_size_it_should_throw_and_error(String segment, int additionalSize) {
     try {
       if (segment.equals("agriculture")) {
-        manager.increaseSizeOfAgriculture(additionalSize);
+        manager.updateSizeOfAgriculture(additionalSize);
       } else if (segment.equals("industry")) {
-        manager.increaseSizeOfIndustry(additionalSize);
+        manager.updateSizeOfIndustry(additionalSize);
       }
       fail("error should throw an error");
     } catch (Exception e) {
       return;
     }
+  }
+
+  @When("I trigger a money action with {int} action")
+  public void when_i_trigger_money_action(int financeEffect) {
+    manager.handleMoneyAction(financeEffect);
+  }
+
+  @When("I trigger a food action with {int} action")
+  public void when_i_trigger_food_action(int foodEffect) {
+    manager.handleFoodAction(foodEffect);
   }
 
   @Then("My food reserves is equal to {int}")
@@ -153,11 +163,11 @@ public class RessourceManagerSteps {
 
   private void moveNumberOfPartisansTo(Faction faction, int expectedNumberOfPartisans) {
     int numberOfPartisansIwantToAdd = expectedNumberOfPartisans - faction.getPartisans();
-    faction.addPartisans(numberOfPartisansIwantToAdd);
+    faction.updatePartisans(numberOfPartisansIwantToAdd);
   }
 
   private void moveSatisfactionTo(Faction faction, int expectedSatisfaction) {
     int numberOfSatisfactionIwantToAdd = expectedSatisfaction - faction.getSatisfaction();
-    faction.addSatisfaction(numberOfSatisfactionIwantToAdd);
+    faction.updateSatisfaction(numberOfSatisfactionIwantToAdd);
   }
 }

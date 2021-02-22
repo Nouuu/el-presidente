@@ -19,14 +19,9 @@ public class IslandPartSteps {
     subject = new Industry(size, 14);
   }
 
-  @When("I increase size by {int}")
+  @When("I set size to {int}")
   public void whenIIncreaseSizeBy(int size) {
-    subject.expand(size);
-  }
-
-  @When("I decrease size by {int}")
-  public void whenIDecreaseSizeBy(int size) {
-    subject.shrink(size);
+    subject.setSize(size);
   }
 
   @Then("The size should be {int}")

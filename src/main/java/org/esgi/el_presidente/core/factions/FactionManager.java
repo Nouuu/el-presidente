@@ -24,11 +24,11 @@ public class FactionManager {
         return this;
     }
 
-    public double getGlobalSatisfaction() {
+    public int getGlobalSatisfaction() {
         double dividend = factionList.stream().mapToDouble(f -> f.getPartisans() * f.getSatisfaction()).sum();
         double divider = getTotalPartisan();
 
-        return Math.round(dividend / divider * 100) / 100.;
+        return (int) Math.round(dividend / divider);
     }
 
     public List<Faction> getFactionList() {
@@ -48,19 +48,19 @@ public class FactionManager {
         if (factionType == null) {
             addAllFactionSatisfaction(satisfaction);
         } else {
-            getFaction(factionType).addSatisfaction(satisfaction);
+            getFaction(factionType).updateSatisfaction(satisfaction);
         }
     }
 
     public void addAllFactionSatisfaction(int satisfaction) {
-        factionList.forEach(f -> f.addSatisfaction(satisfaction));
+        factionList.forEach(f -> f.updateSatisfaction(satisfaction));
     }
 
     public void addFactionPartisan(FactionType factionType, int partisans) {
         if (factionType == null) {
             addAllFactionsPartisan(partisans);
         } else {
-            getFaction(factionType).addPartisans(partisans);
+            getFaction(factionType).updatePartisans(partisans);
         }
     }
 
@@ -68,23 +68,27 @@ public class FactionManager {
         if (factionType == null) {
             addAllFactionsPartisanPercent(partisansPercent);
         } else {
-            getFaction(factionType).addPartisansPercent(partisansPercent);
+            getFaction(factionType).updatePartisansPercent(partisansPercent);
         }
     }
 
     public void addAllFactionsPartisan(int partisans) {
-        factionList.forEach(f -> f.addPartisans(partisans));
+        factionList.forEach(f -> f.updatePartisans(partisans));
     }
 
     public void addAllFactionsPartisanPercent(int partisansPercent) {
-        factionList.forEach(f -> f.addPartisansPercent(partisansPercent));
+        factionList.forEach(f -> f.updatePartisansPercent(partisansPercent));
     }
 
     public void removeRandomlyFactionPartisans(int partisansToRemove) {
         Random rand = new Random();
         while (partisansToRemove > 0) {
-            factionList.get(rand.nextInt(factionList.size())).addPartisans(-1);
+            factionList.get(rand.nextInt(factionList.size())).updatePartisans(-1);
             partisansToRemove--;
         }
+    }
+
+    public void handleEndOfYearFoodAction(int partisansToRemove) {
+        factionList.forEach(faction -> faction.updateSatisfaction(-2));
     }
 }
