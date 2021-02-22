@@ -17,6 +17,9 @@ coverage:
         paths: 
           - "src"
        # advanced settings
+        branches:
+          - main
+          - dev
         if_ci_failed: error #success, failure, error, ignore
         informational: false
         only_pulls: false
@@ -31,6 +34,9 @@ coverage:
         paths: 
           - "src"
        # advanced settings
+        branches:
+          - main
+          - dev
         if_ci_failed: error #success, failure, error, ignore
         informational: false
         only_pulls: false
