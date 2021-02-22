@@ -16,4 +16,10 @@ Feature: Game
     Then the total amount of partisan is 80
     And the food impact is 320
 
-# TODO test buy food test endOfYearCost EventEffect
+  # TODO test buy food test endOfYearCost EventEffect
+  Scenario: test event effect
+    Given a game with test scenario in easy
+    When i go to the next turn
+    Then the current event should be "eventTest"
+    When i trigger eventTest effects
+    Then test
