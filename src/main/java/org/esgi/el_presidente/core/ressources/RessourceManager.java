@@ -2,6 +2,7 @@ package org.esgi.el_presidente.core.ressources;
 
 import org.esgi.el_presidente.core.factions.Faction;
 import org.esgi.el_presidente.core.factions.FactionType;
+import org.esgi.el_presidente.core.helper.MathHelper;
 
 public class RessourceManager {
 
@@ -34,11 +35,7 @@ public class RessourceManager {
         }
         try {
             int price = finances.buyBribe(faction.getPartisans());
-            int loyalistSatisfactionLost = (int) Math.floor(price / 10);
-
-            if (loyalist.getSatisfaction() < loyalistSatisfactionLost) {
-                throw new Exception("Can't buy loyalists are not satisfied");
-            }
+            int loyalistSatisfactionLost = MathHelper.divideIntDoubleToFloor(price, 10);
 
             loyalist.updateSatisfaction(-loyalistSatisfactionLost);
             faction.updateSatisfaction(10);
@@ -49,10 +46,9 @@ public class RessourceManager {
 
     public void updateSizeOfAgriculture(int additionalSize) {
         try {
-            int maxSize = getMaxSizeForAgriculture();
-            int expectedSize = additionalSize + agriculture.getSize();
-
-            int newSize = Math.min(maxSize, expectedSize);
+            int freeTerrain = getMaxSizeForAgriculture();
+            int currentSize = getAgriculturePart();
+            int newSize = MathHelper.restrictValue(additionalSize + currentSize, 0, freeTerrain);
             agriculture.setSize(newSize);
         } catch (Exception e) {
             throw new Error("cannot grow as expected");
@@ -61,10 +57,9 @@ public class RessourceManager {
 
     public void updateSizeOfIndustry(int additionalSize) {
         try {
-            int maxSize = getMaxSizeForIndustry();
-            int expectedSize = additionalSize + industry.getSize();
-
-            int newSize = Math.min(maxSize, expectedSize);
+            int freeTerrain = getMaxSizeForIndustry();
+            int currentSize = getIndustryPart();
+            int newSize = MathHelper.restrictValue(additionalSize + currentSize, 0, freeTerrain);
             industry.setSize(newSize);
         } catch (Exception e) {
             throw new Error("cannot grow as expected");

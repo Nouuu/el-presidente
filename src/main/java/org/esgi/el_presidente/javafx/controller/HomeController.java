@@ -1,14 +1,9 @@
 package org.esgi.el_presidente.javafx.controller;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -113,7 +108,12 @@ public class HomeController implements Initializable {
     private Button buyFoodButton;
 
     @FXML
+    private Label brideLoyalistSatisfactionLabel;
+
+    @FXML
     private ListView<String> brideFactionListView;
+
+    private FactionType selectedFactionType;
 
     @FXML
     private Label brideFactionCostLabel;
@@ -123,6 +123,29 @@ public class HomeController implements Initializable {
 
     @FXML
     private Button nextYearButton;
+
+    /////////// GAME OVER PANE ////////////////////////////
+
+    @FXML
+    private AnchorPane gameOverPane;
+
+    @FXML
+    private Label gameOverStatusLabel;
+
+    @FXML
+    private Label gameOverMoney;
+
+    @FXML
+    private Label gameOverFood;
+
+    @FXML
+    private Label gameOverSatisfaction;
+
+    @FXML
+    private Label gameOverSatisfactionLimit;
+
+    @FXML
+    private Label gameOverPartisans;
 
 
     @Override
@@ -201,7 +224,7 @@ public class HomeController implements Initializable {
 
     private void initializeFactionBrideListView() {
         brideFactionListView.setItems(fxApp.getFactionsBrideInfosObservable());
-        brideFactionListView.setOnMouseClicked(event -> fxApp.selectFactionToBride(brideFactionCostLabel,buyBrideButton, brideFactionListView.getSelectionModel().getSelectedItem()));
+        brideFactionListView.setOnMouseClicked(event -> selectedFactionType = fxApp.selectFactionToBride(brideFactionCostLabel, buyBrideButton, brideFactionListView.getSelectionModel().getSelectedItem()));
     }
 
     private void getNextEvent() {
@@ -222,9 +245,10 @@ public class HomeController implements Initializable {
 
     private void endOfYear() {
         setVisibleStackPane(endOfYearPane);
-        fxApp.endOfYear(endOfYearMoneyGain, endOfYearFoodGain, endOfYearFoodImpact, endOfYearPartisanImpact);
+        fxApp.endOfYear(endOfYearMoneyGain, endOfYearFoodGain, endOfYearFoodImpact, endOfYearPartisanImpact, brideLoyalistSatisfactionLabel);
         buyFoodSpinnerValueFactory.setValue(1);
         buyFoodSpinnerNewValue(1);
+        selectedFactionType = null;
     }
 
     private void initbuyFoodSpinner() {
@@ -240,7 +264,18 @@ public class HomeController implements Initializable {
 
     @FXML
     private void onNextYear() {
-        System.out.println("Next Year");
+        if (fxApp.nextYear()) {
+            setVisibleStackPane(eventPane);
+            getNextEvent();
+        } else {
+            setVisibleStackPane(gameOverPane);
+            fxApp.gameOver(gameOverStatusLabel,
+                    gameOverMoney,
+                    gameOverFood,
+                    gameOverSatisfaction,
+                    gameOverSatisfactionLimit,
+                    gameOverPartisans);
+        }
     }
 
     @FXML
@@ -251,6 +286,18 @@ public class HomeController implements Initializable {
 
     @FXML
     private void onBuyBride() {
-        System.out.println("Buy !");
+        if (selectedFactionType != null) {
+            fxApp.buyBride(selectedFactionType, brideLoyalistSatisfactionLabel);
+        }
+    }
+
+    @FXML
+    private void onNewGame() {
+        setVisibleStackPane(scenarioChoosePane);
+        scenarioName.setText("Choisissez un scénario et une difficulté pour commencer");
+        difficultyLabel.setVisible(false);
+        scenarioDetails.setVisible(false);
+        statusVbox.setVisible(false);
+
     }
 }
