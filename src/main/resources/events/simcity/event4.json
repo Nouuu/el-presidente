@@ -1,0 +1,28 @@
+{
+  "eventDetails": "Une vague de froid venant du nord fait des ravages sur votre île",
+  "season": "hiver",
+  "eventChoices": [
+    {
+      "choiceName": "Vous restez au chaud chez vous tranquillement",
+      "factionEffects": [
+        {
+          "factionType": "",
+          "partisansPercentEffect": -10,
+          "satisfactionEffect": -10
+        }
+      ]
+    },
+    {
+      "choiceName": "Vous fournissez un gite et couvert à votre population",
+      "financeEffect": -200,
+      "foodEffect": -200,
+      "factionEffects": [
+        {
+          "factionType": "",
+          "partisansPercentEffect": 0,
+          "satisfactionEffect": 15
+        }
+      ]
+    }
+  ]
+}

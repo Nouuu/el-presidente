@@ -32,6 +32,7 @@ import org.esgi.el_presidente.javafx.controller.HomeController;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,6 +41,7 @@ public class FxApp extends Application {
     private Game game;
     private ScenarioList scenario;
     private MediaPlayer player;
+    private List<Media> playlist;
     public ObservableList<String> gameInfosObservable = FXCollections.observableArrayList();
     public ObservableList<String> factionsInfosObservable = FXCollections.observableArrayList();
     public ObservableList<String> factionsBrideInfosObservable = FXCollections.observableArrayList();
@@ -195,6 +197,7 @@ public class FxApp extends Application {
     }
 
     private void playIt() {
+        playlist = new ArrayList<>();
         Media media1;
         Media media2;
         try {
@@ -205,14 +208,14 @@ public class FxApp extends Application {
             return;
         }
 
-        ObservableList<Media> mediaList = FXCollections.observableArrayList();
-        mediaList.addAll(media1, media2);
+        playlist.add(media1);
+        playlist.add(media2);
 
 
-        playList(mediaList, 0);
+        playList(playlist, 0);
     }
 
-    private void playList(ObservableList<Media> mediaList, int i) {
+    private void playList(List<Media> mediaList, int i) {
         if (mediaList.size() == 0) {
             return;
         }
@@ -297,7 +300,7 @@ public class FxApp extends Application {
     public boolean nextYear() {
         game.triggerEndOfYearCost();
         refreshGameInfos();
-        return game.isNotLost();
+        return game.isNotLost() && !game.isEndOfScenario();
     }
 
     public void gameOver(Label gameOverStatusLabel,
@@ -310,7 +313,7 @@ public class FxApp extends Application {
         if (game.getScenario() instanceof Sandbox) {
             gameOverStatusLabel.setText("Vous avez perdu cette partie... T'es nul !");
             gameOverStatusLabel.setTextFill(Paint.valueOf("#940300"));
-        } else if (game.isEndOfScenario()) {
+        } else if (game.isNotLost()) {
             //Win
             gameOverStatusLabel.setText("Félicitations !\nVous avez complété le scénario '" + scenario.getName() + "'");
             gameOverStatusLabel.setTextFill(Paint.valueOf("#25AE2F"));

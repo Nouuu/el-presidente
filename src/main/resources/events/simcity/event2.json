@@ -1,0 +1,35 @@
+{
+  "eventDetails": "Cet été, pokemon GO débarque sur l'île !",
+  "season": "été",
+  "eventChoices": [
+    {
+      "choiceName": "Vous participez à la fête avec les citoyens",
+      "industryEffect": 5,
+      "agricultureEffect": 5,
+      "foodEffect": 100,
+      "financeEffect": 1000,
+      "factionEffects": [
+        {
+          "factionType": "religieux",
+          "satisfactionEffect": -10
+        },
+        {
+          "factionType": "nationalistes",
+          "satisfactionEffect": 10
+        },
+        {
+          "factionType": "communistes",
+          "satisfactionEffect": 10
+        },
+        {
+          "factionType": "capitalistes",
+          "satisfactionEffect": 20
+        },
+        {
+          "factionType": "écologistes",
+          "satisfactionEffect": -10
+        }
+      ]
+    }
+  ]
+}
