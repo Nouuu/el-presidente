@@ -89,12 +89,16 @@ public class GameSteps {
     game.triggerEventEffect(eventTestIndex);
   }
 
+  @When("i trigger end of year cost")
+  public void whenITriggerEndOfYearCost() {
+    game.triggerEndOfYearCost();
+  }
+
   /**
    * For debugging * Describe all variable
    */
-  @Then("test")
-  public void test() {
-
+  @Then("test event action")
+  public void test_event_action() {
     RessourceManager ressourceManager = game.getRessourceManager();
     FactionManager factionManager = game.getFactionManager();
 
@@ -114,6 +118,15 @@ public class GameSteps {
     assertEquals(9, ecoloPartisansNumber);
     assertEquals(8, foodReserves);
     assertEquals(2600, finance);
+  }
+
+  @Then("the population must have {int} memebre and {int} food")
+  public void testMemberNumberAndFood(int expectedAmountOfPartisan, int expectedFood) {
+    int food = game.getRessourceManager().getFoodReserves();
+    int totalPartisan = game.getFactionManager().getTotalPartisan();
+
+    assertEquals(expectedAmountOfPartisan, totalPartisan);
+    assertEquals(expectedFood, food);
   }
 
   private Event getEventFromString(String eventName) throws Exception {

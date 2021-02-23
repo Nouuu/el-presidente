@@ -64,7 +64,6 @@ public class Game {
         int industryEffect = eventChoice.getIndustryEffect();
         int financeEffect = eventChoice.getFinanceEffect();
         int foodEffect = eventChoice.getFoodEffect();
-        System.out.println("foodEffect: " + foodEffect);
         List<EventFactionEffect> factionEffects = eventChoice.getFactionEffects();
 
         ressourceManager.updateSizeOfAgriculture(agricultureEffect);
