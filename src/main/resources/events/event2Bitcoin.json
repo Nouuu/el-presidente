@@ -1,0 +1,15 @@
+{
+  "eventDetails": "Deuxième event !!!",
+  "eventChoices": [
+    {
+      "choiceName": "Va y jfais R",
+      "financeEffect": -50
+    },
+    {
+      "choiceName": "Go miner du bitcoin !!!",
+      "industryEffect": 100,
+      "agricultureEffect": "-100",
+      "financeEffect": 6000000
+    }
+  ]
+}
