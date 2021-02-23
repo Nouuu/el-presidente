@@ -3,6 +3,7 @@ package org.esgi.el_presidente.core.factions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class FactionManager {
     private List<Faction> factionList;
@@ -82,9 +83,16 @@ public class FactionManager {
 
     public void removeRandomlyFactionPartisans(int partisansToRemove) {
         Random rand = new Random();
+        List<Faction> factionListRemove = factionList.stream().filter(f ->f.getPartisans() > 0).collect(Collectors.toList());
+
         while (partisansToRemove > 0) {
-            factionList.get(rand.nextInt(factionList.size())).updatePartisans(-1);
-            partisansToRemove--;
+            Faction faction = factionListRemove.get(rand.nextInt(factionListRemove.size()));
+            if (faction.getPartisans() > 0) {
+                faction.updatePartisans(-1);
+                partisansToRemove--;
+            } else {
+                factionListRemove.remove(faction);
+            }
         }
     }
 

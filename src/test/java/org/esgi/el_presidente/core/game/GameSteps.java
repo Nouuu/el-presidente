@@ -120,7 +120,7 @@ public class GameSteps {
     assertEquals(2600, finance);
   }
 
-  @Then("the population must have {int} memebre and {int} food")
+  @Then("the population must have {int} members and {int} food")
   public void testMemberNumberAndFood(int expectedAmountOfPartisan, int expectedFood) {
     int food = game.getRessourceManager().getFoodReserves();
     int totalPartisan = game.getFactionManager().getTotalPartisan();

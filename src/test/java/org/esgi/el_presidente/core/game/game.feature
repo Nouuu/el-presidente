@@ -30,4 +30,4 @@ Feature: Game
     When i go to the next turn
     When i go to the next turn
     When i trigger end of year cost
-    Then the population must have 10 memebre and 0 food
+    Then the population must have 0 members and 0 food
