@@ -39,6 +39,7 @@ import java.util.stream.Collectors;
 public class FxApp extends Application {
     private Game game;
     private ScenarioList scenario;
+    private MediaPlayer player;
     public ObservableList<String> gameInfosObservable = FXCollections.observableArrayList();
     public ObservableList<String> factionsInfosObservable = FXCollections.observableArrayList();
     public ObservableList<String> factionsBrideInfosObservable = FXCollections.observableArrayList();
@@ -215,7 +216,7 @@ public class FxApp extends Application {
         if (mediaList.size() == 0) {
             return;
         }
-        MediaPlayer player = new MediaPlayer(mediaList.get(i));
+        player = new MediaPlayer(mediaList.get(i));
         int nextI = (i + 1) % mediaList.size();
         player.setOnEndOfMedia(() -> playList(mediaList, nextI));
         player.setAutoPlay(true);
