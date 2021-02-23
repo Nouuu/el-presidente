@@ -5,12 +5,13 @@ import static org.junit.Assert.assertEquals;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import org.esgi.el_presidente.core.events.Event;
+import org.esgi.el_presidente.core.factions.Faction;
 import org.esgi.el_presidente.core.factions.FactionManager;
+import org.esgi.el_presidente.core.factions.FactionType;
 import org.esgi.el_presidente.core.ressources.RessourceManager;
 import org.esgi.el_presidente.core.scenario.Scenario;
 import org.esgi.el_presidente.core.season.Season;
 
-import io.cucumber.core.plugin.PublishFormatter;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -82,6 +83,52 @@ public class GameSteps {
     assertEquals(expectedFoodImpact, foodImpact);
   }
 
+  @When("i trigger eventTest effects")
+  public void whenITriggerEventEffects() {
+    int eventTestIndex = 0;
+    game.triggerEventEffect(eventTestIndex);
+  }
+
+  @When("i trigger end of year cost")
+  public void whenITriggerEndOfYearCost() {
+    game.triggerEndOfYearCost();
+  }
+
+  /**
+   * For debugging * Describe all variable
+   */
+  @Then("test event action")
+  public void test_event_action() {
+    RessourceManager ressourceManager = game.getRessourceManager();
+    FactionManager factionManager = game.getFactionManager();
+
+    Faction communistes = factionManager.getFaction(FactionType.communist);
+    Faction ecologistes = factionManager.getFaction(FactionType.ecologist);
+
+    int commuSatisfaction = communistes.getSatisfaction();
+    int ecoloSatisfaction = ecologistes.getSatisfaction();
+    int commuPartisansNumber = communistes.getPartisans();
+    int ecoloPartisansNumber = ecologistes.getPartisans();
+    int foodReserves = ressourceManager.getFoodReserves();
+    int finance = ressourceManager.getMoney();
+
+    assertEquals(55, commuSatisfaction);
+    assertEquals(50, ecoloSatisfaction);
+    assertEquals(11, commuPartisansNumber);
+    assertEquals(9, ecoloPartisansNumber);
+    assertEquals(8, foodReserves);
+    assertEquals(2600, finance);
+  }
+
+  @Then("the population must have {int} members and {int} food")
+  public void testMemberNumberAndFood(int expectedAmountOfPartisan, int expectedFood) {
+    int food = game.getRessourceManager().getFoodReserves();
+    int totalPartisan = game.getFactionManager().getTotalPartisan();
+
+    assertEquals(expectedAmountOfPartisan, totalPartisan);
+    assertEquals(expectedFood, food);
+  }
+
   private Event getEventFromString(String eventName) throws Exception {
     switch (eventName) {
       case "eventTest":
@@ -89,9 +136,9 @@ public class GameSteps {
       case "eventTest2":
         return Event.createFromJson("test/eventTest2.json");
       case "eventTestError":
-        return Event.createFromJson("test/eventTest2.json");
+        return Event.createFromJson("test/eventTestError.json");
       case "eventTestError2":
-        return Event.createFromJson("test/eventTest2.json");
+        return Event.createFromJson("test/eventTestError2.json");
 
       default:
         throw new Exception("event is not in the list");

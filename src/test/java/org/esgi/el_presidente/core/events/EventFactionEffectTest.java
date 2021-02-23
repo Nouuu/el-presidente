@@ -2,14 +2,10 @@ package org.esgi.el_presidente.core.events;
 
 import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.api.Assertions;
-import org.esgi.el_presidente.core.events.EventFactionEffect;
 import org.esgi.el_presidente.core.factions.FactionType;
 import org.esgi.el_presidente.core.game.Difficulty;
 import org.esgi.el_presidente.core.helper.MathHelper;
-import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class EventFactionEffectTest {
     @Test
@@ -28,7 +24,8 @@ public class EventFactionEffectTest {
     @Test
     public void getPartisansPercentEffect() {
         int partisansPercentEffect = 58;
-        EventFactionEffect eventFactionEffect = new EventFactionEffect(FactionType.capitalist, partisansPercentEffect, 0);
+        EventFactionEffect eventFactionEffect = new EventFactionEffect(FactionType.capitalist, partisansPercentEffect,
+                0);
         Assertions.assertThat(eventFactionEffect.getPartisansPercentEffect()).isEqualTo(partisansPercentEffect);
     }
 
@@ -52,10 +49,10 @@ public class EventFactionEffectTest {
         int partisansPercentEffect = 58;
         int satisfactionEffect = 27;
 
-        String expectedString = StringUtils.capitalize(factionType.toString()) + " : "
-                + "+" + partisansPercentEffect + "% de partisans, "
-                + "+" + satisfactionEffect + "% de satisfaction";
-        EventFactionEffect eventFactionEffect = new EventFactionEffect(factionType, partisansPercentEffect, satisfactionEffect);
+        String expectedString = StringUtils.capitalize(factionType.toString()) + " : " + "+" + partisansPercentEffect
+                + "% de partisans, " + "+" + satisfactionEffect + "% de satisfaction";
+        EventFactionEffect eventFactionEffect = new EventFactionEffect(factionType, partisansPercentEffect,
+                satisfactionEffect);
 
         Assertions.assertThat(eventFactionEffect.toString()).isEqualTo(expectedString);
     }
@@ -66,10 +63,10 @@ public class EventFactionEffectTest {
         int partisansPercentEffect = -58;
         int satisfactionEffect = -27;
 
-        String expectedString = StringUtils.capitalize(factionType.toString()) + " : "
-                + partisansPercentEffect + "% de partisans, "
-                + satisfactionEffect + "% de satisfaction";
-        EventFactionEffect eventFactionEffect = new EventFactionEffect(factionType, partisansPercentEffect, satisfactionEffect);
+        String expectedString = StringUtils.capitalize(factionType.toString()) + " : " + partisansPercentEffect
+                + "% de partisans, " + satisfactionEffect + "% de satisfaction";
+        EventFactionEffect eventFactionEffect = new EventFactionEffect(factionType, partisansPercentEffect,
+                satisfactionEffect);
 
         Assertions.assertThat(eventFactionEffect.toString()).isEqualTo(expectedString);
     }
@@ -90,14 +87,16 @@ public class EventFactionEffectTest {
         int satisfactionEffect = 27;
         Difficulty difficulty = Difficulty.EASY;
 
-        String expectedString = StringUtils.capitalize(factionType.toString()) + " : "
-                + "+" + MathHelper.multiplyIntDoubleToFloor(partisansPercentEffect, difficulty.getGainMultiplier()) + "% de partisans, "
-                + "+" + MathHelper.multiplyIntDoubleToFloor(satisfactionEffect, difficulty.getGainMultiplier()) + "% de satisfaction";
-        EventFactionEffect eventFactionEffect = new EventFactionEffect(factionType, partisansPercentEffect, satisfactionEffect);
+        String expectedString = StringUtils.capitalize(factionType.toString()) + " : " + "+"
+                + MathHelper.multiplyIntDoubleToFloor(partisansPercentEffect, difficulty.getGainMultiplier())
+                + "% de partisans, " + "+"
+                + MathHelper.multiplyIntDoubleToFloor(satisfactionEffect, difficulty.getGainMultiplier())
+                + "% de satisfaction";
+        EventFactionEffect eventFactionEffect = new EventFactionEffect(factionType, partisansPercentEffect,
+                satisfactionEffect);
 
         Assertions.assertThat(eventFactionEffect.toString(difficulty)).isEqualTo(expectedString);
     }
-
 
     @Test
     public void testToStringNegativeDifficulty() {
@@ -107,9 +106,12 @@ public class EventFactionEffectTest {
         Difficulty difficulty = Difficulty.EASY;
 
         String expectedString = StringUtils.capitalize(factionType.toString()) + " : "
-                + MathHelper.multiplyIntDoubleToFloor(partisansPercentEffect, difficulty.getLoseMultiplier()) + "% de partisans, "
-                + MathHelper.multiplyIntDoubleToFloor(satisfactionEffect, difficulty.getLoseMultiplier()) + "% de satisfaction";
-        EventFactionEffect eventFactionEffect = new EventFactionEffect(factionType, partisansPercentEffect, satisfactionEffect);
+                + MathHelper.multiplyIntDoubleToFloor(partisansPercentEffect, difficulty.getLoseMultiplier())
+                + "% de partisans, "
+                + MathHelper.multiplyIntDoubleToFloor(satisfactionEffect, difficulty.getLoseMultiplier())
+                + "% de satisfaction";
+        EventFactionEffect eventFactionEffect = new EventFactionEffect(factionType, partisansPercentEffect,
+                satisfactionEffect);
 
         Assertions.assertThat(eventFactionEffect.toString(difficulty)).isEqualTo(expectedString);
 

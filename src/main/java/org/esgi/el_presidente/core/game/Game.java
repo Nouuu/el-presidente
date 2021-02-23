@@ -51,15 +51,14 @@ public class Game {
     }
 
     public void nextTurn() {
-        System.out.println(timeManager.getSeason());
         currentEvent = scenario.getNextEvent(timeManager.getSeason());
 
         timeManager.nextSeason();
     }
 
-    public void triggerEventEffect(int index) {
+    public void triggerEventEffect(int eventIndex) {
         Event event = getCurrentEvent();
-        EventChoice eventChoice = event.getEventChoice(index);
+        EventChoice eventChoice = event.getEventChoice(eventIndex);
 
         int agricultureEffect = eventChoice.getAgricultureEffect();
         int industryEffect = eventChoice.getIndustryEffect();
@@ -107,11 +106,10 @@ public class Game {
         int foodReserves = ressourceManager.getFoodReserves();
         int partisansToRemove = calculatePartisanToRemove();
 
-        System.out.println("foodImpact: " + foodImpact);
-
         if (foodImpact > foodReserves) {
             factionManager.removeRandomlyFactionPartisans(partisansToRemove);
             foodImpact = calculateFoodImpact();
+            factionManager.handleEndOfYearFoodAction(partisansToRemove);
         } else {
             Random rand = new Random();
             int max = 10;
@@ -119,8 +117,6 @@ public class Game {
             int partisanPercentToadd = rand.nextInt(max + min) + min;
             factionManager.addAllFactionsPartisanPercent(partisanPercentToadd);
         }
-        System.out.println("Il y a eu " + partisansToRemove + " mort(s)");
-        factionManager.handleEndOfYearFoodAction(partisansToRemove);
         ressourceManager.handleFoodAction(-foodImpact);
     }
 
