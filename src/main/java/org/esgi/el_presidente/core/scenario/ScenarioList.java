@@ -2,7 +2,8 @@ package org.esgi.el_presidente.core.scenario;
 
 public enum ScenarioList {
     SANDBOX("Bac à sable", "sandbox.json"),
-    SCENARIO_1("Premier scénario", "scenario1.json");
+    SCENARIO_1("Premier scénario", "scenario1.json"),
+    SIMCITY("SimCity", "simcity.json");
 
     private final String name;
     private final String path;

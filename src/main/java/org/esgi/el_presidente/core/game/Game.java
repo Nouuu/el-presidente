@@ -75,9 +75,16 @@ public class Game {
     }
 
     private void triggerEventsFactionEffect(EventFactionEffect effect) {
-        Faction faction = factionManager.getFaction(effect.getFactionType());
-        faction.updatePartisansPercent(effect.getPartisansPercentEffect());
-        faction.updateSatisfaction(effect.getSatisfactionEffect());
+        if (effect.getFactionType() == null) {
+            for (Faction faction : factionManager.getFactionList()) {
+                faction.updatePartisansPercent(effect.getPartisansPercentEffect());
+                faction.updateSatisfaction(effect.getSatisfactionEffect());
+            }
+        } else {
+            Faction faction = factionManager.getFaction(effect.getFactionType());
+            faction.updatePartisansPercent(effect.getPartisansPercentEffect());
+            faction.updateSatisfaction(effect.getSatisfactionEffect());
+        }
     }
 
     public boolean isTheEndOfTheYear() {

@@ -23,16 +23,31 @@ public class Scenario {
     private final int initialIndustrialization;
     private final int initialAgriculture;
 
+    /**
+     * Instanciate Scenario
+     *
+     * @param introduction                  introduction
+     * @param partisansSatisfaction         partisansSatisfaction
+     * @param partisans                     partisans
+     * @param loyalistPartisansSatisfaction loyalistPartisansSatisfaction
+     * @param loyalistPartisans             loyalistPartisans
+     * @param events                        events
+     * @param initialMoney                  initialMoney
+     * @param initialFood                   initialFood
+     * @param initialIndustrialization      initialIndustrialization
+     * @param initialAgriculture            initialAgriculture
+     * @throws JsonProcessingException if bad parsing
+     */
     protected Scenario(@JsonProperty("introduction") String introduction,
-                    @JsonProperty("partisansSatisfaction") int partisansSatisfaction,
-                    @JsonProperty("partisans") int partisans,
-                    @JsonProperty("loyalistPartisansSatisfaction") int loyalistPartisansSatisfaction,
-                    @JsonProperty("loyalistPartisans") int loyalistPartisans,
-                    @JsonProperty("events") List<String> events,
-                    @JsonProperty("initialMoney") int initialMoney,
-                    @JsonProperty("initialFood") int initialFood,
-                    @JsonProperty("initialIndustrialization") int initialIndustrialization,
-                    @JsonProperty("initialAgriculture") int initialAgriculture) throws JsonProcessingException {
+                       @JsonProperty("partisansSatisfaction") int partisansSatisfaction,
+                       @JsonProperty("partisans") int partisans,
+                       @JsonProperty("loyalistPartisansSatisfaction") int loyalistPartisansSatisfaction,
+                       @JsonProperty("loyalistPartisans") int loyalistPartisans,
+                       @JsonProperty("events") List<String> events,
+                       @JsonProperty("initialMoney") int initialMoney,
+                       @JsonProperty("initialFood") int initialFood,
+                       @JsonProperty("initialIndustrialization") int initialIndustrialization,
+                       @JsonProperty("initialAgriculture") int initialAgriculture) throws JsonProcessingException {
 
         this.introduction = introduction;
         this.initialPartisansSatisfaction = partisansSatisfaction;
