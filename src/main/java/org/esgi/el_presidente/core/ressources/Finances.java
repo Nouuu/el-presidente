@@ -21,7 +21,7 @@ public class Finances {
   }
 
   public int buyBribe(int partisansBribed) throws Exception {
-    int price = (int) Math.floor(bribePriceByPartisan * partisansBribed * loseMultiplier);
+    int price = getBrideCost(partisansBribed);
     if (price > moneyInCoffers) {
       throw new Exception("insufficient amount in coffers");
     }
@@ -30,7 +30,7 @@ public class Finances {
   }
 
   public int getBrideCost(int partisansCount) {
-    return bribePriceByPartisan * partisansCount;
+    return (int) Math.floor(bribePriceByPartisan * partisansCount * loseMultiplier);
   }
 
   public int getMoneyInCoffers() {
