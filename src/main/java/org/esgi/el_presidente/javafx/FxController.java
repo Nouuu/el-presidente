@@ -1,4 +1,4 @@
-package org.esgi.el_presidente.javafx.controller;
+package org.esgi.el_presidente.javafx;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.fxml.FXML;
@@ -287,7 +287,7 @@ public class FxController implements Initializable {
     @FXML
     private void onBuyFood() {
         fxApp.buyFood(buyFoodSpinnerValueFactory.getValue(), endOfYearFoodImpact, endOfYearPartisanImpact);
-        buyFoodSpinnerValueFactory.setValue(1);
+//        buyFoodSpinnerValueFactory.setValue(1);
     }
 
     @FXML
@@ -296,7 +296,7 @@ public class FxController implements Initializable {
             fxApp.buyBride(selectedFactionType, brideLoyalistSatisfactionLabel);
         }
     }
-    
+
     ////////////////// END GAME ///////////////////////////
 
     @FXML

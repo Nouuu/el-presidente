@@ -2,7 +2,6 @@ package org.esgi.el_presidente.javafx;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,39 +11,25 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.apache.commons.lang3.StringUtils;
 import org.esgi.el_presidente.core.events.Event;
 import org.esgi.el_presidente.core.events.EventChoice;
 import org.esgi.el_presidente.core.factions.Faction;
 import org.esgi.el_presidente.core.factions.FactionType;
 import org.esgi.el_presidente.core.game.Difficulty;
-import org.esgi.el_presidente.core.game.Game;
-import org.esgi.el_presidente.core.scenario.Sandbox;
-import org.esgi.el_presidente.core.scenario.Scenario;
 import org.esgi.el_presidente.core.scenario.ScenarioList;
 import org.esgi.el_presidente.core.season.Season;
-import org.esgi.el_presidente.javafx.controller.FxController;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class FxApp extends Application {
-    private Game game;
-    private ScenarioList scenario;
-    private MediaPlayer player;
-    private List<Media> playlist;
-    public ObservableList<String> gameInfosObservable = FXCollections.observableArrayList();
-    public ObservableList<String> factionsInfosObservable = FXCollections.observableArrayList();
-    public ObservableList<String> factionsBrideInfosObservable = FXCollections.observableArrayList();
+    private final FxMusic fxMusic = new FxMusic();
+    private final FxGameManager fxGameManager = new FxGameManager();
+
+    /////////////////////// INITIALIZATION ////////////////
 
     public static void launchApp() {
         launch();
@@ -55,8 +40,13 @@ public class FxApp extends Application {
         FXMLLoader loader = getLoader();
         Scene scene = new Scene(getRootLayout(loader));
         linkController(loader);
-        playIt();
+        fxMusic.startMusicPlayer();
         showApp(primaryStage, scene);
+    }
+
+    private void linkController(FXMLLoader loader) {
+        FxController controller = loader.getController();
+        controller.setFxApp(this);
     }
 
     private Parent getRootLayout(FXMLLoader loader) throws IOException {
@@ -71,11 +61,6 @@ public class FxApp extends Application {
         return loader;
     }
 
-    private void linkController(FXMLLoader loader) {
-        FxController controller = loader.getController();
-        controller.setFxApp(this);
-    }
-
     private void showApp(Stage primaryStage, Scene scene) {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
@@ -83,9 +68,57 @@ public class FxApp extends Application {
         primaryStage.show();
     }
 
+    public ObservableList<String> getGameInfosObservable() {
+        return fxGameManager.getGameInfosObservable();
+    }
+
+    public ObservableList<String> getFactionsInfosObservable() {
+        return fxGameManager.getFactionsInfosObservable();
+    }
+
+    public ObservableList<String> getFactionsBrideInfosObservable() {
+        return fxGameManager.getFactionsBrideInfosObservable();
+    }
+
+    ///////////////////////// COMMONS /////////////////////
+
+    public void refreshGameInfos() {
+        fxGameManager.refreshGameInfos();
+    }
+
+    private void refreshEndOfYearImpacts(Label foodImpact, Label partisanImpact) {
+        foodImpact.setText("Coût en nourriture de l'année : " + fxGameManager.endOfYearFoodImpact() + " => " +
+                fxGameManager.endOfYearFoodImpactResult());
+        partisanImpact.setText("Estimation de partisans mort de famine : " + fxGameManager.endOfYearParsisanToRemove());
+    }
+
+    private void refreshEndOfYearGains(Label moneyGain, Label foodGain) {
+        moneyGain.setText("Argent gagné : " + fxGameManager.endOfYearMoneyGain() + "$");
+        foodGain.setText("Nourriture gagnée : " + fxGameManager.endOfYearFoodGain());
+    }
+
+    public void refreshBuyFoodCosts(Label foodCost, Button buyFoodButton, int food) {
+        int price = food * fxGameManager.getFoodPrice();
+        foodCost.setText("x " + fxGameManager.getFoodPrice() + "$ = " + price + "$");
+        buyFoodButton.setDisable(price > fxGameManager.getMoney());
+    }
+
+    public void refreshFactionsBride() {
+        fxGameManager.refreshFactionsBride();
+    }
+
+    ///////////////////////// GAMEMODE CHOOSE /////////////
+
     public void chooseGameMode(ScenarioList scenarioL, Difficulty difficulty, Text scenarioName, Label scenarioDescription, Label difficultyLabel) throws JsonProcessingException {
-        scenario = scenarioL;
-        scenarioName.setText(scenarioL.getName());
+        fxGameManager.newGame(scenarioL, difficulty);
+
+        newGameDifficultyLabel(difficultyLabel, difficulty);
+        newGameScenarioLabel(scenarioName, scenarioDescription, fxGameManager.getScenarioIntroductions(), scenarioL);
+
+        refreshGameInfos();
+    }
+
+    public void newGameDifficultyLabel(Label difficultyLabel, Difficulty difficulty) {
         difficultyLabel.setText(difficulty.toString().toUpperCase());
         difficultyLabel.setVisible(true);
         switch (difficulty) {
@@ -105,66 +138,22 @@ public class FxApp extends Application {
                 difficultyLabel.setTextFill(Paint.valueOf("#ffffff"));
                 break;
         }
+    }
 
-        Scenario scenario;
-        if (scenarioL.equals(ScenarioList.SANDBOX)) {
-            scenario = Sandbox.createFromJson(scenarioL.getPath());
-        } else {
-            scenario = Scenario.createFromJson(scenarioL.getPath());
-        }
-        scenarioDescription.setText(scenario.getIntroduction());
+    public void newGameScenarioLabel(Text scenarioName, Label scenarioDescription, String scenarioIntroduction, ScenarioList scenarioL) {
+        scenarioName.setText(scenarioL.getName());
+        scenarioDescription.setText(scenarioIntroduction);
         scenarioDescription.setVisible(true);
-        game = new Game(scenario, difficulty);
-        refreshGameInfos();
     }
 
-    public ObservableList<String> getGameInfosObservable() {
-        return gameInfosObservable;
-    }
-
-    public ObservableList<String> getFactionsInfosObservable() {
-        return factionsInfosObservable;
-    }
-
-    public ObservableList<String> getFactionsBrideInfosObservable() {
-        return factionsBrideInfosObservable;
-    }
-
-    public void refreshGameInfos() {
-        gameInfosObservable.clear();
-        gameInfosObservable.add("Argent : " + game.getRessourceManager().getMoney() + "$");
-        gameInfosObservable.add("Nourriture : " + game.getRessourceManager().getFoodReserves());
-        gameInfosObservable.add("Occupation industrie : " + game.getRessourceManager().getIndustryPart() + "%");
-        gameInfosObservable.add("Occupation agriculture : " + game.getRessourceManager().getAgriculturePart() + "%");
-        gameInfosObservable.add("Satisfaction globale minimum : " + game.getSatisfactionLimit() + "%");
-        gameInfosObservable.add("Satisfaction globale actuelle : " + game.getFactionManager().getGlobalSatisfaction() + "%");
-        gameInfosObservable.add("Population totale : " + game.getFactionManager().getTotalPartisan());
-
-        factionsInfosObservable.clear();
-
-        game.getFactionManager().getFactionList().forEach(f ->
-                factionsInfosObservable.add(
-                        StringUtils.capitalize(f.getFactionType().toString())
-                                + "\nPartisans : " + f.getPartisans()
-                                + "\nSatisfaction : " + f.getSatisfaction() + "%"));
-    }
-
-    public void refreshFactionsBride() {
-        List<FactionType> factions = Arrays.stream(FactionType.values()).filter(fT -> fT != FactionType.loyalist).collect(Collectors.toList());
-        factionsBrideInfosObservable.clear();
-        factions.forEach(f -> {
-            Faction faction = game.getFactionManager().getFaction(f);
-            factionsBrideInfosObservable.add(StringUtils.capitalize(f.toString()) + ": Satisfaction à " + faction.getSatisfaction() + "%, " + faction.getPartisans() + " partisans");
-        });
-    }
+    ////////////////////// EVENT //////////////////////////
 
     public ToggleGroup nextEvent(Label eventDescription, VBox eventRadioButtonStack, Label eventSeason) {
-        Season season = game.getCurrentSeason();
-        game.nextTurn();
-        Event event = game.getCurrentEvent();
+        eventSeason.setText(fxGameManager.getCurrentSeason().toString().toUpperCase());
+        fxGameManager.nextTurn();
 
+        Event event = fxGameManager.getCurrentEvent();
         eventDescription.setText(event.getEventDetails());
-        eventSeason.setText(season.toString().toUpperCase());
 
         eventRadioButtonStack.getChildren().clear();
         ToggleGroup toggleGroup = new ToggleGroup();
@@ -177,53 +166,27 @@ public class FxApp extends Application {
             EventChoice eventChoice = event.getEventChoices().get(i);
             radioButton.setToggleGroup(toggleGroup);
             radioButton.setId(String.valueOf(i));
-            radioButton.setText(eventChoice.toString(game.getDifficulty()));
+            radioButton.setText(eventChoice.toString(fxGameManager.getChoosenDifficulty()));
             eventRadioButtonStack.getChildren().add(radioButton);
-
         }
         return toggleGroup;
     }
 
     public ToggleGroup chooseEventChoice(int choiceIndex, Label eventDescription, VBox eventRadioButtonStack, Label eventSeason) {
+        fxGameManager.chooseEventChoice(choiceIndex);
         if (isTheEndOfTheYear(eventSeason)) {
-            game.triggerEventEffect(choiceIndex);
-            game.triggerEndOfYearRessource();
+            fxGameManager.triggerEndOfYearGains();
             refreshGameInfos();
             return null;
         }
-        game.triggerEventEffect(choiceIndex);
         refreshGameInfos();
         return nextEvent(eventDescription, eventRadioButtonStack, eventSeason);
     }
 
-    private void playIt() {
-        playlist = new ArrayList<>();
-        Media media1;
-        Media media2;
-        try {
-            media1 = new Media(getClass().getResource("/music/glorious-morning.mp3").toString());
-            media2 = new Media(getClass().getResource("/music/glorious-morning-2.mp3").toString());
-        } catch (Exception e) {
-            System.out.println("Can't read sound files !");
-            return;
-        }
+    /////////////////////// END OF YEAR //////////////////
 
-        playlist.add(media1);
-        playlist.add(media2);
-
-
-        playList(playlist, 0);
-    }
-
-    private void playList(List<Media> mediaList, int i) {
-        if (mediaList.size() == 0) {
-            return;
-        }
-        player = new MediaPlayer(mediaList.get(i));
-        int nextI = (i + 1) % mediaList.size();
-        player.setOnEndOfMedia(() -> playList(mediaList, nextI));
-        player.setAutoPlay(true);
-        player.play();
+    private boolean isTheEndOfTheYear(Label season) {
+        return Season.fromString(season.getText()).equals(Season.winter);
     }
 
     public void endOfYear(Label moneyGain, Label foodGain, Label foodImpact, Label partisanImpact, Label brideLoyalistSatisfactionLabel) {
@@ -233,54 +196,27 @@ public class FxApp extends Application {
         refreshFactionsBride();
     }
 
-    private void refreshEndOfYearImpacts(Label foodImpact, Label partisanImpact) {
-        foodImpact.setText("Coût en nourriture de l'année : " + game.calculateFoodImpact() + " => " +
-                Math.max(0, game.getRessourceManager().getFoodReserves() - game.calculateFoodImpact()));
-        partisanImpact.setText("Estimation de partisans mort de famine : " + game.calculatePartisanToRemove());
-    }
-
-    private void refreshEndOfYearGains(Label moneyGain, Label foodGain) {
-        moneyGain.setText("Argent gagné : " + game.getEndOfYearMoneyProduction() + "$");
-        foodGain.setText("Nourriture gagnée : " + game.getEndOfYearFoodProduction());
-    }
-
-    public void refreshBuyFoodCosts(Label foodCost, Button buyFoodButton, int food) {
-        int price = food * game.getFoodPrice();
-        foodCost.setText("x " + game.getFoodPrice() + "$ = " + price + "$");
-        buyFoodButton.setDisable(price > game.getRessourceManager().getMoney());
-    }
-
-    private boolean isTheEndOfTheYear(Label season) {
-        return Season.fromString(season.getText()).equals(Season.winter);
-    }
-
     public FactionType selectFactionToBride(Label costLabel, Button buyBribeButton, String selectedLine) {
         FactionType selectedFaction = FactionType.fromString(selectedLine.split(":")[0]);
         if (selectedFaction == null) {
             System.out.println("Error ! Can't find selected faction");
             return null;
         }
-        Faction faction = game.getFactionManager().getFaction(selectedFaction);
-        int cost = game.getRessourceManager().getBrideCost(faction.getPartisans());
+        int cost = fxGameManager.getBrideCost(selectedFaction);
         costLabel.setText("Coût : " + cost + "$");
-        buyBribeButton.setDisable(cost > game.getRessourceManager().getMoney());
+        buyBribeButton.setDisable(cost > fxGameManager.getMoney());
         return selectedFaction;
     }
 
     public void buyFood(int value, Label foodImpact, Label partisanImpact) {
-        game.buyFood(value);
+        fxGameManager.buyFood(value);
         refreshGameInfos();
         refreshEndOfYearImpacts(foodImpact, partisanImpact);
     }
 
     public void buyBride(FactionType factionType, Label brideLoyalistSatisfactionLabel) {
         assert factionType != null;
-        Faction faction = game.getFactionManager().getFaction(factionType);
-        try {
-            game.getRessourceManager().buyBribe(faction);
-        } catch (Exception e) {
-            System.out.println("Error while bride faction !!");
-        }
+        fxGameManager.buyBride(factionType);
         refreshBrideLoyalistSatifsfactionLabel(brideLoyalistSatisfactionLabel);
 
         refreshGameInfos();
@@ -288,7 +224,7 @@ public class FxApp extends Application {
     }
 
     private void refreshBrideLoyalistSatifsfactionLabel(Label brideLoyalistSatisfactionLabel) {
-        Faction loyalist = game.getFactionManager().getFaction(FactionType.loyalist);
+        Faction loyalist = fxGameManager.getFaction(FactionType.loyalist);
         brideLoyalistSatisfactionLabel.setText("Satisfaction des Loyalistes : " + loyalist.getSatisfaction() + "%");
         if (loyalist.getSatisfaction() == 0) {
             brideLoyalistSatisfactionLabel.setTextFill(Paint.valueOf("#940300"));
@@ -298,10 +234,10 @@ public class FxApp extends Application {
     }
 
     public boolean nextYear() {
-        game.triggerEndOfYearCost();
-        refreshGameInfos();
-        return game.isNotLost() && !game.isEndOfScenario();
+        return fxGameManager.nextYear();
     }
+
+    ////////////////////// GAME OVER //////////////////////
 
     public void gameOver(Label gameOverStatusLabel,
                          Label gameOverMoney,
@@ -310,22 +246,22 @@ public class FxApp extends Application {
                          Label gameOverSatisfactionLimit,
                          Label gameOverPartisans) {
 
-        if (game.getScenario() instanceof Sandbox) {
+        if (fxGameManager.isSandboxGame()) {
             gameOverStatusLabel.setText("Vous avez perdu cette partie... T'es nul !");
             gameOverStatusLabel.setTextFill(Paint.valueOf("#940300"));
-        } else if (game.isNotLost()) {
+        } else if (fxGameManager.isNotLost()) {
             //Win
-            gameOverStatusLabel.setText("Félicitations !\nVous avez complété le scénario '" + scenario.getName() + "'");
+            gameOverStatusLabel.setText("Félicitations !\nVous avez complété le scénario '" + fxGameManager.getChoosenScenarioLabel().getName() + "'");
             gameOverStatusLabel.setTextFill(Paint.valueOf("#25AE2F"));
         } else {
             // Loose
             gameOverStatusLabel.setText("Vous avez perdu cette partie... T'es nul !");
             gameOverStatusLabel.setTextFill(Paint.valueOf("#940300"));
         }
-        gameOverMoney.setText("Argent : " + game.getRessourceManager().getMoney() + "$");
-        gameOverFood.setText("Nourriture : " + game.getRessourceManager().getFoodReserves());
-        gameOverSatisfaction.setText("Satisfaction globale : " + game.getFactionManager().getGlobalSatisfaction());
-        gameOverSatisfactionLimit.setText("Satisfaction minimum requise : " + game.getSatisfactionLimit());
-        gameOverPartisans.setText("Partisans : " + game.getFactionManager().getTotalPartisan());
+        gameOverMoney.setText("Argent : " + fxGameManager.getMoney() + "$");
+        gameOverFood.setText("Nourriture : " + fxGameManager.getFoodReserves());
+        gameOverSatisfaction.setText("Satisfaction globale : " + fxGameManager.getFactionGlobalSatisfaction());
+        gameOverSatisfactionLimit.setText("Satisfaction minimum requise : " + fxGameManager.getFactionGlobalSatisfactionLimit());
+        gameOverPartisans.setText("Partisans : " + fxGameManager.getTotalPartisan());
     }
 }
