@@ -19,7 +19,7 @@ import org.esgi.el_presidente.javafx.FxApp;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class HomeController implements Initializable {
+public class FxController implements Initializable {
     private FxApp fxApp;
     private ToggleGroup radioToggleGroup;
 

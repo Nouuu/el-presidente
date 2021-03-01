@@ -28,7 +28,7 @@ import org.esgi.el_presidente.core.scenario.Sandbox;
 import org.esgi.el_presidente.core.scenario.Scenario;
 import org.esgi.el_presidente.core.scenario.ScenarioList;
 import org.esgi.el_presidente.core.season.Season;
-import org.esgi.el_presidente.javafx.controller.HomeController;
+import org.esgi.el_presidente.javafx.controller.FxController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -72,7 +72,7 @@ public class FxApp extends Application {
     }
 
     private void linkController(FXMLLoader loader) {
-        HomeController controller = loader.getController();
+        FxController controller = loader.getController();
         controller.setFxApp(this);
     }
 
