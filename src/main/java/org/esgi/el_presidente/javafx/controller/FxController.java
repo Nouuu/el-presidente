@@ -148,6 +148,7 @@ public class FxController implements Initializable {
     private Label gameOverPartisans;
 
 
+    ////////// INITIALIZATION & COMMON ////////////////////
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         preventDividerMove();
@@ -161,23 +162,24 @@ public class FxController implements Initializable {
         splitPane1.getDividers().get(0).positionProperty().addListener((observableValue, number, t1) -> splitPane1.setDividerPositions(0.25));
     }
 
-    @FXML
-    private void onChooseGameMode() throws JsonProcessingException {
-        ScenarioList scenario = scenarioComboBox.getValue();
-        Difficulty difficulty = difficultyComboBox.getValue();
-        if (scenario != null && difficulty != null) {
-            fxApp.chooseGameMode(scenario, difficulty, scenarioName, scenarioDetails, difficultyLabel);
-            setVisibleStackPane(eventPane);
-            statusVbox.setVisible(true);
-            getNextEvent();
-        }
-    }
-
-
     private void setVisibleStackPane(Pane pane) {
         rightStackPane.getChildren().forEach(n -> n.setVisible(false));
         pane.setVisible(true);
     }
+
+    public void setFxApp(FxApp fxApp) {
+        this.fxApp = fxApp;
+        gameInfos.setItems(fxApp.getGameInfosObservable());
+        factionsInfos.setItems(fxApp.getFactionsInfosObservable());
+        initializeFactionBrideListView();
+    }
+
+    private void initializeFactionBrideListView() {
+        brideFactionListView.setItems(fxApp.getFactionsBrideInfosObservable());
+        brideFactionListView.setOnMouseClicked(event -> selectedFactionType = fxApp.selectFactionToBride(brideFactionCostLabel, buyBrideButton, brideFactionListView.getSelectionModel().getSelectedItem()));
+    }
+
+    //////////// GAME MODE CHOOSE /////////////////////////
 
     private void initScenarioList() {
         scenarioComboBox.getItems().addAll(ScenarioList.values());
@@ -215,17 +217,19 @@ public class FxController implements Initializable {
         });
     }
 
-    public void setFxApp(FxApp fxApp) {
-        this.fxApp = fxApp;
-        gameInfos.setItems(fxApp.getGameInfosObservable());
-        factionsInfos.setItems(fxApp.getFactionsInfosObservable());
-        initializeFactionBrideListView();
+    @FXML
+    private void onChooseGameMode() throws JsonProcessingException {
+        ScenarioList scenario = scenarioComboBox.getValue();
+        Difficulty difficulty = difficultyComboBox.getValue();
+        if (scenario != null && difficulty != null) {
+            fxApp.chooseGameMode(scenario, difficulty, scenarioName, scenarioDetails, difficultyLabel);
+            setVisibleStackPane(eventPane);
+            statusVbox.setVisible(true);
+            getNextEvent();
+        }
     }
 
-    private void initializeFactionBrideListView() {
-        brideFactionListView.setItems(fxApp.getFactionsBrideInfosObservable());
-        brideFactionListView.setOnMouseClicked(event -> selectedFactionType = fxApp.selectFactionToBride(brideFactionCostLabel, buyBrideButton, brideFactionListView.getSelectionModel().getSelectedItem()));
-    }
+    //////////// EVENT ////////////////////////////////////
 
     private void getNextEvent() {
 //        setVisibleStackPane(eventPane);
@@ -242,6 +246,8 @@ public class FxController implements Initializable {
             endOfYear();
         }
     }
+
+    ////////////////// END OF YEAR ////////////////////////
 
     private void endOfYear() {
         setVisibleStackPane(endOfYearPane);
@@ -290,6 +296,8 @@ public class FxController implements Initializable {
             fxApp.buyBride(selectedFactionType, brideLoyalistSatisfactionLabel);
         }
     }
+    
+    ////////////////// END GAME ///////////////////////////
 
     @FXML
     private void onNewGame() {
