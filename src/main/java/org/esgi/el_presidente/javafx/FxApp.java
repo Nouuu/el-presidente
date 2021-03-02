@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
@@ -65,6 +66,7 @@ public class FxApp extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.setTitle("El Presidente");
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/javafx/icons/dictator.jpg")));
         primaryStage.show();
     }
 
