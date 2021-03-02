@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -33,14 +34,18 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="scenarioDetails" alignment="TOP_LEFT" contentDisplay="CENTER" lineSpacing="2.0" prefHeight="30.0" prefWidth="290.0" text="Details" visible="false">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
+                  <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="60.0" prefWidth="290.0">
+                     <content>
+                        <Text fx:id="scenarioDetails" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                     </content>
                      <padding>
-                        <Insets left="10.0" right="10.0" />
+                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </padding>
-                  </Label>
+                  </ScrollPane>
                   <VBox fx:id="statusVbox" prefHeight="491.0" prefWidth="290.0" spacing="10.0" visible="false" VBox.vgrow="ALWAYS">
                      <children>
                         <Label text="Informations de la partie">

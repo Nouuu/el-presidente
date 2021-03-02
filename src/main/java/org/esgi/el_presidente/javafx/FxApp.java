@@ -109,7 +109,7 @@ public class FxApp extends Application {
 
     ///////////////////////// GAMEMODE CHOOSE /////////////
 
-    public void chooseGameMode(ScenarioList scenarioL, Difficulty difficulty, Text scenarioName, Label scenarioDescription, Label difficultyLabel) throws JsonProcessingException {
+    public void chooseGameMode(ScenarioList scenarioL, Difficulty difficulty, Text scenarioName, Text scenarioDescription, Label difficultyLabel) throws JsonProcessingException {
         fxGameManager.newGame(scenarioL, difficulty);
 
         newGameDifficultyLabel(difficultyLabel, difficulty);
@@ -140,7 +140,7 @@ public class FxApp extends Application {
         }
     }
 
-    public void newGameScenarioLabel(Text scenarioName, Label scenarioDescription, String scenarioIntroduction, ScenarioList scenarioL) {
+    public void newGameScenarioLabel(Text scenarioName, Text scenarioDescription, String scenarioIntroduction, ScenarioList scenarioL) {
         scenarioName.setText(scenarioL.getName());
         scenarioDescription.setText(scenarioIntroduction);
         scenarioDescription.setVisible(true);

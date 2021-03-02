@@ -40,7 +40,7 @@ public class FxController implements Initializable {
     private Text scenarioName;
 
     @FXML
-    private Label scenarioDetails;
+    private Text scenarioDetails;
 
     @FXML
     private Label difficultyLabel;
