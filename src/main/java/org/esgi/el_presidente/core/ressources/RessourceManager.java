@@ -2,6 +2,7 @@ package org.esgi.el_presidente.core.ressources;
 
 import org.esgi.el_presidente.core.factions.Faction;
 import org.esgi.el_presidente.core.factions.FactionType;
+import org.esgi.el_presidente.core.game.Difficulty;
 import org.esgi.el_presidente.core.helper.MathHelper;
 
 public class RessourceManager {
@@ -11,13 +12,16 @@ public class RessourceManager {
     private Faction loyalist;
     private Agriculture agriculture;
     private Industry industry;
+    private Difficulty difficulty;
 
-    public RessourceManager(Faction loyalist, int money, int foodReserves, Agriculture agriculture, Industry industry) {
-        finances = new Finances(money);
+    public RessourceManager(Faction loyalist, int money, int foodReserves, Agriculture agriculture, Industry industry,
+            Difficulty difficulty) {
+        finances = new Finances(money, difficulty.getLoseMultiplier());
         this.foodReserves = foodReserves;
         this.loyalist = loyalist;
         this.industry = industry;
         this.agriculture = agriculture;
+        this.difficulty = difficulty;
     }
 
     public void buyFood(int unitOfFood) throws Exception {

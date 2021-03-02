@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 
 import org.esgi.el_presidente.core.factions.Faction;
 import org.esgi.el_presidente.core.factions.FactionType;
+import org.esgi.el_presidente.core.game.Difficulty;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -55,7 +56,7 @@ public class RessourceManagerSteps {
 
   @When("I create Ressource Manager")
   public void createRessourceManager() {
-    manager = new RessourceManager(loyalist, found, foodReservies, agriculture, industry);
+    manager = new RessourceManager(loyalist, found, foodReservies, agriculture, industry, Difficulty.MEDIUM);
   }
 
   @When("I buy {int} food")
