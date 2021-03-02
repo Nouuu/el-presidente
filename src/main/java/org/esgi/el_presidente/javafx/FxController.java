@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -11,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.StringConverter;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.Diff;
 import org.esgi.el_presidente.core.factions.FactionType;
 import org.esgi.el_presidente.core.game.Difficulty;
 import org.esgi.el_presidente.core.scenario.ScenarioList;
@@ -44,6 +47,9 @@ public class FxController implements Initializable {
 
     @FXML
     private Label difficultyLabel;
+
+    @FXML
+    private ImageView jdgImage;
 
     @FXML
     private VBox statusVbox;
@@ -179,6 +185,21 @@ public class FxController implements Initializable {
         brideFactionListView.setOnMouseClicked(event -> selectedFactionType = fxApp.selectFactionToBride(brideFactionCostLabel, buyBrideButton, brideFactionListView.getSelectionModel().getSelectedItem()));
     }
 
+
+    //////////// MUSIC ////////////////////////////////////
+
+    @FXML
+    private void playMusic() {
+        System.out.println("play");
+        fxApp.playMusic();
+    }
+
+    @FXML
+    private void pauseMusic() {
+        System.out.println("pause");
+        fxApp.pauseMusic();
+    }
+
     //////////// GAME MODE CHOOSE /////////////////////////
 
     private void initScenarioList() {
@@ -224,6 +245,7 @@ public class FxController implements Initializable {
         if (scenario != null && difficulty != null) {
             fxApp.chooseGameMode(scenario, difficulty, scenarioName, scenarioDetails, difficultyLabel);
             setVisibleStackPane(eventPane);
+            jdgImage.setVisible(difficulty.equals(Difficulty.HARDCORE));
             statusVbox.setVisible(true);
             getNextEvent();
         }

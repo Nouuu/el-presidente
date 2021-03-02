@@ -107,15 +107,32 @@ public class FxApp extends Application {
         fxGameManager.refreshFactionsBride();
     }
 
+    public void playMusic() {
+        fxMusic.resume();
+    }
+
+    public void pauseMusic() {
+        fxMusic.pause();
+    }
+
     ///////////////////////// GAMEMODE CHOOSE /////////////
 
     public void chooseGameMode(ScenarioList scenarioL, Difficulty difficulty, Text scenarioName, Text scenarioDescription, Label difficultyLabel) throws JsonProcessingException {
         fxGameManager.newGame(scenarioL, difficulty);
 
+        difficultyMusic(difficulty);
         newGameDifficultyLabel(difficultyLabel, difficulty);
         newGameScenarioLabel(scenarioName, scenarioDescription, fxGameManager.getScenarioIntroductions(), scenarioL);
 
         refreshGameInfos();
+    }
+
+    public void difficultyMusic(Difficulty difficulty) {
+        if (difficulty.equals(Difficulty.HARDCORE)) {
+            fxMusic.JDG();
+        } else {
+            fxMusic.startMusicPlayer();
+        }
     }
 
     public void newGameDifficultyLabel(Label difficultyLabel, Difficulty difficulty) {

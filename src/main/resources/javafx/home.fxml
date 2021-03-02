@@ -8,6 +8,8 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -29,11 +31,23 @@
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <Label fx:id="difficultyLabel" alignment="CENTER" prefHeight="35.0" prefWidth="290.0" text="Difficulté" textAlignment="CENTER" textFill="WHITE" visible="false">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
+                  <HBox alignment="CENTER_LEFT">
+                     <children>
+                        <Label fx:id="difficultyLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="290.0" text="Difficulté" textAlignment="CENTER" textFill="WHITE" visible="false" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <ImageView fx:id="jdgImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@icons/jdg.jpg" />
+                           </image>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                  </HBox>
                   <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="60.0" prefWidth="290.0">
                      <content>
                         <Text fx:id="scenarioDetails" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false">
@@ -62,6 +76,26 @@
                         <ListView fx:id="factionsInfos" layoutX="10.0" layoutY="10.0" stylesheets="@css/modena_dark.css" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
+                  <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="15.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#pauseMusic">
+                           <graphic>
+                              <ImageView fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icons/pause.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></Button>
+                        <Button mnemonicParsing="false" onAction="#playMusic">
+                           <graphic>
+                              <ImageView fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icons/play.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></Button>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>

@@ -16,12 +16,14 @@ public class FxMusic {
     }
 
     public void startMusicPlayer() {
-        if (player != null) {
-            player.stop();
+        if (player == null || !player.getMedia().getSource().contains("glorious")) {
+            if (player != null) {
+                player.stop();
+            }
+            playlist.clear();
+            loadPlaylist();
+            playMusic(0);
         }
-        playlist.clear();
-        loadPlaylist();
-        playMusic(0);
     }
 
     private void loadPlaylist() {
@@ -45,6 +47,19 @@ public class FxMusic {
         player.setOnEndOfMedia(() -> playMusic(nextI));
         player.setAutoPlay(true);
         player.play();
+    }
+
+    public void JDG() {
+        if (player == null || !player.getMedia().getSource().contains("jdg")) {
+            if (player != null) {
+                player.stop();
+            }
+            Media media = new Media(getClass().getResource("/music/jdg.mp3").toString());
+            player = new MediaPlayer(media);
+            player.setAutoPlay(true);
+            player.setCycleCount(MediaPlayer.INDEFINITE);
+            player.play();
+        }
     }
 
     public void pause() {
