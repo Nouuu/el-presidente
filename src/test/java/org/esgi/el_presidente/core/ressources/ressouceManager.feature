@@ -100,12 +100,6 @@ Feature: Ressource Manager
       | 2           | -2     | 0        |
       | 0           | 2      | 2        |
 
-  # Gest brideCost
-  # Gest max size for ....
-  # Gett foodPrice
-  # Update Sizes
-  # TriggerEndOfYearAction
-
   Scenario: Get bribe cost
     Given A basic Ressource Manager
     When I get bribe cost for 10 peaples
@@ -123,3 +117,8 @@ Feature: Ressource Manager
     Given A basic Ressource Manager
     When I get food price
     Then The food price should be 8
+
+  Scenario: Trigger end of year action
+    Given A basic Ressource Manager
+    When I trigger end of year actions
+    Then
