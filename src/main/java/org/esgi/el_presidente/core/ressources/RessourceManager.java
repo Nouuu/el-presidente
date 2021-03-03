@@ -115,11 +115,11 @@ public class RessourceManager {
     }
 
     private int getMaxSizeForAgriculture() {
-        return Math.min(100, 100 - industry.getSize());
+        return Math.min(100, 100 - getIndustryPart());
     }
 
     private int getMaxSizeForIndustry() {
-        return Math.min(100, 100 - agriculture.getSize());
+        return Math.min(100, 100 - getAgriculturePart());
     }
 
     public int getBrideCost(int partisansCount) {

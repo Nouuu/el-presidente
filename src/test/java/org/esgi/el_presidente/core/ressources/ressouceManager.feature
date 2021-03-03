@@ -99,3 +99,27 @@ Feature: Ressource Manager
       | 200         | -20    | 180      |
       | 2           | -2     | 0        |
       | 0           | 2      | 2        |
+
+  # Gest brideCost
+  # Gest max size for ....
+  # Gett foodPrice
+  # Update Sizes
+  # TriggerEndOfYearAction
+
+  Scenario: Get bribe cost
+    Given A basic Ressource Manager
+    When I get bribe cost for 10 peaples
+    Then The bribe cost should be 150
+
+  Scenario: get max size industry / agricutlure
+    Given A ressource manager with 20 % agriculture and 40 % industry
+    When I add 20 % to the size of agriculture
+    Then The Agriculture segment should be 40
+    When I add 40 % to the size of industry
+    Then The Industry segment should be 60
+
+
+  Scenario: get food price
+    Given A basic Ressource Manager
+    When I get food price
+    Then The food price should be 8
