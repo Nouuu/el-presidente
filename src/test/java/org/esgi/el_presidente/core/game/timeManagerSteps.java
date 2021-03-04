@@ -11,10 +11,6 @@ import io.cucumber.java.en.When;
 public class timeManagerSteps {
   private TimeManager timeManager;
 
-  /**
-   * TODO TEST isItEndOfYear
-   */
-
   @Given("a time manager")
   public void a_time_manager() {
     timeManager = new TimeManager();
@@ -39,5 +35,15 @@ public class timeManagerSteps {
   @Then("the current year is {int}")
   public void the_current_year_is(int expectedCurrentYear) {
     assertEquals(expectedCurrentYear, timeManager.getCurrentYear());
+  }
+
+  @Then("it should be the end of the year")
+  public void should_be_end_of_the_year() {
+    assertEquals(true, timeManager.isTheEndOfTheYear());
+  }
+
+  @Then("it should not be the end of the year")
+  public void should_not_be_end_of_the_year() {
+    assertEquals(false, timeManager.isTheEndOfTheYear());
   }
 }
