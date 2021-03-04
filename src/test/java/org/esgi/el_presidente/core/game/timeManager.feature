@@ -36,3 +36,5 @@ Feature: Time Managment
     When i go to next season
     When i go to next season
     Then the current year is 2
+
+# TODO test isTheEndOfTheYear

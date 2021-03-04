@@ -16,6 +16,8 @@ public class RessourceManagerSteps {
   private int foodReservies;
   private int bribeCost;
   private int foodPrice;
+  private int foodProduced;
+  private int moneyProduced;
   private Faction loyalist;
   private Faction faction;
   private RessourceManager manager;
@@ -171,6 +173,31 @@ public class RessourceManagerSteps {
     manager.updateSizeOfIndustry(sizeToAdd);
   }
 
+  @When("I trigger end of year actions")
+  public void when_i_trigger_end_of_year_actions() {
+    manager.triggerEndOfYearAction();
+  }
+
+  @When("i buy partisans of loyalist it should throw an error")
+  public void when_i_buy_bribe_of_loyalist() {
+    try {
+      manager.buyBribe(loyalist);
+      fail("Buy loyalist sould fail");
+    } catch (Exception e) {
+      return;
+    }
+  }
+
+  @When("I get the end of year food production")
+  public void when_i_get_end_of_year_food_production() {
+    foodProduced = manager.getEndOfYearFoodProduction();
+  }
+
+  @When("I get the end of year money production")
+  public void when_i_get_end_of_year_money_production() {
+    moneyProduced = manager.getEndOfYearMoneyProduction();
+  }
+
   // THEN
 
   @Then("My food reserves is equal to {int}")
@@ -211,6 +238,16 @@ public class RessourceManagerSteps {
   @Then("The food price should be {int}")
   public void test_foodPrice(int expectedFoodPrice) {
     assertEquals(expectedFoodPrice, foodPrice);
+  }
+
+  @Then("The money production should be {int}")
+  public void test_money_production(int expectedMoneyProduction) {
+    assertEquals(expectedMoneyProduction, manager.getEndOfYearMoneyProduction());
+  }
+
+  @Then("The food production should be {int}")
+  public void test_food_production(int expectedfoodProduction) {
+    assertEquals(expectedfoodProduction, manager.getEndOfYearFoodProduction());
   }
 
   private void moveNumberOfPartisansTo(Faction faction, int expectedNumberOfPartisans) {

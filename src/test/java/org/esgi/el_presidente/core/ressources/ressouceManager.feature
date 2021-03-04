@@ -21,7 +21,8 @@ Feature: Ressource Manager
   Scenario: Buy food without the found
     Given I have 0 €
     And I have 0 food
-    When I buy 1 food it should throw an error
+    When I create Ressource Manager
+    And I buy 1 food it should throw an error
 
 
   Scenario Outline: Buy bribe
@@ -121,4 +122,19 @@ Feature: Ressource Manager
   Scenario: Trigger end of year action
     Given A basic Ressource Manager
     When I trigger end of year actions
-    Then
+    Then My food reserves is equal to 810
+    And My finacial ressources are of 200
+
+  Scenario: Buy bribe for loyalist
+    Given A basic Ressource Manager
+    When i buy partisans of loyalist it should throw an error
+
+  Scenario: Get end of year food production
+    Given A basic Ressource Manager
+    When I get the end of year food production
+    Then The food production should be 800
+
+  Scenario: Get end of year money production
+    Given A basic Ressource Manager
+    When I get the end of year money production
+    Then The money production should be 200
