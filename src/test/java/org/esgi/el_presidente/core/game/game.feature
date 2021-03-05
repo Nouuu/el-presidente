@@ -32,7 +32,7 @@ Feature: Game
     Then the population must have 0 members and 0 food
     Then it's lose
 
-  Scenario: buy food
+  Scenario: test food price
     Given a game with test scenario in easy
     When i get food price
     Then the food price should be 8
@@ -83,5 +83,27 @@ Feature: Game
     When i go to the next turn
     When i get the end of year food production
     Then the food produced in a year should be 400
-# Test getEndOfYearProduction
-# Test when faction type = null (consern all factions )
+
+  Scenario: test difficulty
+    Given a game with test scenario in easy
+    Then The difficulty is easy
+
+  Scenario: test scenario
+    Given a game with test scenario in easy
+    Then The scenario is test scenario
+
+  Scenario: test satisfaction limit
+    Given a game with test scenario in easy
+    Then The satisfaction limit is 10
+
+
+  Scenario: buy food fail
+    Given a game with test scenario in easy
+    When i buy 15000 food it should print an error
+    When i go to the next turn
+    When i go to the next turn
+    When i go to the next turn
+    When i go to the next turn
+    When i trigger end of year ressource
+
+# Test when faction type = null (consern all factions)

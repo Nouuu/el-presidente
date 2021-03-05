@@ -1,6 +1,7 @@
 package org.esgi.el_presidente.core.game;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -117,6 +118,16 @@ public class GameSteps {
     endOfYearFoodProduction = game.getEndOfYearFoodProduction();
   }
 
+  @When("i buy {int} food it should print an error")
+  public void i_buy_food_it_shoudld_print_an_error(int unitsOfFood) {
+    game.buyFood(unitsOfFood);
+  }
+
+  @When("i trigger end of year ressource")
+  public void i_trigger_end_of_year_ressource() {
+    game.triggerEndOfYearRessource();
+  }
+
   @Then("test event action")
   public void test_event_action() {
     RessourceManager ressourceManager = game.getRessourceManager();
@@ -176,12 +187,31 @@ public class GameSteps {
 
   @Then("the money produced in a year should be {int}")
   public void the_money_produced_in_a_year_should_be(int moneyProduce) {
-    assertEquals(moneyProduce, game.getEndOfYearMoneyProduction());
+    assertEquals(moneyProduce, endOfYearMoneyProduction);
   }
 
   @Then("the food produced in a year should be {int}")
   public void the_food_produced_in_a_year_should_be(int foodProduce) {
-    assertEquals(foodProduce, game.getEndOfYearFoodProduction());
+    assertEquals(foodProduce, endOfYearFoodProduction);
+  }
+
+  @Then("The difficulty is easy")
+  public void the_difficulty_is_easy() {
+    assertEquals(Difficulty.EASY, game.getDifficulty());
+  }
+
+  @Then("The scenario is test scenario")
+  public void the_scenario_is_test_scenario() throws JsonProcessingException {
+    Scenario expectedScenario = Scenario.createFromJson("test/scenarioTest.json");
+    String expectedScenarioIntro = expectedScenario.getIntroduction();
+    String scenarioIntro = game.getScenario().getIntroduction();
+
+    assertEquals(expectedScenarioIntro, scenarioIntro);
+  }
+
+  @Then("The satisfaction limit is {int}")
+  public void the_satisfaction_limit_is(int expectedSatisfactionLimit) {
+    assertEquals(expectedSatisfactionLimit, game.getSatisfactionLimit());
   }
 
   private Event getEventFromString(String eventName) throws Exception {
