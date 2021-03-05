@@ -30,12 +30,58 @@ Feature: Game
     When i go to the next turn
     When i trigger end of year cost
     Then the population must have 0 members and 0 food
+    Then it's lose
 
-# Test buy food
-# Test isEndOfScenario
-# Test getScenario
-# Test getFoodPrice
+  Scenario: buy food
+    Given a game with test scenario in easy
+    When i get food price
+    Then the food price should be 8
+
+  Scenario: end of scenario
+    Given a game with test scenario in easy
+    Then it's not the end of scenario
+    When i go to the next turn
+    When i go to the next turn
+    Then it's the end of scenario
+
+
+  Scenario: End of year benefit
+    Given a game with test scenario in easy
+    When i go to the next turn
+    When i go to the next turn
+    Then it's not lose
+    When i buy 150 food
+    When i go to the next turn
+    When i trigger end of year cost
+    Then the population must have 38 members and 0 food
+
+  Scenario: is lost
+    Given a game with test scenario in easy
+    Then it's not lose
+    When i go to the next turn
+    When i go to the next turn
+    When i go to the next turn
+    When i go to the next turn
+    When i trigger end of year cost
+    Then it's lose
+
+
+  Scenario: End of year money production
+    Given a game with test scenario in easy
+    When i go to the next turn
+    When i go to the next turn
+    When i go to the next turn
+    When i go to the next turn
+    When i get the end of year money production
+    Then the money produced in a year should be 150
+
+  Scenario: End of year food production
+    Given a game with test scenario in easy
+    When i go to the next turn
+    When i go to the next turn
+    When i go to the next turn
+    When i go to the next turn
+    When i get the end of year food production
+    Then the food produced in a year should be 400
 # Test getEndOfYearProduction
-# Test add partisant at end of year
 # Test when faction type = null (consern all factions )
-# Test isNotLost when it's lost
