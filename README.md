@@ -13,12 +13,44 @@ El Presidente is a Tropico / Reigns game like where you incarn a dictator on a i
 
 # Usage
 
+## CLI
+
+## JavaFX
+
 # Latest version
 
 ## Changelog
 
 # Code
 
+## Core
 
+### Events
+
+### Factions
+
+### Game
+
+### Helper
+
+### Ressources
+
+### Scenario
+
+### Seasons
+
+## CLI
+
+## JavaFX
+
+### FxApp
+
+### FxController
+
+### FxGameManager
+
+### FxMusic
+
+### FxMusicList
 
 # Contributions
