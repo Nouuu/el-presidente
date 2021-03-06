@@ -35,6 +35,7 @@ If you wan't to run the app in cli mode run the .jar by cli with the option --cl
 
 ## CLI
 
+![Usage of CLI](assets/el_presidente_CLI.png)
 ## JavaFX
 
 # Latest version
@@ -53,7 +54,15 @@ If you wan't to run the app in cli mode run the .jar by cli with the option --cl
 # Code
 
 ## Dependencies
+This project use :
+- Maven
+- jackson
+- JavaFX
 
+For the tests we use the following libraries :
+- cucumber
+- assertj
+- Junit
 ## Core
 
 ### Events
