@@ -2,7 +2,7 @@
 
 | Main status                                                  | Dev status                                                   |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![main version](https://img.shields.io/badge/Main release version-1.0-green) | ![main version](https://img.shields.io/badge/Dev version-1.2-green) |
+| ![main version](https://img.shields.io/badge/Main_release_version-1.0-green) | ![main version](https://img.shields.io/badge/Dev_version-1.2-green) |
 | [![Build & Test MAIN](https://github.com/Nouuu/el-presidente/actions/workflows/maven.yml/badge.svg)](https://github.com/Nouuu/el-presidente/actions/workflows/maven.yml) [![codecov](https://codecov.io/gh/Nouuu/el-presidente/branch/main/graph/badge.svg?token=MV0CMTYZ2R)](https://app.codecov.io/gh/Nouuu/el-presidente/branch/main/) | [![Build & Test Dev](https://github.com/Nouuu/el-presidente/actions/workflows/main.yml/badge.svg)](https://github.com/Nouuu/el-presidente/actions/workflows/main.yml) [![codecov](https://codecov.io/gh/Nouuu/el-presidente/branch/dev/graph/badge.svg?token=MV0CMTYZ2R)](https://app.codecov.io/gh/Nouuu/el-presidente/branch/dev/) |
 | ![Sunburst](https://codecov.io/gh/Nouuu/el-presidente/branch/main/graphs/sunburst.svg?token=MV0CMTYZ2R) | ![Sunburst](https://codecov.io/gh/Nouuu/el-presidente/branch/dev/graphs/sunburst.svg?token=MV0CMTYZ2R) |
 
@@ -301,7 +301,7 @@ An event can have 1 choice (so no choice in fact) to 4 choices.
 
 The events must be able to influence all the parameters of the game (satisfaction of factions, global satisfaction, the money, industry, agriculture or the number of partisans).
 
-`Description of an event`
+#### Description of an event and JSON
 
 ```java
 private final Season season;
@@ -309,7 +309,7 @@ private final String eventDetails;
 private final List<EventChoice> eventChoices;
 ```
 
-To build our events we use JSON files that describe the details of the event and the possible choices (EventChoice) as well as the impacts it has.
+To build our events we use JSON files that describe the details of the event and the possible choices (EventChoice) as well as the impacts it have.
 
 The event choice  have potentially implications on several factions (EventFactionEffect)
 
@@ -409,7 +409,7 @@ The CLI is based on **Scanner** You must write exactly what is expected
 
 ## JavaFX
 
-SceneBuilder
+### SceneBuilder
 
 ### FxApp
 
@@ -419,7 +419,7 @@ SceneBuilder
 
 ### FxMusic
 
-### FxMusicList
+#### FxMusicList
 
 # Contributions
 
