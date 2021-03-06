@@ -58,3 +58,8 @@ If you wan't to run the app in cli mode run the .jar by cli with the option --cl
 ### FxMusicList
 
 # Contributions
+
+|                                                  |                                                              |
+| ------------------------------------------------ | ------------------------------------------------------------ |
+| [Noé LARRIEU-LACOSTE](https://github.com/Nouuu)  | [![followers](https://img.shields.io/github/followers/nouuu)]((https://github.com/Nouuu)) |
+| [Swann HERRERA](https://github.com/SwannHERRERA) | [![followers](https://img.shields.io/github/followers/SwannHERRERA)](https://github.com/SwannHERRERA) |
