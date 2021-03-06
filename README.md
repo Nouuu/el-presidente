@@ -96,15 +96,23 @@ When you go on next year, you have three case :
 # Code
 
 ## Dependencies
-This project use :
-- Maven
-- jackson
-- JavaFX
 
-For the tests we use the following libraries :
-- cucumber
-- assertj
-- Junit
+This project use Maven 3.
+
+| Maven dependencies | Version | Description                                                |
+| ------------------ | ------- | ---------------------------------------------------------- |
+| Junit              | 4.13.1  | Used for unit testing                                      |
+| Cucumber           | 6.9.0   | Used for unit testing                                      |
+| AssertJ            | 3.18.1  | Used for unit testing                                      |
+| JavaFX             | 15.0.1  | Used for GUI app                                           |
+| Apache Commons     | 3.11    | Useful libraries functions                                 |
+| Jackson            | 2.12.1  | Help to parse JSON file into Java object                   |
+| Jacoco plugin      | 0.8.6   | Generate code coverage report from unit tests              |
+| Maven shade plugin | 3.2.4   | Compile code with dependencies to make standalone jar file |
+| JavaFX plugin      | 0.0.5   | Add configuration to assign main class on launch           |
+
+## Github Actions
+
 ## Core
 
 ### Events
