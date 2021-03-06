@@ -133,6 +133,24 @@ We currently added two workflow on our project.
 
 ## Unit tests
 
+Testing is a central point of the project we have tested the whole Core part of the project. 
+
+We didn't test the CLI and GUI parts because it's the presentation and we consider that it's bound to evolve too often, there's also a time issue that came into the equation.
+We preferred to refocus the tests on the logic of the game. 
+
+We used 2 parterns for the tests :
+- gherkin
+- test unitaire stadard (junit - asserJ)
+
+In summary the gerhkin tests use a Given When Then structure to enter the tests readable for the non-technical part of the team they also ensure a good separation in the test code.
+
+```
+  Scenario: test food price
+    Given a game with test scenario in easy
+    When i get food price
+    Then the food price should be 8
+```
+
 ## Core
 
 ### Events
