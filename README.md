@@ -24,6 +24,15 @@ If you wan't to run the app in cli mode run the .jar by cli with the option --cl
 # Latest version
 
 ## Changelog
+### [1.0.0] - 2021-02-23
+#### Added
+- launch of the project in its initial version
+
+### [1.1.0] - 2021-03-06
+#### Added
+- Easter egg in hardcode
+- More Test
+- CLI option to choice Difficulty and Scenario 
 
 # Code
 
@@ -44,6 +53,15 @@ If you wan't to run the app in cli mode run the .jar by cli with the option --cl
 ### Seasons
 
 ## CLI
+The CLI is considered to be the development mode.
+The CLI is java vanilla, we didn't want to add a library for this part.
+
+### Output
+The CLI is not very verbose on the possible options for event of end of year actions
+At the end of the year you get optional reports with the Ressources info and the Factions info
+
+### Input
+The CLI is based on **Scanner** You must write exactly what is expected
 
 ## JavaFX
 
