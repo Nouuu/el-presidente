@@ -275,9 +275,9 @@ Testing is a central point of the project we have tested the whole Core part of 
 We didn't test the CLI and GUI parts because it's the presentation and we consider that it's bound to evolve too often, there's also a time issue that came into the equation.
 We preferred to refocus the tests on the logic of the game. 
 
-We used 2 patterns for the tests :
-- Gherkin
 - Classic unit test (Junit + AssertJ)
+We used 2 patterns for the tests :
+- Gerhkin [cucumber](https://cucumber.io/)
 
 In summary the gerhkin tests use a Given When Then structure to enter the tests readable for the non-technical part of the team they also ensure a good separation in the test code.
 
@@ -288,9 +288,27 @@ In summary the gerhkin tests use a Given When Then structure to enter the tests 
     Then the food price should be 8
 ```
 
+We use [Jacoco](https://www.jacoco.org/jacoco/) and [codcov](https://about.codecov.io/) to follow our progress on the tests
+
 ## Core
 
 ### Events
+
+An event is  is something that happens, it choice choices of el-president and these choices will have consequences that can be negative or positive.
+
+An event can have 1 choice (so no choice in fact) to 4 choices.
+
+The events must be able to influence all the parameters of the game (satisfaction of factions, global satisfaction, the money, industry, agriculture or the number of partisans).
+
+`Description of an event`
+```java
+private final Season season;
+private final String eventDetails;
+private final List<EventChoice> eventChoices;
+```
+
+Events are managed by the EventManager
+
 
 ### Factions
 
@@ -303,6 +321,12 @@ In summary the gerhkin tests use a Given When Then structure to enter the tests 
 ### Scenario
 
 ### Seasons
+
+One season corresponds to one round of the game
+
+The season is linked to an event because all season have an event
+
+Seasons is represented by an enum, which lists the 4 seasons of a year, we use it for loop over it in a year
 
 ## CLI
 The CLI is considered to be the development mode.
