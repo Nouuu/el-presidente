@@ -317,6 +317,8 @@ The CLI is based on **Scanner** You must write exactly what is expected
 
 ## JavaFX
 
+SceneBuilder
+
 ### FxApp
 
 ### FxController
