@@ -307,6 +307,43 @@ private final String eventDetails;
 private final List<EventChoice> eventChoices;
 ```
 
+To build our events we use JSON files that describe the details of the event and the possible choices (EventChoice) as well as the impacts it has.
+
+The event choice  have potentially implications on several factions (EventFactionEffect)
+
+```json
+{
+  "eventDetails": "Un parseur de fichier fait apparition dans le programme.\nCelui-ci est capable de transformer un fichier json en véritable objet java\n",
+  "eventChoices": [
+    {
+      "choiceName": "Tu saute par dessus bord",
+      "industryEffect": 7,
+      "agricultureEffect": -5,
+      "foodEffect": 8,
+      "financeEffect": 600,
+      "factionEffects": [
+        {
+          "factionType": "",
+          "partisansPercentEffect": 1,
+          "satisfactionEffect": -2
+        },
+      ]
+    },
+    {
+      "choiceName": "Tu reste dans le bato",
+      "financeEffect": 60,
+      "factionEffects": [
+        {
+          "factionType": "religieux",
+          "partisansPercentEffect": 1,
+          "satisfactionEffect": 1
+        }
+      ]
+    }
+  ]
+}
+```
+
 Events are managed by the EventManager
 
 
