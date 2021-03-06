@@ -2,6 +2,7 @@
 
 | Main status                                                  | Dev status                                                   |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ![main version](https://img.shields.io/badge/Main release version-1.0-green) | ![main version](https://img.shields.io/badge/Dev version-1.2-green) |
 | [![Build & Test MAIN](https://github.com/Nouuu/el-presidente/actions/workflows/maven.yml/badge.svg)](https://github.com/Nouuu/el-presidente/actions/workflows/maven.yml) [![codecov](https://codecov.io/gh/Nouuu/el-presidente/branch/main/graph/badge.svg?token=MV0CMTYZ2R)](https://app.codecov.io/gh/Nouuu/el-presidente/branch/main/) | [![Build & Test Dev](https://github.com/Nouuu/el-presidente/actions/workflows/main.yml/badge.svg)](https://github.com/Nouuu/el-presidente/actions/workflows/main.yml) [![codecov](https://codecov.io/gh/Nouuu/el-presidente/branch/dev/graph/badge.svg?token=MV0CMTYZ2R)](https://app.codecov.io/gh/Nouuu/el-presidente/branch/dev/) |
 | ![Sunburst](https://codecov.io/gh/Nouuu/el-presidente/branch/main/graphs/sunburst.svg?token=MV0CMTYZ2R) | ![Sunburst](https://codecov.io/gh/Nouuu/el-presidente/branch/dev/graphs/sunburst.svg?token=MV0CMTYZ2R) |
 
@@ -301,6 +302,7 @@ An event can have 1 choice (so no choice in fact) to 4 choices.
 The events must be able to influence all the parameters of the game (satisfaction of factions, global satisfaction, the money, industry, agriculture or the number of partisans).
 
 `Description of an event`
+
 ```java
 private final Season season;
 private final String eventDetails;
@@ -365,6 +367,34 @@ The season is linked to an event because all season have an event
 
 Seasons is represented by an enum, which lists the 4 seasons of a year, we use it for loop over it in a year
 
+```java
+public enum Season {
+    spring("printemps"),
+    summer("été"),
+    autumn("automne"),
+    winter("hiver");
+
+    private final String season;
+
+    Season(String season) {
+        this.season = season;
+    }
+
+    @Override
+    public String toString() {
+        return season;
+    }
+
+    @JsonCreator
+    public static Season fromString(String string) {
+        return Arrays.stream(Season.values()).filter(o ->
+            o.season                    	  
+            .equalsIgnoreCase(string))
+            .findFirst().orElse(null);
+    }
+}
+```
+
 ## CLI
 The CLI is considered to be the development mode.
 The CLI is java vanilla, we didn't want to add a library for this part.
@@ -377,6 +407,8 @@ At the end of the year you get optional reports with the Ressources info and the
 The CLI is based on **Scanner** You must write exactly what is expected
 
 ## JavaFX
+
+SceneBuilder
 
 ### FxApp
 
