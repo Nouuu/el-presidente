@@ -9,6 +9,14 @@ El Presidente is a Tropico / Reigns game like where you are a dictator on a isla
 
 # Links
 
+Project syllabus : [SyllabusDuProjet.pdf](SyllabusDuProjet.pdf) 
+
+JavaFX for java 11 and above : https://openjfx.io/
+
+How to parse Json file in Java : https://www.baeldung.com/jackson-object-mapper-tutorial
+
+Refactoring : https://refactoring.guru/fr
+
 # Installation
 
 In both case, once you download / generate the jar file, the executable is standalone and you only need to have **Java 11** installed.
