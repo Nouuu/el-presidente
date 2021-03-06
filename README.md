@@ -8,6 +8,53 @@
 
 El Presidente is a Tropico / Reigns game like where you are a dictator on a island.
 
+<!-- toc -->
+
+- [Links](#links)
+- [Installation](#installation)
+  * [Use release](#use-release)
+  * [Build from code](#build-from-code)
+- [Usage](#usage)
+  * [CLI](#cli)
+  * [JavaFX](#javafx)
+- [Latest version](#latest-version)
+  * [Changelog](#changelog)
+    + [[1.0.0] - 2021-02-23](#100---2021-02-23)
+      - [Added](#added)
+    + [[1.1.0] - 2021-03-02](#110---2021-03-02)
+      - [Added](#added-1)
+    + [[1.2.0] - 2021-03-06](#120---2021-03-06)
+      - [Added](#added-2)
+- [Code](#code)
+  * [Dependencies](#dependencies)
+  * [Github Actions](#github-actions)
+    + [Workflows](#workflows)
+    + [Build and test](#build-and-test)
+    + [Codecov](#codecov)
+  * [Unit tests](#unit-tests)
+  * [Core](#core)
+    + [Events](#events)
+      - [Description of an event and JSON](#description-of-an-event-and-json)
+    + [Factions](#factions)
+    + [Game](#game)
+    + [Helper](#helper)
+    + [Resources](#resources)
+    + [Scenario](#scenario)
+    + [Seasons](#seasons)
+  * [CLI](#cli-1)
+    + [Output](#output)
+    + [Input](#input)
+  * [JavaFX](#javafx-1)
+    + [SceneBuilder](#scenebuilder)
+    + [FxApp](#fxapp)
+    + [FxController](#fxcontroller)
+    + [FxGameManager](#fxgamemanager)
+    + [FxMusic](#fxmusic)
+      - [FxMusicList](#fxmusiclist)
+- [Contributions](#contributions)
+
+<!-- tocstop -->
+
 # Links
 
 Project syllabus : [SyllabusDuProjet.pdf](SyllabusDuProjet.pdf) 
