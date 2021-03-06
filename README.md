@@ -35,7 +35,7 @@ If you wan't to run the app in cli mode run the .jar by cli with the option --cl
 
 ## CLI
 
-![Usage of CLI](assets/el_presidente_CLI.png)
+![Usage of CLI](images/README/el_presidente_CLI.png)
 ## JavaFX
 
 # Latest version
