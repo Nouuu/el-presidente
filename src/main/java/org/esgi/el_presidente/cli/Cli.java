@@ -52,16 +52,16 @@ public class Cli {
     System.out.println("Select Game Mode: 1 for EASY 2 for NORMAL 3 press 4 if you are JDG");
     int choice = input.nextInt();
     switch (choice) {
-      case 1:
-        return Difficulty.EASY;
-      case 2:
-        return Difficulty.MEDIUM;
-      case 3:
-        return Difficulty.HARD;
-      case 4:
-        return Difficulty.HARDCORE;
-      default:
-        return Difficulty.MEDIUM;
+    case 1:
+      return Difficulty.EASY;
+    case 2:
+      return Difficulty.MEDIUM;
+    case 3:
+      return Difficulty.HARD;
+    case 4:
+      return Difficulty.HARDCORE;
+    default:
+      return Difficulty.MEDIUM;
     }
   }
 
@@ -79,22 +79,22 @@ public class Cli {
   }
 
   private void displayEndOfYearBilan() {
-    Scanner scanner = new Scanner(System.in);
+    Scanner input = new Scanner(System.in);
     String userEntry;
     System.out.println(reviewTheGame());
     System.out.println("It's the end of the year you can buy bribe and food\n");
     do {
       System.out.println("Enter \"food\" for buy food or \"faction\" to see the faction bribe sequence or q to quit\n");
-      userEntry = scanner.next();
+      userEntry = input.next();
       switch (userEntry) {
-        case "food":
-          buyFood();
-          break;
-        case "faction":
-          buyFaction();
-          break;
-        default:
-          break;
+      case "food":
+        buyFood();
+        break;
+      case "faction":
+        buyFaction();
+        break;
+      default:
+        break;
       }
     } while (!userEntry.equals("q"));
   }
@@ -105,10 +105,10 @@ public class Cli {
     FactionManager factionManager = game.getFactionManager();
     Faction faction;
     RessourceManager ressourceManager = game.getRessourceManager();
-    Scanner scanner = new Scanner(System.in);
+    Scanner input = new Scanner(System.in);
     do {
       System.out.println("enter the type of your faction or \"q\" for exit");
-      factionTypeStr = scanner.next();
+      factionTypeStr = input.next();
       factionType = FactionType.fromString(factionTypeStr);
       if (factionType != null) {
         faction = factionManager.getFaction(factionType);
@@ -125,14 +125,14 @@ public class Cli {
 
   private void buyFood() {
     RessourceManager ressourceManager = game.getRessourceManager();
-    Scanner scanner = new Scanner(System.in);
+    Scanner input = new Scanner(System.in);
     int unitOfFood;
     try {
       System.out.println("How many unit of food do you want ?");
-      unitOfFood = scanner.nextInt();
+      unitOfFood = input.nextInt();
       ressourceManager.buyFood(unitOfFood);
     } catch (Exception e) {
-      System.out.println(e.getMessage());
+      System.out.println("you don't have the money to buy this amount of food");
     }
   }
 

@@ -145,13 +145,11 @@ public class Game {
     }
 
     public void buyFood(int unitOfFood) {
-        int price = (int) Math.floor(ressourceManager.getFoodPrice() * unitOfFood * difficulty.getLoseMultiplier());
-        if (price <= ressourceManager.getMoney()) {
-            try {
-                ressourceManager.buyFood(unitOfFood);
-            } catch (Exception e) {
-                System.out.println("Error when buying food !");
-            }
+        try {
+            ressourceManager.buyFood(unitOfFood);
+        } catch (Exception e) {
+            System.out.println("you don't have the money ");
+            return;
         }
     }
 

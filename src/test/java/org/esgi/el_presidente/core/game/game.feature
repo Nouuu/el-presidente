@@ -32,6 +32,16 @@ Feature: Game
     Then the population must have 0 members and 0 food
     Then it's lose
 
+  Scenario: End of year add partisans
+    Given a game with many food
+    When i go to the next turn
+    When i go to the next turn
+    When i go to the next turn
+    When i trigger end of year ressource
+    When i trigger end of year cost
+    Then the population must have 25 members and 500 food
+    Then it's not lose
+
   Scenario: test food price
     Given a game with test scenario in easy
     When i get food price
@@ -105,5 +115,3 @@ Feature: Game
     When i go to the next turn
     When i go to the next turn
     When i trigger end of year ressource
-
-# Test when faction type = null (consern all factions)

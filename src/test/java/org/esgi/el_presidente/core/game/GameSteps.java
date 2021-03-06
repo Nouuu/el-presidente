@@ -1,7 +1,6 @@
 package org.esgi.el_presidente.core.game;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -28,6 +27,13 @@ public class GameSteps {
   public void init_with_test_scenario() throws JsonProcessingException {
     Difficulty difficulty = Difficulty.EASY;
     Scenario scenario = Scenario.createFromJson("test/scenarioTest.json");
+    game = new Game(scenario, difficulty);
+  }
+
+  @Given("a game with many food")
+  public void a_game_with_many_food() throws JsonProcessingException {
+    Difficulty difficulty = Difficulty.MEDIUM;
+    Scenario scenario = Scenario.createFromJson("test/sandboxTestWithManyFood.json");
     game = new Game(scenario, difficulty);
   }
 
@@ -143,8 +149,8 @@ public class GameSteps {
     int foodReserves = ressourceManager.getFoodReserves();
     int finance = ressourceManager.getMoney();
 
-    assertEquals(55, commuSatisfaction);
-    assertEquals(50, ecoloSatisfaction);
+    assertEquals(57, commuSatisfaction);
+    assertEquals(52, ecoloSatisfaction);
     assertEquals(11, commuPartisansNumber);
     assertEquals(9, ecoloPartisansNumber);
     assertEquals(8, foodReserves);
@@ -216,17 +222,17 @@ public class GameSteps {
 
   private Event getEventFromString(String eventName) throws Exception {
     switch (eventName) {
-      case "eventTest":
-        return Event.createFromJson("test/eventTest.json");
-      case "eventTest2":
-        return Event.createFromJson("test/eventTest2.json");
-      case "eventTestError":
-        return Event.createFromJson("test/eventTestError.json");
-      case "eventTestError2":
-        return Event.createFromJson("test/eventTestError2.json");
+    case "eventTest":
+      return Event.createFromJson("test/eventTest.json");
+    case "eventTest2":
+      return Event.createFromJson("test/eventTest2.json");
+    case "eventTestError":
+      return Event.createFromJson("test/eventTestError.json");
+    case "eventTestError2":
+      return Event.createFromJson("test/eventTestError2.json");
 
-      default:
-        throw new Exception("event is not in the list");
+    default:
+      throw new Exception("event is not in the list");
     }
   }
 }
