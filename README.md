@@ -44,11 +44,20 @@ If you wan't to run the app in cli mode run the .jar by cli with the option --cl
 #### Added
 - launch of the project in its initial version
 
-### [1.1.0] - 2021-03-06
+### [1.1.0] - 2021-03-02
 #### Added
 - Easter egg in hardcode
-- More Test
+- Refacto of all JavaFX package for better readable 
+- Add Play/Pause music button
+- Fix scenario details not showing if long text
+- Add app icon
+
+### [1.2.0] - 2021-03-06
+
+#### Added
+
 - CLI option to choice Difficulty and Scenario 
+- Add a lot of tests for better coverage
 
 # Code
 
