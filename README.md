@@ -345,6 +345,7 @@ The event choice  have potentially implications on several factions (EventFactio
   ]
 }
 ```
+> when factionType is set to "" is that the action conserns all factions
 
 Events are managed by the EventManager
 
