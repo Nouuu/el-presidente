@@ -301,7 +301,7 @@ An event can have 1 choice (so no choice in fact) to 4 choices.
 
 The events must be able to influence all the parameters of the game (satisfaction of factions, global satisfaction, the money, industry, agriculture or the number of partisans).
 
-`Description of an event`
+#### Description of an event and JSON
 
 ```java
 private final Season season;
@@ -309,7 +309,7 @@ private final String eventDetails;
 private final List<EventChoice> eventChoices;
 ```
 
-To build our events we use JSON files that describe the details of the event and the possible choices (EventChoice) as well as the impacts it has.
+To build our events we use JSON files that describe the details of the event and the possible choices (EventChoice) as well as the impacts it have.
 
 The event choice  have potentially implications on several factions (EventFactionEffect)
 
@@ -408,7 +408,7 @@ The CLI is based on **Scanner** You must write exactly what is expected
 
 ## JavaFX
 
-SceneBuilder
+### SceneBuilder
 
 ### FxApp
 
@@ -418,7 +418,7 @@ SceneBuilder
 
 ### FxMusic
 
-### FxMusicList
+#### FxMusicList
 
 # Contributions
 
