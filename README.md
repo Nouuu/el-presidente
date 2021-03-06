@@ -38,7 +38,7 @@ If you wan't to run the app in cli mode run the .jar by cli with the option --cl
 ![Usage of CLI](images/README/el_presidente_CLI.png)
 ## JavaFX
 
-# Latest version
+# [Latest version](https://github.com/Nouuu/el-presidente/releases/tag/1.0)
 
 ## Changelog
 ### [1.0.0] - 2021-02-23
