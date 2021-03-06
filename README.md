@@ -38,6 +38,39 @@ If you wan't to run the app in cli mode run the .jar by cli with the option --cl
 ![Usage of CLI](images/README/el_presidente_CLI.png)
 ## JavaFX
 
+Once you have started the app in GUI mode, a javaFX window will show up and ask you the first thing to do : Choose the difficulty and the scenario.
+
+> Try to select **Niveau JDG** for more fun :wink:
+
+![image-20210306153515833](images/README/image-20210306153515833.png)
+
+Then the game begin !
+
+You can see on the sidebar real-time informations about the chosen scenario, the difficulty, the resources and faction state.
+
+It also show the minimum satisfaction you have to keep at the end of the year or you will loose.
+
+On the right side, an event is displayed with choice to do. Each choice have consequences so be careful !
+
+![image-20210306154953780](images/README/image-20210306154953780.png)
+
+At the end of the year, depending of the agriculture and industry occupation, you will earn money and food to help you with the next year.
+
+It is the time where you can buy some extra food to avoid famine and bribe some faction to help being above minimum satisfaction. 
+
+![image-20210306155858766](images/README/image-20210306155858766.png)
+
+When you go on next year, you have three case :
+
+- You didn't loose so the scenario continue
+- You didn't loose but the scenario is ended (AKA you win)
+
+![image-20210306161110179](images/README/image-20210306161110179.png)
+
+- You loose because of your satisfaction.
+
+![image-20210306161317792](images/README/image-20210306161317792.png)
+
 # [Latest version](https://github.com/Nouuu/el-presidente/releases/tag/1.0)
 
 ## Changelog
