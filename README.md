@@ -1,4 +1,4 @@
-# El Presidente
+# [El Presidente](https://github.com/Nouuu/el-presidente)
 
 | Main status                                                  | Dev status                                                   |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -113,6 +113,8 @@ This project use Maven 3.
 
 ## Github Actions
 
+## Unit tests
+
 ## Core
 
 ### Events
@@ -123,7 +125,7 @@ This project use Maven 3.
 
 ### Helper
 
-### Ressources
+### Resources
 
 ### Scenario
 
