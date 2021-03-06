@@ -12,6 +12,10 @@ El Presidente is a Tropico / Reigns game like where you incarn a dictator on a i
 # Installation
 
 # Usage
+to use the app in GUI mode run the .jar by double-click or with command line
+
+If you wan't to run the app in cli mode run the .jar by cli with the option --cli
+`java -jar el_presidente_1.0.jar --cli`
 
 ## CLI
 
