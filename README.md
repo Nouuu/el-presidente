@@ -121,15 +121,152 @@ This project use Maven 3.
 
 ## Github Actions
 
-### Workflow
+### Workflows
 
-We currently added two workflow on our project.
+We currently added two workflows on our project.
 
+One is triggered when pushing or making a pull request on **dev** branch, the other works on the same way on **main** branch.
 
+```yaml
+name: Build & Test Dev
+
+on:
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ dev ]
+```
+```yaml
+name: Build & Test Main
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+```
+
+Those two workflow do the same thing : build, test and report test coverage.
 
 ### Build and test
 
+Once the workflow is triggered, it will :
+
+- Pull the project on the right branch
+- Setup JDK 11 on Windows platform
+- Search for maven cache from precedent build
+- Retrieve missing maven packages
+- Run the command `mvn verify` which will build and run unit tests
+- Upload Jacoco report on Codecov
+
+```yaml
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+      - name: Pull project
+        uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+        
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+          
+      - name: Build with Maven
+        run: mvn --batch-mode --update-snapshots verify
+        
+      - name: Upload test coverage report on Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: target/site/jacoco/jacoco.xml
+```
+
+This will generate a badge that indicate if build and tests were successful : [![Build & Test Dev](https://github.com/Nouuu/el-presidente/actions/workflows/main.yml/badge.svg)](https://github.com/Nouuu/el-presidente/actions/workflows/main.yml)
+
 ### Codecov
+
+When test coverage report is uploaded on codecov, it analyze our code coverage and generate badge and chart we can analyze to see our efficient is our code coverage :
+
+[![codecov](https://codecov.io/gh/Nouuu/el-presidente/branch/dev/graph/badge.svg?token=MV0CMTYZ2R)](https://app.codecov.io/gh/Nouuu/el-presidente/branch/dev/)
+
+|                                                              |                                                              |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ![image-20210306174549043](images/README/image-20210306174549043.png) | ![image-20210306174620959](images/README/image-20210306174620959.png) |
+
+We can see on each file if each line has been covered, which is just a indicator and not the assurance that our unit test are fine but still very helpful !
+
+![image-20210306174814443](images/README/image-20210306174814443.png)
+
+There is a config file `codecov.yml` that do some check on pull request and push and determine if our code coverage is conform.
+
+It is set to minimum 90% of code coverage with a maximum of 5% variation of coverage between two push
+
+```yaml
+codecov:
+  require_ci_to_pass: yes
+
+coverage:
+  precision: 2
+  round: down
+  range: "70...100"
+  status:
+    project:
+      default:
+        # basic
+        target: 90%
+        threshold: 5%
+        base: auto 
+        flags: 
+          - unit
+        paths: 
+          - "src"
+       # advanced settings
+        branches:
+          - main
+          - dev
+        if_ci_failed: error #success, failure, error, ignore
+        informational: false
+        only_pulls: false
+    patch:
+      default:
+        # basic
+        target: 90%
+        threshold: 5%
+        base: auto 
+        flags: 
+          - unit
+        paths: 
+          - "src"
+       # advanced settings
+        branches:
+          - main
+          - dev
+        if_ci_failed: error #success, failure, error, ignore
+        informational: false
+        only_pulls: false
+
+parsers:
+  gcov:
+    branch_detection:
+      conditional: yes
+      loop: yes
+      method: no
+      macro: no
+
+comment:
+  layout: "reach,diff,flags,files,footer"
+  behavior: default
+  require_changes: no
+```
 
 ## Unit tests
 
@@ -138,9 +275,9 @@ Testing is a central point of the project we have tested the whole Core part of 
 We didn't test the CLI and GUI parts because it's the presentation and we consider that it's bound to evolve too often, there's also a time issue that came into the equation.
 We preferred to refocus the tests on the logic of the game. 
 
-We used 2 parterns for the tests :
-- gherkin
-- test unitaire stadard (junit - asserJ)
+We used 2 patterns for the tests :
+- Gherkin
+- Classic unit test (Junit + AssertJ)
 
 In summary the gerhkin tests use a Given When Then structure to enter the tests readable for the non-technical part of the team they also ensure a good separation in the test code.
 
