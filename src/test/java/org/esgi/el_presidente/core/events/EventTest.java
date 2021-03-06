@@ -75,6 +75,7 @@ public class EventTest {
         Assertions.assertThat(event.getEventChoices()).hasSize(2);
 
         List<EventFactionEffect> factionEffects1 = new ArrayList<EventFactionEffect>();
+        factionEffects1.add(new EventFactionEffect(null, 1, 2));
         factionEffects1.add(new EventFactionEffect(FactionType.communist, 10, 5));
         factionEffects1.add(new EventFactionEffect(FactionType.ecologist, -10, 0));
         EventChoice choice1Expected = new EventChoice("Choice 1", 7, -5, 8, 600, factionEffects1);

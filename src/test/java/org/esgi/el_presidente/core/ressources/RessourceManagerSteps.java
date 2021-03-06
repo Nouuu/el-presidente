@@ -14,11 +14,30 @@ import io.cucumber.java.en.When;
 public class RessourceManagerSteps {
   private int found;
   private int foodReservies;
+  private int bribeCost;
+  private int foodPrice;
+  private int foodProduced;
+  private int moneyProduced;
   private Faction loyalist;
   private Faction faction;
   private RessourceManager manager;
   private Agriculture agriculture = new Agriculture(20, 40);
   private Industry industry = new Industry(20, 10);
+
+  @Given("A basic Ressource Manager")
+  public void given_basic_ressource_manager() {
+    loyalist = new Faction(FactionType.loyalist, 100, 10);
+    manager = new RessourceManager(loyalist, 0, 10, agriculture, industry, Difficulty.MEDIUM);
+  }
+
+  @Given("A ressource manager with {int} % agriculture and {int} % industry")
+  public void given_a_ressource_manager_with_agriculture_and_industry(int agriculturePart, int industryPart) {
+    loyalist = new Faction(FactionType.loyalist, 100, 10);
+    Agriculture agriculture = new Agriculture(agriculturePart, 40);
+    Industry industry = new Industry(industryPart, 10);
+
+    manager = new RessourceManager(loyalist, 100, 10, agriculture, industry, Difficulty.MEDIUM);
+  }
 
   @Given("I have {int} €")
   public void given_money(int amount) {
@@ -53,6 +72,8 @@ public class RessourceManagerSteps {
   public void given_industry_of_size(int size) {
     industry = new Industry(size, 4);
   }
+
+  // WHEN
 
   @When("I create Ressource Manager")
   public void createRessourceManager() {
@@ -132,6 +153,53 @@ public class RessourceManagerSteps {
     manager.handleFoodAction(foodEffect);
   }
 
+  @When("I get bribe cost for {int} peaples")
+  public void when_i_get_bribe_cost(int partisansToBribe) {
+    bribeCost = manager.getBrideCost(partisansToBribe);
+  }
+
+  @When("I get food price")
+  public void when_i_get_foodPrice() {
+    foodPrice = manager.getFoodPrice();
+  }
+
+  @When("I add {int} % to the size of agriculture")
+  public void when_i_get_max_size_of_agriculture(int sizeToAdd) {
+    manager.updateSizeOfAgriculture(sizeToAdd);
+  }
+
+  @When("I add {int} % to the size of industry")
+  public void when_i_get_max_size_of_industry(int sizeToAdd) {
+    manager.updateSizeOfIndustry(sizeToAdd);
+  }
+
+  @When("I trigger end of year actions")
+  public void when_i_trigger_end_of_year_actions() {
+    manager.triggerEndOfYearAction();
+  }
+
+  @When("i buy partisans of loyalist it should throw an error")
+  public void when_i_buy_bribe_of_loyalist() {
+    try {
+      manager.buyBribe(loyalist);
+      fail("Buy loyalist sould fail");
+    } catch (Exception e) {
+      return;
+    }
+  }
+
+  @When("I get the end of year food production")
+  public void when_i_get_end_of_year_food_production() {
+    foodProduced = manager.getEndOfYearFoodProduction();
+  }
+
+  @When("I get the end of year money production")
+  public void when_i_get_end_of_year_money_production() {
+    moneyProduced = manager.getEndOfYearMoneyProduction();
+  }
+
+  // THEN
+
   @Then("My food reserves is equal to {int}")
   public void test_food_reserves(int expectedFoodReserves) {
     assertEquals(expectedFoodReserves, manager.getFoodReserves());
@@ -154,12 +222,32 @@ public class RessourceManagerSteps {
 
   @Then("The Agriculture segment should be {int}")
   public void test_agriculture_size(int expectedSize) {
-    assertEquals(expectedSize, agriculture.getSize(), 0.001);
+    assertEquals(expectedSize, manager.getAgriculturePart());
   }
 
   @Then("The Industry segment should be {int}")
   public void test_industry_size(int expectedSize) {
-    assertEquals(expectedSize, industry.getSize(), 0.001);
+    assertEquals(expectedSize, manager.getIndustryPart());
+  }
+
+  @Then("The bribe cost should be {int}")
+  public void test_bribe_cost(int expectedBribeCost) {
+    assertEquals(expectedBribeCost, bribeCost);
+  }
+
+  @Then("The food price should be {int}")
+  public void test_foodPrice(int expectedFoodPrice) {
+    assertEquals(expectedFoodPrice, foodPrice);
+  }
+
+  @Then("The money production should be {int}")
+  public void test_money_production(int expectedMoneyProduction) {
+    assertEquals(expectedMoneyProduction, manager.getEndOfYearMoneyProduction());
+  }
+
+  @Then("The food production should be {int}")
+  public void test_food_production(int expectedfoodProduction) {
+    assertEquals(expectedfoodProduction, manager.getEndOfYearFoodProduction());
   }
 
   private void moveNumberOfPartisansTo(Faction faction, int expectedNumberOfPartisans) {
