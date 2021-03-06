@@ -54,3 +54,8 @@ El Presidente is a Tropico / Reigns game like where you incarn a dictator on a i
 ### FxMusicList
 
 # Contributions
+
+|                                                  |                                                              |
+| ------------------------------------------------ | ------------------------------------------------------------ |
+| [Noé LARRIEU-LACOSTE](https://github.com/Nouuu)  | [![followers](https://img.shields.io/github/followers/nouuu)]((https://github.com/Nouuu)) |
+| [Swann HERRERA](https://github.com/SwannHERRERA) | [![followers](https://img.shields.io/github/followers/SwannHERRERA)](https://github.com/SwannHERRERA) |
