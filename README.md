@@ -346,6 +346,11 @@ We use [Jacoco](https://www.jacoco.org/jacoco/) and [codcov](https://about.codec
 
 ## Core
 
+The core is the central part of the game. 
+It is the non-graphic part.
+It is the heart of the game, its logic.
+It's the core that will manage the events that come from the different interfaces (GUI / CLI). 
+
 ### Events
 
 An event is  is something that happens, it choice choices of el-president and these choices will have consequences that can be negative or positive.
