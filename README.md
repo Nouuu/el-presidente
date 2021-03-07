@@ -8,6 +8,8 @@
 
 El Presidente is a Tropico / Reigns game like where you are a dictator on a island.
 
+![el presidente](images/README/el_presidente.png)
+
 <!-- toc -->
 
 - [El Presidente](#el-presidente)
