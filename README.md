@@ -326,7 +326,7 @@ We preferred to refocus the tests on the logic of the game.
 We used 2 patterns for the tests :
 - Gerhkin [cucumber](https://cucumber.io/)
 
-In summary the gerhkin tests use a Given When Then structure to enter the tests readable for the non-technical part of the team they also ensure a good separation in the test code.
+In summary the Gerhkin tests use a Given When Then structure to enter the tests readable for the non-technical part of the team they also ensure a good separation in the test code.
 
 ```
   Scenario: test food price
@@ -397,8 +397,57 @@ The event choice  have potentially implications on several factions (EventFactio
 
 Events are managed by the EventManager
 
-
 ### Factions
+
+The residents of the island are separated into seven factions. They are all enumerated with FactionType :
+
+```java
+public enum FactionType {
+    capitalist("capitalistes"),
+    communist("communistes"),
+    liberal("liberaux"),
+    religious("religieux"),
+    ecologist("écologistes"),
+    nationalist("nationalistes"),
+    loyalist("loyalistes");
+
+    private final String type;
+
+    FactionType(String type) {
+        this.type = type;
+    }
+
+
+    @Override
+    public String toString() {
+        return type;
+    }
+
+    @JsonCreator
+    public static FactionType fromString(String string) {
+        return Arrays.stream(FactionType.values()).filter(o -> o.type.equalsIgnoreCase(string)).findFirst().orElse(null);
+    }
+}
+```
+
+All of these factions have some partisans and a satisfaction percentage.
+
+If a satisfaction percentage hit 0, it will stick to 0 and will never increase again.
+
+#### FactionManager
+
+Faction manager handle all the faction of the island.
+
+It is an interface that will interact with the faction list and help when some random/batch actions is needed.
+
+```java
+public class FactionManager {
+    private List<Faction> factionList;
+    ...
+}
+```
+
+
 
 ### Game
 
@@ -432,8 +481,9 @@ public class MathHelper {
  The resources are divided into 3 parts:
 - Agriculture
 - Industry
-- finance
- agriculture and finance are Parts of the island, they are measured as a percentage of part of the island and the sum of all parts of the island may not exceed 100
+- Finance
+
+Agriculture and finance are parts of the island. They are measured as a percentage of the island and the sum of all parts of the island may not exceed 100.
 
 
 #### Agriculture
@@ -451,6 +501,53 @@ Finance represents the money available in the coffers of the republic. This mone
 A Resource Manager is used to make an interface between the game and the different resources. It also allows to manage the different resources and the interactions between them.
 
 ### Scenario
+
+The scenario is one of the most important part of the game. It load everything when a new game is started.
+
+It contain the initial money, food, partisans, satisfaction, events, etc...
+
+To be more flexible, each scenario are saved into JSON files that are parsed when you chose the right one at the beginning of the game.
+
+#### Sandbox
+
+Sandbox is inherit of Scenario and the difference is that include a lot of more events than a classic scenario, and each turn it will pick one randomly according to the current Season.
+
+Where a Scenario is completed when you reach the last event, a Sandbox finish only when you loose. 
+
+#### Build from JSON
+
+We use jackson-databind library to map JSON file into instantiated object. 
+
+To do that, we use our FileHelper to get the content of the given JSON file, then with some annotations on the object constructor, we map the properties of JSON into properties for constructor.
+
+```java
+protected Scenario(@JsonProperty("introduction") String introduction,
+                    @JsonProperty("partisansSatisfaction") int partisansSatisfaction,
+                    @JsonProperty("partisans") int partisans,
+                    @JsonProperty("loyalistPartisansSatisfaction") int loyalistPartisansSatisfaction,
+                    @JsonProperty("loyalistPartisans") int loyalistPartisans,
+                    @JsonProperty("events") List<String> events,
+                    @JsonProperty("initialMoney") int initialMoney,
+                    @JsonProperty("initialFood") int initialFood,
+                    @JsonProperty("initialIndustrialization") int initialIndustrialization,
+                    @JsonProperty("initialAgriculture") int initialAgriculture) throws JsonProcessingException {
+
+        this.introduction = introduction;
+        this.initialPartisansSatisfaction = partisansSatisfaction;
+        this.initialLoyalistPartisansSatisfaction = loyalistPartisansSatisfaction;
+        this.initialPartisans = partisans;
+        this.initialLoyalistPartisans = loyalistPartisans;
+        this.initialMoney = initialMoney;
+        this.initialFood = initialFood;
+        this.initialIndustrialization = initialIndustrialization;
+        this.initialAgriculture = initialAgriculture;
+        this.eventManager = new EventManager(getEvents(events));
+
+    }
+
+```
+
+If the JSON file is incorrect, it will throw a `JsonProcessingException` that we catch.
 
 ### Seasons
 
@@ -494,7 +591,7 @@ The CLI is java vanilla, we didn't want to add a library for this part.
 
 ### Output
 The CLI is not very verbose on the possible options for event of end of year actions
-At the end of the year you get optional reports with the Ressources info and the Factions info
+At the end of the year you get optional reports with the Resources info and the Factions info
 
 ### Input
 The CLI is based on **Scanner** You must write exactly what is expected
