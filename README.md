@@ -598,16 +598,105 @@ The CLI is based on **Scanner** You must write exactly what is expected
 
 ## JavaFX
 
+Two build our graphical interface we had two major choices : Swing or JavaFX. We choose JavaFX because it look more recent and more beautiful (Swing :nauseated_face:).
+
+Since Java 11, JavaFX is no longer bundled with Java and we had to use maven dependency [openjfx](https://openjfx.io/) to make it works. 
+
 ### SceneBuilder
+
+To build our interface, we use SceneBuilder which is a WYSIWYG tool that generate FXML file (sound like familiar ... :thinking:).
+
+![image-20210307193859029](C:\Users\Nospy\AppData\Roaming\Typora\typora-user-images\image-20210307193859029.png)
 
 ### FxApp
 
+This is the main FX class that contain the static void `launchApp()` and make the controller interact with game. This is that method that is called by the launcher when you launch the game.
+
+This is this class that will load our FXML file and link it to FxController.
+
 ### FxController
+
+FxController link the FXML file (and its widgets) to the code. It basically represent our windows, but with attributes and methods.
+
+We just add some annotation to indicate it represent a named widget and ET VOILA :
+
+```java
+@FXML
+private SplitPane splitPane1;
+
+@FXML
+private AnchorPane leftPane;
+
+@FXML
+private StackPane rightStackPane;
+
+/////////// LEFT PANE /////////////////////////////////
+
+@FXML
+private Text scenarioName;
+
+@FXML
+private Text scenarioDetails;
+
+@FXML
+private Label difficultyLabel;
+
+@FXML
+private ImageView jdgImage;
+
+@FXML
+private VBox statusVbox;
+
+@FXML
+private ListView<String> gameInfos;
+
+@FXML
+private ListView<String> factionsInfos;
+```
+
+```java
+ @FXML
+private void onChooseGameMode() throws JsonProcessingException {
+    ScenarioList scenario = scenarioComboBox.getValue();
+    Difficulty difficulty = difficultyComboBox.getValue();
+    if (scenario != null && difficulty != null) {
+        fxApp.chooseGameMode(scenario, difficulty, scenarioName, scenarioDetails, difficultyLabel);
+        setVisibleStackPane(eventPane);
+        jdgImage.setVisible(difficulty.equals(Difficulty.HARDCORE));
+        statusVbox.setVisible(true);
+        getNextEvent();
+    }
+}
+
+```
 
 ### FxGameManager
 
+This class wrap Game object and add some specific getters and setters (and some exotics methods) to make game compatible with our graphical interface.
+
+```java
+public void refreshGameInfos() {
+        gameInfosObservable.clear();
+        gameInfosObservable.add("Argent : " + game.getRessourceManager().getMoney() + "$");
+        gameInfosObservable.add("Nourriture : " + game.getRessourceManager().getFoodReserves());
+        gameInfosObservable.add("Occupation industrie : " + game.getRessourceManager().getIndustryPart() + "%");
+        gameInfosObservable.add("Occupation agriculture : " + game.getRessourceManager().getAgriculturePart() + "%");
+        gameInfosObservable.add("Satisfaction globale minimum : " + game.getSatisfactionLimit() + "%");
+        gameInfosObservable.add("Satisfaction globale actuelle : " + game.getFactionManager().getGlobalSatisfaction() + "%");
+        gameInfosObservable.add("Population totale : " + game.getFactionManager().getTotalPartisan());
+
+        factionsInfosObservable.clear();
+
+        game.getFactionManager().getFactionList().forEach(f ->
+                factionsInfosObservable.add(
+                        StringUtils.capitalize(f.getFactionType().toString())
+                                + "\nPartisans : " + f.getPartisans()
+                                + "\nSatisfaction : " + f.getSatisfaction() + "%"));
+    }
+```
+
 ### FxMusic
-Fx music is a class that is part of GUI (made in javaFX) that contains functions related to sound management in the interface.
+FxMusic is a class that is part of GUI (made in JavaFX) that contains functions related to sound management in the interface.
 
 It contains an audio player and a playlist that loops
 ```java
