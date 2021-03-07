@@ -403,6 +403,30 @@ Events are managed by the EventManager
 ### Game
 
 ### Helper
+Helpers are utility classes that encapsulate the complexity of an operation and give it a name.
+
+We have 2 of them, one for interacting with files, the other for doing mathematical operations.
+
+They include only static methodes
+
+**MathHelper.java**
+```java
+public class MathHelper {
+    private MathHelper() {}
+
+    public static int multiplyIntDoubleToFloor(int intV, double doubleV) {
+        return (int) Math.floor(((double) intV) * doubleV);
+    }
+
+    public static int divideIntDoubleToFloor(int intV, double doubleV) {
+        return (int) Math.floor(((double) intV) / doubleV);
+    }
+
+    public static int restrictValue(int value, int min, int max) {
+        return Math.max(min, Math.min(max, value));
+    }
+}
+```
 
 ### Resources
  The resources are divided into 3 parts:
