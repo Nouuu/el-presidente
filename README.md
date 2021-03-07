@@ -402,6 +402,22 @@ Events are managed by the EventManager
 
 ### Game
 
+Game is the link between the GUI / CLI and the concrete actions on the resources or factions it also adds the management of time (seasons, years), the triggering of events, it is also here that we will check if the game is lost or not.
+
+This is the last piece of core. It's on the top of the dependency tree.
+
+**Game.java**
+```java
+public class Game {
+    private Difficulty difficulty;
+    private TimeManager timeManager;
+    private Scenario scenario;
+    private FactionManager factionManager;
+    private RessourceManager ressourceManager;
+    private Event currentEvent;
+    private int satisfactionLimit;
+```
+It is due to this class that we can use the same code for 2 totally different interface systems.
 ### Helper
 Helpers are utility classes that encapsulate the complexity of an operation and give it a name.
 
