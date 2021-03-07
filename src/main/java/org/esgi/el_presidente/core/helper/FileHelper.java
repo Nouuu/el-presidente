@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 
 public class FileHelper {
 
+    private FileHelper() {
+    }
+
     public static String readFileFromRessource(String fileName) throws IllegalArgumentException {
         InputStream inputStream = FileHelper.getRessourceInputStream(fileName);
 

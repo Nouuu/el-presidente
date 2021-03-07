@@ -190,13 +190,11 @@ public class FxController implements Initializable {
 
     @FXML
     private void playMusic() {
-        System.out.println("play");
         fxApp.playMusic();
     }
 
     @FXML
     private void pauseMusic() {
-        System.out.println("pause");
         fxApp.pauseMusic();
     }
 
