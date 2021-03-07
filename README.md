@@ -337,6 +337,8 @@ In summary the gerhkin tests use a Given When Then structure to enter the tests 
 
 We use [Jacoco](https://www.jacoco.org/jacoco/) and [codcov](https://about.codecov.io/) to follow our progress on the tests
 
+![number of test](images/README/number_of_test.svg)
+
 ## Core
 
 ### Events
@@ -484,9 +486,24 @@ The CLI is based on **Scanner** You must write exactly what is expected
 ### FxGameManager
 
 ### FxMusic
+Fx music is a class that is part of GUI (made in javaFX) that contains functions related to sound management in the interface.
+
+It contains an audio player and a playlist that loops
+```java
+public class FxMusic {
+
+    private MediaPlayer player;
+    private final List<Media> playlist;
+```
 
 #### FxMusicList
 
+FxMusicList is an enum that contains all the music and the path to the file
+```java
+public enum FxMusicList {
+    GLORIOUS_MORNING("/music/glorious-morning.mp3"),
+    GLORIOUS_MORNING_2("/music/glorious-morning-2.mp3");
+```
 # Contributions
 
 |                                                  |                                                              |
