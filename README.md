@@ -10,27 +10,28 @@ El Presidente is a Tropico / Reigns game like where you are a dictator on a isla
 
 <!-- toc -->
 
+- [El Presidente](#el-presidente)
 - [Links](#links)
 - [Installation](#installation)
-  * [Use release](#use-release)
-  * [Build from code](#build-from-code)
+  - [Use release](#use-release)
+  - [Build from code](#build-from-code)
 - [Usage](#usage)
-  * [CLI](#cli)
-  * [JavaFX](#javafx)
+  - [CLI](#cli)
+  - [JavaFX](#javafx)
 - [Latest version](#latest-version)
   * [Changelog](#changelog)
     + [[1.0.0] - 2021-02-23](#100---2021-02-23)
     + [[1.1.0] - 2021-03-02](#110---2021-03-02)
     + [[1.2.0] - 2021-03-06](#120---2021-03-06)
 - [Code](#code)
-  * [Dependencies](#dependencies)
-  * [Github Actions](#github-actions)
-    + [Workflows](#workflows)
-    + [Build and test](#build-and-test)
-    + [Codecov](#codecov)
-  * [Unit tests](#unit-tests)
-  * [Core](#core)
-    + [Events](#events)
+  - [Dependencies](#dependencies)
+  - [Github Actions](#github-actions)
+    - [Workflows](#workflows)
+    - [Build and test](#build-and-test)
+    - [Codecov](#codecov)
+  - [Unit tests](#unit-tests)
+  - [Core](#core)
+    - [Events](#events)
       - [Description of an event and JSON](#description-of-an-event-and-json)
     + [Factions](#factions)
       - [FactionManager](#factionmanager)
@@ -91,7 +92,7 @@ It will be create a jar file named `el_presidente-VERSION.jar` and `el_president
 to use the app in GUI mode run the .jar by double-click or with command line
 
 If you wan't to run the app in cli mode run the .jar by cli with the option --cli
-`java -jar el_presidente_1.0.jar --cli`
+`java -jar el_presidente_1.2.jar --cli`
 
 ## CLI
 
@@ -341,9 +342,14 @@ In summary the Gerhkin tests use a Given When Then structure to enter the tests 
 
 We use [Jacoco](https://www.jacoco.org/jacoco/) and [codcov](https://about.codecov.io/) to follow our progress on the tests
 
-![number of test](images/README/number_of_test.svg)
+![number of test](https://img.shields.io/badge/number%20of%20tests-211-blue)
 
 ## Core
+
+The core is the central part of the game. 
+It is the non-graphic part.
+It is the heart of the game, its logic.
+It's the core that will manage the events that come from the different interfaces (GUI / CLI). 
 
 ### Events
 
@@ -455,6 +461,22 @@ public class FactionManager {
 
 ### Game
 
+Game is the link between the GUI / CLI and the concrete actions on the resources or factions it also adds the management of time (seasons, years), the triggering of events, it is also here that we will check if the game is lost or not.
+
+This is the last piece of core. It's on the top of the dependency tree.
+
+**Game.java**
+```java
+public class Game {
+    private Difficulty difficulty;
+    private TimeManager timeManager;
+    private Scenario scenario;
+    private FactionManager factionManager;
+    private RessourceManager ressourceManager;
+    private Event currentEvent;
+    private int satisfactionLimit;
+```
+It is due to this class that we can use the same code for 2 totally different interface systems.
 ### Helper
 Helpers are utility classes that encapsulate the complexity of an operation and give it a name.
 
