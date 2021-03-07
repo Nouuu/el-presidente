@@ -92,7 +92,7 @@ It will be create a jar file named `el_presidente-VERSION.jar` and `el_president
 to use the app in GUI mode run the .jar by double-click or with command line
 
 If you wan't to run the app in cli mode run the .jar by cli with the option --cli
-`java -jar el_presidente_1.0.jar --cli`
+`java -jar el_presidente_1.2.jar --cli`
 
 ## CLI
 
