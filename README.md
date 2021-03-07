@@ -134,7 +134,7 @@ When you go on next year, you have three case :
 
 ![image-20210306161317792](images/README/image-20210306161317792.png)
 
-# [Latest version](https://github.com/Nouuu/el-presidente/releases/tag/1.0)
+# [Latest version](https://github.com/Nouuu/el-presidente/releases/tag/1.2)
 
 ## Changelog
 ### [1.0.0] - 2021-02-23
