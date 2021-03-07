@@ -1,0 +1,17 @@
+{
+  "introduction": "Vous être président ré élu à vie à 99%\nVous gerer ville comme personne avant\nVous avoir très belle collection de timbre",
+  "initialMoney": 2000,
+  "initialFood": 0,
+  "initialIndustrialization": 15,
+  "initialAgriculture": 10,
+  "partisansSatisfaction": 50,
+  "partisans": 20,
+  "loyalistPartisansSatisfaction": 100,
+  "loyalistPartisans": 30,
+  "events": [
+    "simcity/event1.json",
+    "simcity/event2.json",
+    "simcity/event3.json",
+    "simcity/event4.json"
+  ]
+}

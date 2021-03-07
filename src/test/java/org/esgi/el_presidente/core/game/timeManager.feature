@@ -36,3 +36,16 @@ Feature: Time Managment
     When i go to next season
     When i go to next season
     Then the current year is 2
+
+
+  Scenario: test is the end of the year
+    Given a time manager
+    When i go to next season
+    Then it should not be the end of the year
+
+  Scenario: test is the end of the year
+    Given a time manager
+    When i go to next season
+    When i go to next season
+    When i go to next season
+    Then it should be the end of the year

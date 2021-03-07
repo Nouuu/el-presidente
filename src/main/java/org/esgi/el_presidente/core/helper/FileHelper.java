@@ -5,11 +5,13 @@ import org.esgi.el_presidente.App;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
 public class FileHelper {
+
+    private FileHelper() {
+    }
 
     public static String readFileFromRessource(String fileName) throws IllegalArgumentException {
         InputStream inputStream = FileHelper.getRessourceInputStream(fileName);

@@ -13,7 +13,7 @@ public class FinanceSteps {
 
   @Given("I have {int} in coffers")
   public void createFinance(int initalMoney) {
-    finances = new Finances(initalMoney);
+    finances = new Finances(initalMoney, 1.0);
   }
 
   @When("I look in coffers")

@@ -2,6 +2,7 @@ package org.esgi.el_presidente.core.ressources;
 
 import org.esgi.el_presidente.core.factions.Faction;
 import org.esgi.el_presidente.core.factions.FactionType;
+import org.esgi.el_presidente.core.game.Difficulty;
 import org.esgi.el_presidente.core.helper.MathHelper;
 
 public class RessourceManager {
@@ -11,13 +12,16 @@ public class RessourceManager {
     private Faction loyalist;
     private Agriculture agriculture;
     private Industry industry;
+    private Difficulty difficulty;
 
-    public RessourceManager(Faction loyalist, int money, int foodReserves, Agriculture agriculture, Industry industry) {
-        finances = new Finances(money);
+    public RessourceManager(Faction loyalist, int money, int foodReserves, Agriculture agriculture, Industry industry,
+            Difficulty difficulty) {
+        finances = new Finances(money, difficulty.getLoseMultiplier());
         this.foodReserves = foodReserves;
         this.loyalist = loyalist;
         this.industry = industry;
         this.agriculture = agriculture;
+        this.difficulty = difficulty;
     }
 
     public void buyFood(int unitOfFood) throws Exception {
@@ -45,25 +49,17 @@ public class RessourceManager {
     }
 
     public void updateSizeOfAgriculture(int additionalSize) {
-        try {
-            int freeTerrain = getMaxSizeForAgriculture();
-            int currentSize = getAgriculturePart();
-            int newSize = MathHelper.restrictValue(additionalSize + currentSize, 0, freeTerrain);
-            agriculture.setSize(newSize);
-        } catch (Exception e) {
-            throw new Error("cannot grow as expected");
-        }
+        int freeTerrain = getMaxSizeForAgriculture();
+        int currentSize = getAgriculturePart();
+        int newSize = MathHelper.restrictValue(additionalSize + currentSize, 0, freeTerrain);
+        agriculture.setSize(newSize);
     }
 
     public void updateSizeOfIndustry(int additionalSize) {
-        try {
-            int freeTerrain = getMaxSizeForIndustry();
-            int currentSize = getIndustryPart();
-            int newSize = MathHelper.restrictValue(additionalSize + currentSize, 0, freeTerrain);
-            industry.setSize(newSize);
-        } catch (Exception e) {
-            throw new Error("cannot grow as expected");
-        }
+        int freeTerrain = getMaxSizeForIndustry();
+        int currentSize = getIndustryPart();
+        int newSize = MathHelper.restrictValue(additionalSize + currentSize, 0, freeTerrain);
+        industry.setSize(newSize);
     }
 
     public void handleMoneyAction(int moneyImpact) {
@@ -111,11 +107,11 @@ public class RessourceManager {
     }
 
     private int getMaxSizeForAgriculture() {
-        return Math.min(100, 100 - industry.getSize());
+        return Math.min(100, 100 - getIndustryPart());
     }
 
     private int getMaxSizeForIndustry() {
-        return Math.min(100, 100 - agriculture.getSize());
+        return Math.min(100, 100 - getAgriculturePart());
     }
 
     public int getBrideCost(int partisansCount) {

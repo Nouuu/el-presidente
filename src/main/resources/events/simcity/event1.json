@@ -1,0 +1,53 @@
+{
+  "eventDetails": "Vous venez d'être ré élu et pourtant la population ne semble pas satisfait...\nVous sentez qu'une rébellion se prépare",
+  "season": "printemps",
+  "eventChoices": [
+    {
+      "choiceName": "Vous faites une annonce et vous présentez comme quelqu'un d'honnête",
+      "industryEffect": 0,
+      "agricultureEffect": 0,
+      "foodEffect": 80,
+      "financeEffect": -50,
+      "factionEffects": [
+        {
+          "factionType": "religieux",
+          "partisansPercentEffect": 10,
+          "satisfactionEffect": 10
+        },
+        {
+          "factionType": "loyalistes",
+          "partisansPercentEffect": 10,
+          "satisfactionEffect": 0
+        },
+        {
+          "factionType": "nationalistes",
+          "partisansPercentEffect": 10,
+          "satisfactionEffect": 0
+        }
+      ]
+    },
+    {
+      "choiceName": "Vous déclarez l'état d'urgence illico presto ! A bas la racaille!",
+      "financeEffect": 600,
+      "factionEffects": [
+        {
+          "factionType": "",
+          "partisansPercentEffect": 0,
+          "satisfactionEffect": -5
+        }
+      ]
+    },
+    {
+      "choiceName": "Vous promettez du travail pour tout le monde !",
+      "financeEffect": -100,
+      "industryEffect": 15,
+      "factionEffects": [
+        {
+          "factionType": "",
+          "partisansPercentEffect": 0,
+          "satisfactionEffect": 5
+        }
+      ]
+    }
+  ]
+}

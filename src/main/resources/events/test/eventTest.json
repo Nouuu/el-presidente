@@ -10,6 +10,11 @@
       "financeEffect": 600,
       "factionEffects": [
         {
+          "factionType": "",
+          "partisansPercentEffect": 1,
+          "satisfactionEffect": 2
+        },
+        {
           "factionType": "communistes",
           "partisansPercentEffect": 10,
           "satisfactionEffect": 5

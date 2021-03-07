@@ -1,0 +1,34 @@
+{
+  "eventDetails": "Tout le monde découvre que vous êtes le fils du Furhër",
+  "season": "automne",
+  "eventChoices": [
+    {
+      "choiceName": "Vous faites tout pour étouffer l'affaire",
+      "financeEffect": -500
+    },
+    {
+      "choiceName": "Vous reconnaissez que vous êtes bien son fils, mais que vous avez changé !",
+      "foodEffect": 60,
+      "factionEffects": [
+        {
+          "factionType": "",
+          "partisansPercentEffect": 25,
+          "satisfactionEffect": -5
+        }
+      ]
+    },
+    {
+      "choiceName": "Vous promettez que tout cela est faux!",
+      "financeEffect": 500,
+      "industryEffect": 15,
+      "agricultureEffect": -15,
+      "factionEffects": [
+        {
+          "factionType": "",
+          "partisansPercentEffect": 0,
+          "satisfactionEffect": -10
+        }
+      ]
+    }
+  ]
+}

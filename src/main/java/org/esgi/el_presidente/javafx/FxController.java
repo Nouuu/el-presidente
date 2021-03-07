@@ -1,9 +1,11 @@
-package org.esgi.el_presidente.javafx.controller;
+package org.esgi.el_presidente.javafx;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -11,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.StringConverter;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.Diff;
 import org.esgi.el_presidente.core.factions.FactionType;
 import org.esgi.el_presidente.core.game.Difficulty;
 import org.esgi.el_presidente.core.scenario.ScenarioList;
@@ -19,7 +22,7 @@ import org.esgi.el_presidente.javafx.FxApp;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class HomeController implements Initializable {
+public class FxController implements Initializable {
     private FxApp fxApp;
     private ToggleGroup radioToggleGroup;
 
@@ -40,10 +43,13 @@ public class HomeController implements Initializable {
     private Text scenarioName;
 
     @FXML
-    private Label scenarioDetails;
+    private Text scenarioDetails;
 
     @FXML
     private Label difficultyLabel;
+
+    @FXML
+    private ImageView jdgImage;
 
     @FXML
     private VBox statusVbox;
@@ -148,6 +154,7 @@ public class HomeController implements Initializable {
     private Label gameOverPartisans;
 
 
+    ////////// INITIALIZATION & COMMON ////////////////////
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         preventDividerMove();
@@ -161,23 +168,37 @@ public class HomeController implements Initializable {
         splitPane1.getDividers().get(0).positionProperty().addListener((observableValue, number, t1) -> splitPane1.setDividerPositions(0.25));
     }
 
-    @FXML
-    private void onChooseGameMode() throws JsonProcessingException {
-        ScenarioList scenario = scenarioComboBox.getValue();
-        Difficulty difficulty = difficultyComboBox.getValue();
-        if (scenario != null && difficulty != null) {
-            fxApp.chooseGameMode(scenario, difficulty, scenarioName, scenarioDetails, difficultyLabel);
-            setVisibleStackPane(eventPane);
-            statusVbox.setVisible(true);
-            getNextEvent();
-        }
-    }
-
-
     private void setVisibleStackPane(Pane pane) {
         rightStackPane.getChildren().forEach(n -> n.setVisible(false));
         pane.setVisible(true);
     }
+
+    public void setFxApp(FxApp fxApp) {
+        this.fxApp = fxApp;
+        gameInfos.setItems(fxApp.getGameInfosObservable());
+        factionsInfos.setItems(fxApp.getFactionsInfosObservable());
+        initializeFactionBrideListView();
+    }
+
+    private void initializeFactionBrideListView() {
+        brideFactionListView.setItems(fxApp.getFactionsBrideInfosObservable());
+        brideFactionListView.setOnMouseClicked(event -> selectedFactionType = fxApp.selectFactionToBride(brideFactionCostLabel, buyBrideButton, brideFactionListView.getSelectionModel().getSelectedItem()));
+    }
+
+
+    //////////// MUSIC ////////////////////////////////////
+
+    @FXML
+    private void playMusic() {
+        fxApp.playMusic();
+    }
+
+    @FXML
+    private void pauseMusic() {
+        fxApp.pauseMusic();
+    }
+
+    //////////// GAME MODE CHOOSE /////////////////////////
 
     private void initScenarioList() {
         scenarioComboBox.getItems().addAll(ScenarioList.values());
@@ -215,17 +236,20 @@ public class HomeController implements Initializable {
         });
     }
 
-    public void setFxApp(FxApp fxApp) {
-        this.fxApp = fxApp;
-        gameInfos.setItems(fxApp.getGameInfosObservable());
-        factionsInfos.setItems(fxApp.getFactionsInfosObservable());
-        initializeFactionBrideListView();
+    @FXML
+    private void onChooseGameMode() throws JsonProcessingException {
+        ScenarioList scenario = scenarioComboBox.getValue();
+        Difficulty difficulty = difficultyComboBox.getValue();
+        if (scenario != null && difficulty != null) {
+            fxApp.chooseGameMode(scenario, difficulty, scenarioName, scenarioDetails, difficultyLabel);
+            setVisibleStackPane(eventPane);
+            jdgImage.setVisible(difficulty.equals(Difficulty.HARDCORE));
+            statusVbox.setVisible(true);
+            getNextEvent();
+        }
     }
 
-    private void initializeFactionBrideListView() {
-        brideFactionListView.setItems(fxApp.getFactionsBrideInfosObservable());
-        brideFactionListView.setOnMouseClicked(event -> selectedFactionType = fxApp.selectFactionToBride(brideFactionCostLabel, buyBrideButton, brideFactionListView.getSelectionModel().getSelectedItem()));
-    }
+    //////////// EVENT ////////////////////////////////////
 
     private void getNextEvent() {
 //        setVisibleStackPane(eventPane);
@@ -242,6 +266,8 @@ public class HomeController implements Initializable {
             endOfYear();
         }
     }
+
+    ////////////////// END OF YEAR ////////////////////////
 
     private void endOfYear() {
         setVisibleStackPane(endOfYearPane);
@@ -281,7 +307,7 @@ public class HomeController implements Initializable {
     @FXML
     private void onBuyFood() {
         fxApp.buyFood(buyFoodSpinnerValueFactory.getValue(), endOfYearFoodImpact, endOfYearPartisanImpact);
-        buyFoodSpinnerValueFactory.setValue(1);
+//        buyFoodSpinnerValueFactory.setValue(1);
     }
 
     @FXML
@@ -290,6 +316,8 @@ public class HomeController implements Initializable {
             fxApp.buyBride(selectedFactionType, brideLoyalistSatisfactionLabel);
         }
     }
+
+    ////////////////// END GAME ///////////////////////////
 
     @FXML
     private void onNewGame() {

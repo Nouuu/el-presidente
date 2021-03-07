@@ -37,7 +37,7 @@ public class Game {
         Industry industry = new Industry(scenario.getInitialIndustrialization(), 10);
         Faction loyalist = factionManager.getFaction(FactionType.loyalist);
         int initialMoney = scenario.getInitialMoney();
-        return new RessourceManager(loyalist, initialMoney, 0, agriculture, industry);
+        return new RessourceManager(loyalist, initialMoney, 0, agriculture, industry, difficulty);
     }
 
     public Game(Scenario scenario, Difficulty difficulty) {
@@ -75,9 +75,16 @@ public class Game {
     }
 
     private void triggerEventsFactionEffect(EventFactionEffect effect) {
-        Faction faction = factionManager.getFaction(effect.getFactionType());
-        faction.updatePartisansPercent(effect.getPartisansPercentEffect());
-        faction.updateSatisfaction(effect.getSatisfactionEffect());
+        if (effect.getFactionType() == null) {
+            for (Faction faction : factionManager.getFactionList()) {
+                faction.updatePartisansPercent(effect.getPartisansPercentEffect());
+                faction.updateSatisfaction(effect.getSatisfactionEffect());
+            }
+        } else {
+            Faction faction = factionManager.getFaction(effect.getFactionType());
+            faction.updatePartisansPercent(effect.getPartisansPercentEffect());
+            faction.updateSatisfaction(effect.getSatisfactionEffect());
+        }
     }
 
     public boolean isTheEndOfTheYear() {
@@ -87,18 +94,6 @@ public class Game {
     public boolean isNotLost() {
         int globalSatisfaction = factionManager.getGlobalSatisfaction();
         return satisfactionLimit < globalSatisfaction;
-    }
-
-    public RessourceManager getRessourceManager() {
-        return ressourceManager;
-    }
-
-    public FactionManager getFactionManager() {
-        return factionManager;
-    }
-
-    public Event getCurrentEvent() {
-        return currentEvent;
     }
 
     public void triggerEndOfYearCost() {
@@ -149,23 +144,21 @@ public class Game {
         ressourceManager.triggerEndOfYearAction();
     }
 
+    public void buyFood(int unitOfFood) {
+        try {
+            ressourceManager.buyFood(unitOfFood);
+        } catch (Exception e) {
+            System.out.println("you don't have the money ");
+            return;
+        }
+    }
+
     public int getEndOfYearMoneyProduction() {
         return ressourceManager.getEndOfYearMoneyProduction();
     }
 
     public int getEndOfYearFoodProduction() {
         return ressourceManager.getEndOfYearFoodProduction();
-    }
-
-    public void buyFood(int unitOfFood) {
-        int price = ressourceManager.getFoodPrice() * unitOfFood;
-        if (price <= ressourceManager.getMoney()) {
-            try {
-                ressourceManager.buyFood(unitOfFood);
-            } catch (Exception e) {
-                System.out.println("Error when buying food !");
-            }
-        }
     }
 
     public int getFoodPrice() {
@@ -178,5 +171,17 @@ public class Game {
 
     public Scenario getScenario() {
         return scenario;
+    }
+
+    public RessourceManager getRessourceManager() {
+        return ressourceManager;
+    }
+
+    public FactionManager getFactionManager() {
+        return factionManager;
+    }
+
+    public Event getCurrentEvent() {
+        return currentEvent;
     }
 }
