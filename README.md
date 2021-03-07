@@ -131,11 +131,11 @@ When you go on next year, you have three case :
 
 ## Changelog
 ### [1.0.0] - 2021-02-23
-#### Added
+**Added**
 - launch of the project in its initial version
 
 ### [1.1.0] - 2021-03-02
-#### Added
+**Added**
 - Easter egg in hardcode
 - Refacto of all JavaFX package for better readable 
 - Add Play/Pause music button
@@ -143,8 +143,7 @@ When you go on next year, you have three case :
 - Add app icon
 
 ### [1.2.0] - 2021-03-06
-
-#### Added
+**Added**
 
 - CLI option to choice Difficulty and Scenario 
 - Add a lot of tests for better coverage
@@ -404,6 +403,26 @@ Events are managed by the EventManager
 ### Helper
 
 ### Resources
+ The resources are divided into 3 parts:
+- Agriculture
+- Industry
+- finance
+ agriculture and finance are Parts of the island, they are measured as a percentage of part of the island and the sum of all parts of the island may not exceed 100
+
+
+#### Agriculture
+
+agriculture generates a number of food units each year corresponding to 40 times the percentage of island dedicated to agriculture
+
+#### Industry
+
+The industry generates money at the end of each year corresponding to 10 times the percentage of the island dedicated to industry.
+#### Finance
+
+Finance represents the money available in the coffers of the republic. This money can be used to buy food supplements to protect against famine, or to pay bribes to factions.
+#### ResourceManager
+
+A Resource Manager is used to make an interface between the game and the different resources. It also allows to manage the different resources and the interactions between them.
 
 ### Scenario
 
